@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1638972958 source:d:\vscode projects\projectip\main.cpp
+	<winbgim.h>
+	<graphics.h>
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	<fstream>
+	"meniu.h"
+
+1639065227 d:\vscode projects\projectip\meniu.h
+	"coordonate.h"
+	"settings.h"
+
+1639059716 d:\vscode projects\projectip\coordonate.h
+
+1639064656 d:\vscode projects\projectip\settings.h
+	"fisier.h"
+
+1639059719 d:\vscode projects\projectip\fisier.h
+

@@ -1,0 +1,511 @@
+#include <winbgim.h>
+#include <graphics.h>
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#include <fstream>
+
+
+//Task pe azi, menu:
+//-> Ce am adaugat:
+// rezX, rezY = reprezinta rezolutia ferestrei.
+
+
+//Variabile globale
+
+//Pentru exit :)
+bool need_exit = false;
+bool settings_intrare = false;
+
+//Rezolutia
+int rezX, rezY;
+
+
+//Culoare fundal
+int r_fundal, g_fundal, b_fundal;
+
+//Coordonate butoane
+struct coordonate
+{
+    int lX, lY;
+    int rX, rY;
+} b_start, b_exit, b_settings, b_settings_back;
+
+//Constante pentru butoane start
+const int spatiux = 50, spatiuy = 50;
+const int inaltime = 100, lungime = 200;
+
+// Folosit la settings ( cand schimb culoarea fundalului si ii dai clearviewport gen e un efect de flickering, folosim 2 pagini pt double buffering)
+int page;
+
+
+
+
+
+
+//Define culori:
+#define NEGRU		4,	 3,	  3
+
+
+
+
+
+
+//--------------------------------------Main core-----------------------------------------
+
+
+void meniu_selectie();
+//Incarcare date
+void incarcare_date()
+{
+
+    //Fisiere
+
+    std::ifstream setarii("setari.txt");
+
+
+    //Incarcare date Rezolutie
+    setarii >> rezX;
+    setarii >> rezY;
+    if (rezX > 1279 && rezY > 719) std::cout << "[*]:Rezolutie incarcata cu succes" << std::endl;
+
+    else
+    {
+        std::cout<<"[!] :Rezolutia nu a fost incarcata cu succes" << std::endl;
+
+        need_exit = true;
+    }
+    //Incarcare date fundal
+    setarii >> r_fundal >> g_fundal >> b_fundal;
+    if (b_fundal > -1) std::cout << "[*]:Fundal incarcat cu succes" << std::endl;
+
+
+    //Fisiere close
+    setarii.close();
+}
+
+void afisMenu();
+void afisare_text_meniu(int alegere)
+{
+    if (alegere == 1)
+    {
+        settextstyle(0, HORIZ_DIR, 2);
+        char b_s_text[8] = ">Start<";
+        outtextxy((b_start.lX + b_start.rX) / 2 - (lungime / 4) + 4, (b_start.rY + b_start.lY) / 2 - (inaltime / 8) + 4, b_s_text);
+    }
+    else if(alegere == 2)
+    {
+        settextstyle(0, HORIZ_DIR, 2);
+        char b_st_text[12] = ">Settings<";
+        outtextxy((b_settings.lX + b_settings.rX) / 2 - (lungime / 3) - 2, (b_settings.rY + b_settings.lY) / 2 - (inaltime / 8) + 4, b_st_text);
+    }
+    else if (alegere == 3)
+    {
+        settextstyle(0, HORIZ_DIR, 2);
+        char b_e_text[8] = ">Exit<";
+        outtextxy((b_exit.lX + b_exit.rX) / 2 - (lungime / 4) + 11, (b_exit.rY + b_exit.lY) / 2 - (inaltime / 8) + 4, b_e_text);
+    }
+
+}
+
+void afisare_text_settings(int alegere)        //[DELETE THIS COMMENT]  asta e doar ca sa afiseze titlu ala SETTINGS sau BACK ( textul de la buton)
+{   if(alegere == 0)
+   {
+    setbkcolor(COLOR(r_fundal, g_fundal, b_fundal));
+    settextstyle(0, HORIZ_DIR, 8);
+    char text[9] = "Settings";
+    outtextxy((rezX / 2) - 260, 20, text);}
+    else if(alegere == 1)
+    {
+        settextstyle(0, HORIZ_DIR, 2);
+        char b_e_text[8] = ">Back<";
+        outtextxy((b_settings_back.lX + b_settings_back.rX) / 2 - (lungime / 4) + 11, (b_settings_back.rY + b_settings_back.lY) / 2 - (inaltime / 8) + 4, b_e_text);
+    }
+
+
+
+}
+void afisare_buton_settings_back(int alegere) //[DELETE THIS COMMENT]   functie care deseneaza butonu ( fie alb, fie rosu)
+{
+    if(alegere == 1)
+    {
+         setcolor(BLACK);
+
+        rectangle(b_exit.lX, b_exit.lY, b_exit.rX, b_exit.rY);
+        setfillstyle(SOLID_FILL, WHITE);
+        bar(b_exit.lX+1, b_exit.lY+1, b_exit.rX, b_exit.rY);
+
+        settextstyle(0, HORIZ_DIR, 2);
+        char b_e_text[8] = ">Back<";
+        setbkcolor(WHITE);
+        outtextxy((b_exit.lX + b_exit.rX) / 2 - (lungime / 4) + 11, (b_exit.rY + b_exit.lY) / 2 - (inaltime / 8) + 4, b_e_text);
+        setbkcolor(COLOR(r_fundal,g_fundal,b_fundal));
+
+
+    }
+    else
+    {
+
+
+        setcolor(BLACK);
+
+        rectangle(b_exit.lX, b_exit.lY, b_exit.rX, b_exit.rY);
+        setfillstyle(SOLID_FILL, RED);
+        bar(b_exit.lX+1, b_exit.lY+1, b_exit.rX, b_exit.rY);
+
+        settextstyle(0, HORIZ_DIR, 2);
+        char b_e_text[8] = ">Back<";
+        setbkcolor(RED);
+        delay(20);
+        outtextxy((b_exit.lX + b_exit.rX) / 2 - (lungime / 4) + 11, (b_exit.rY + b_exit.lY) / 2 - (inaltime / 8) + 4, b_e_text);
+        delay(0);
+        setbkcolor(COLOR(r_fundal,g_fundal,b_fundal));
+        setfillstyle(SOLID_FILL, WHITE);
+
+    }
+}
+
+int last_xr = 507, last_xb = 507, last_xg=507, bary1 = 500, bary2= 600, bary3= 700 ;
+void afisare_bar_settings()
+{
+    setcolor(WHITE);
+    line(502, 500, 700, 500);
+    line(502,600,700,600);
+    line(502,700,700,700);
+
+    setfillstyle(SOLID_FILL, WHITE);
+    bar(last_xr-7, bary1-10, last_xr+3, bary1+10);
+    bar(last_xg-7, bary2-10, last_xg+3, bary2+10);
+    bar(last_xb-7, bary3-10, last_xb+3, bary3+10);
+}
+void sectiune_settings() //[DELETE THIS COMMENT]  am rescris toata functia and it is finally working
+{
+    bool _back = 0;
+    b_settings_back.lX = rezX - spatiux - lungime;
+    b_settings_back.rX = rezX - spatiux;
+    b_settings_back.rY = rezY - spatiuy;
+    b_settings_back.lY = b_settings_back.rY - inaltime;
+
+
+
+    setbkcolor(COLOR(r_fundal, g_fundal, b_fundal));
+    clearviewport();
+    afisare_buton_settings_back(1);
+
+    afisare_text_settings(0);
+    int x = mousex();
+    int y = mousey();
+    while(_back == 0) //[DELETE THIS COMMENT]  am folosit variabila _back sa verific daca se apasa pe back, caz in care se iese din tot din while si se trece la linia 236
+                        // [DELETE THIS COMMENT] la care dau si delay(100) pt ca altfel dadea crash
+                        // [DELETE THIS COMMENT] cum am ajuns la nr 100? am dat valori random pana mi-a placut cat de cat ce vad ( sa nu mai fie flickering + sa nu dea crash)
+    {
+        delay(2);
+
+        x = mousex();
+
+        y = mousey();
+        if(x >= b_settings_back.lX && x <= b_settings_back.rX && y >= b_settings_back.lY && y <= b_settings_back.rY)
+        {
+
+            while(true)
+            {delay(2);
+
+                x=mousex();
+                y=mousey();
+                setfillstyle(SOLID_FILL, RED);
+                bar(b_exit.lX+1, b_exit.lY+1, b_exit.rX, b_exit.rY);
+                setbkcolor(RED);
+                afisare_text_settings(1);
+                if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
+                {
+                    _back = 1;                                      //[DELETE THIS COMMENT]  un if de asta aveam si in fostul program, dar ala facea probleme, asta e ok , bine ca am rescris functia de la 0.
+                    setfillstyle(SOLID_FILL, WHITE);                // [DELETE THIS COMMENT] am pus si setfillstyle si setbkcolor pt ca daca apasai pe buton, iti iesea din toata functia sectiune_settings, dar
+                    setbkcolor(WHITE);                               // [DELETE THIS COMMENT] ramanea culoarea aia rosie la butoane dupa ( gen cand revii la pagina afisMenu butoanele erau rosii toate)
+                    break;
+                }
+                if (!(x >= b_settings_back.lX && x <= b_settings_back.rX && y >= b_settings_back.lY && y <= b_settings_back.rY))    // asta e pt cand iau mouseu de pe buton
+                {
+                    afisare_buton_settings_back(1);
+                    break;
+                }
+
+            }
+
+
+
+
+        }
+
+    }
+delay(100);
+
+    afisMenu();      //[DELETE THIS COMMENT] surprinzator functioneaza acum, nu mai da crash ( datorita delay(100), fara el da CRASH ca inainte )
+
+
+}
+
+
+
+
+
+
+
+
+
+
+//Algoritmul de selectie pentru butoane din menu principal
+void meniu_selectie()
+{
+
+    int x, y;
+
+    while(true)
+    {
+        x = mousex();
+        y = mousey();
+        delay(2);
+
+
+        //Butonul de start
+        if(x >= b_start.lX && x <= b_start.rX && y >= b_start.lY && y <= b_start.rY)
+        {
+            while(true)
+            {
+                delay(2);
+                x = mousex();
+                y = mousey();
+                //Desenare cu rosu
+                setfillstyle(SOLID_FILL, RED);
+                bar(b_start.lX+1, b_start.lY+1, b_start.rX, b_start.rY);
+                setbkcolor(RED);
+
+
+                //Pentru afisarea textului
+                afisare_text_meniu(1);
+
+                //Apasare click :)
+
+                //Parasirea butonului
+                if (!(x >= b_start.lX && x <= b_start.rX && y >= b_start.lY && y <= b_start.rY))
+                {
+                    setfillstyle(SOLID_FILL, WHITE);
+                    bar(b_start.lX+1, b_start.lY+1, b_start.rX, b_start.rY);
+                    setbkcolor(WHITE);
+                    afisare_text_meniu(1);
+                    break;
+                }
+            }
+        }
+
+
+
+        //Butonul de Settings
+        if(x >= b_settings.lX && x <= b_settings.rX && y >= b_settings.lY && y <= b_settings.rY)
+        {
+            while(true)
+            {
+                delay(2);
+                x = mousex();
+                y = mousey();
+                //Desenare cu rosu
+                setfillstyle(SOLID_FILL, RED);
+                bar(b_settings.lX+1, b_settings.lY+1, b_settings.rX, b_settings.rY);
+                setbkcolor(RED);
+
+                //Apasare click
+                if ((GetKeyState(VK_LBUTTON) & 0x80)!=0)
+                {
+                    clearviewport();
+                    sectiune_settings();
+                    settings_intrare = true;
+
+                    break;
+                }
+
+                //Pentru afisarea textului
+                afisare_text_meniu(2);
+
+
+                //Parasirea butonului
+                if (!(x >= b_settings.lX && x <= b_settings.rX && y >= b_settings.lY && y <= b_settings.rY))
+                {
+                    setfillstyle(SOLID_FILL, WHITE);
+                    bar(b_settings.lX+1, b_settings.lY+1, b_settings.rX, b_settings.rY);
+                    setbkcolor(WHITE);
+
+                    afisare_text_meniu(2);
+                    break;
+                }
+            }
+        }
+
+
+        //Butonul de Exit
+        if(x >= b_exit.lX && x <= b_exit.rX && y >= b_exit.lY && y <= b_exit.rY)
+        {
+            while(true)
+            {
+                delay(2);
+                x = mousex();
+                y = mousey();
+                //Desenare cu rosu
+                setfillstyle(SOLID_FILL, RED);
+                bar(b_exit.lX+1, b_exit.lY+1, b_exit.rX, b_exit.rY);
+                setbkcolor(RED);
+
+                //Pentru afisarea textului
+                afisare_text_meniu(3);
+
+
+                //Apasare click :) | Ce e mai jos trebuie folosit mereu in codul nostru in monentul in care dam click
+                if ((GetKeyState(VK_LBUTTON) & 0x80)!=0)   //<- Chestia asta verifica daca ultima interactiune cu maus a fost clickdown
+                {
+                    need_exit = true;
+                    break;
+                }
+
+                //Parasirea butonului
+                if (!(x >= b_exit.lX && x <= b_exit.rX && y >= b_exit.lY && y <= b_exit.rY))
+                {
+                    setfillstyle(SOLID_FILL, WHITE);
+                    bar(b_exit.lX+1, b_exit.lY+1, b_exit.rX, b_exit.rY);
+                    setbkcolor(WHITE);
+
+                    afisare_text_meniu(3);
+                    break;
+                }
+            }
+        }
+        if (need_exit) break;
+
+    }
+
+
+
+
+
+}
+
+
+
+
+//Partea de menu:
+void afisMenu()
+{
+
+    clearviewport();  //[DELETE THIS COMMENT] aici am adaugat eu un clearviewport, merge bine acum
+
+    //Actualizare culoare fundal
+    setbkcolor(COLOR(r_fundal, g_fundal, b_fundal));
+
+    clearviewport();
+
+    //Afisarea logo BonoL(primitiv, temporar)
+
+    //Asta e functia pentru style, are doar 6 style dif (0..5), HORIZ e pentru scriere orizontala si 5 e marimea fontului.
+    settextstyle(0, HORIZ_DIR, 8);
+
+
+    setcolor(COLOR(NEGRU));
+    char titlu[6] = "BonoL";
+    outtextxy(20, 20, titlu);
+
+
+    //Deci, chestia asta de setbkcolor se presupune a fi fundalul pe care il folosesc functiile de la declararea s-a inainte
+
+    setbkcolor(WHITE); //<-- asta
+
+    //Daca nu dai un clearviewport, fundalul initial nu se sterge, in schimb fundalul textului o sa se modifice, poti pune linia 99 in comentariu sa vezi ce se intampla
+
+
+
+
+    //Afisarea Gen Butoane :)
+
+    //------------------------------------------------------------------------------
+    //Butonul de Start - se afiseaza in functie de rezolutie :)
+    //Calculare coordonate b_start
+    b_start.lX = rezX - spatiux - lungime;
+    b_start.rX = rezX - spatiux;
+
+    b_start.lY = rezY - 3*spatiuy - 3*inaltime;
+    b_start.rY = b_start.lY + inaltime;
+
+    rectangle(b_start.lX, b_start.lY, b_start.rX, b_start.rY);
+    bar(b_start.lX+1, b_start.lY+1, b_start.rX, b_start.rY);
+
+    //Pentru afisarea textului
+    afisare_text_meniu(1);
+    //Nu cunosc de ce exact /8,,,, dar afiseaza textul la mijocul buttonului xD
+
+
+
+
+    //------------------------------------------------------------------------------
+    //Calculare coordonate b_settings
+    b_settings.lX = rezX - spatiux - lungime;
+    b_settings.rX = rezX - spatiux;
+
+    b_settings.lY = rezY - 2*spatiuy - 2*inaltime;
+    b_settings.rY = b_settings.lY + inaltime;
+
+    rectangle(b_settings.lX, b_settings.lY, b_settings.rX, b_settings.rY);
+    bar(b_settings.lX+1, b_settings.lY+1, b_settings.rX, b_settings.rY);
+
+
+    //Pentru afisarea textului
+    afisare_text_meniu(2);
+
+
+
+
+    //------------------------------------------------------------------------------
+    //Calculare coordonate b_exit
+    b_exit.lX = rezX - spatiux - lungime;
+    b_exit.rX = rezX - spatiux;
+
+    b_exit.rY = rezY - spatiuy;
+    b_exit.lY = b_exit.rY - inaltime;
+
+    rectangle(b_exit.lX, b_exit.lY, b_exit.rX, b_exit.rY);
+    bar(b_exit.lX+1, b_exit.lY+1, b_exit.rX, b_exit.rY);
+
+    //Pentru afisarea textului
+    afisare_text_meniu(3);
+
+
+    //------------------------------------------------------------------------------
+    meniu_selectie();
+
+}
+
+
+
+int main()
+{
+    //Fisierele
+
+    //Initializare Window + Incarcare date
+
+    incarcare_date();
+    initwindow(rezX, rezY, "BonoL");
+
+
+
+
+
+
+
+
+
+    //Meniu de baza
+
+    afisMenu();
+
+
+
+
+
+    if (need_exit) closegraph();
+    return 0;
+}
