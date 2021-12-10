@@ -3,6 +3,8 @@
 #include "fisier.h"
 
 void afisMenu();
+void buton_muzica(int alegere);
+void selectare_buton_muzica(int x, int y, bool &muzica_on);
 void afisare_text_settings(int alegere)
 {
     if(alegere == 0)
@@ -645,7 +647,7 @@ void sectiune_settings()
 {
     int limba_aux = limba;
     bool _back = 0, _apply = 0;
-    init_coord_butoane_settings();
+    init_coord_butoane();
     int b_fundal_aux = b_fundal, r_fundal_aux = r_fundal, g_fundal_aux = g_fundal;
 
 
@@ -664,6 +666,7 @@ void sectiune_settings()
     afisare_text_settings(2);
     afisare_text_settings(0);
     afisare_text_settings(4);
+    buton_muzica(muzica_on);
     int x = mousex();
     int y = mousey();
 
@@ -678,7 +681,7 @@ void sectiune_settings()
 
 
        culoare_fundal(x,y,r_fundal_aux,g_fundal_aux,b_fundal_aux);
-
+        selectare_buton_muzica(x, y, muzica_on);
         selectare_limba(x,y,limba_aux);
 
         buton_apply(x, y,  limba_aux, r_fundal_aux, g_fundal_aux, b_fundal_aux, _apply);

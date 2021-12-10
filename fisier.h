@@ -3,6 +3,7 @@
 bool need_exit = false;
 int limba ;
 int r_fundal, g_fundal, b_fundal;
+bool muzica_on;
 
 void incarcare_date()
 {
@@ -34,7 +35,7 @@ void incarcare_date()
         std::cout << "[!]:Limba nu a putut fi selectata."<< std::endl;
         need_exit = true;
     }
-
+    fscanf(fptr,"%d", &muzica_on);
     fclose(fptr);
 }
 void scriere_date()
@@ -48,6 +49,7 @@ void scriere_date()
     }
     fprintf(fptr,"%d %d %d",r_fundal,g_fundal,b_fundal);
     fprintf(fptr, "\n%d",limba);
+    fprintf(fptr,"\n%d",muzica_on);
 
     fclose(fptr);
 }

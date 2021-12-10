@@ -4,6 +4,88 @@
 #include "settings.h"
 
 #define NEGRU 0, 0, 0
+bool was_music_set = false;
+void buton_muzica(int alegere)
+{setcolor(BLACK);
+    if(alegere == 0)
+{  readimagefile("img/volume-mute.jpg",b_muzica.lX, b_muzica.lY, b_muzica.rX, b_muzica.rY);
+rectangle(b_muzica.lX-3, b_muzica.lY-3, b_muzica.rX+3, b_muzica.rY+3);
+
+}
+else if (alegere == 1)
+{
+   readimagefile("img/speaker.jpg",b_muzica.lX, b_muzica.lY, b_muzica.rX, b_muzica.rY);
+rectangle(b_muzica.lX-3, b_muzica.lY-3, b_muzica.rX+3, b_muzica.rY+3);
+}
+
+}
+void muzica_set(int alegere)
+{
+
+
+if (muzica_on == true)
+{PlaySound(TEXT("music.wav"), NULL, SND_ASYNC);
+
+}
+else if(muzica_on == false)
+    {   PlaySound(NULL,NULL,SND_ASYNC);
+
+    }
+}
+
+void selectare_buton_muzica(int x, int y, bool &muzica_on)
+{
+      if(x >=b_muzica.lX && x <= b_muzica.rX && y >= b_muzica.lY && y <= b_muzica.rY)
+        {
+
+            while(true)
+            {
+                delay(2);
+
+                x=mousex();
+                y=mousey();
+
+
+                setcolor(COLOR(255, 145, 0));
+               rectangle(b_muzica.lX-3, b_muzica.lY-3, b_muzica.rX+3, b_muzica.rY+3);
+                if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
+                {
+                    delay(70);
+                    if(muzica_on == true)
+                    {
+
+                        muzica_on = false;
+                         buton_muzica(muzica_on);
+                         muzica_set(muzica_on);
+
+
+                    }
+                    else
+                    {
+
+                        muzica_on = true;
+                          buton_muzica(muzica_on);
+                        muzica_set(muzica_on);
+
+
+                    }
+
+
+                    break;
+                }
+                delay(2);
+                if (!(x >=b_muzica.lX && x <= b_muzica.rX && y >= b_muzica.lY && y <= b_muzica.rY))
+                {
+                    setcolor(BLACK);
+                    rectangle(b_muzica.lX-3, b_muzica.lY-3, b_muzica.rX+3, b_muzica.rY+3);
+
+                    break;
+                }
+
+            }
+        }
+}
+
 
 void afisare_text_meniu(int alegere)
 {
@@ -43,8 +125,10 @@ void afisare_text_meniu(int alegere)
 
 
 void meniu_selectie()
-{
-
+{   if(was_music_set==false)
+    {muzica_set(muzica_on);
+    was_music_set = true;
+    }
     int x, y;
 
     while(true)
@@ -173,7 +257,6 @@ void meniu_selectie()
 }
 
 
-
 void afisMenu()
 {
     setlinestyle(SOLID_LINE,0,5 );
@@ -239,13 +322,11 @@ void afisMenu()
 
     meniu_selectie();
 
+
 }
-/* ---TODO---
 
 
-void buton_muzica(int alegere)
-{
 
-}*/
+
 
 #endif // MENIU

@@ -8,9 +8,9 @@ struct coordonate
 {
     int lX, lY;
     int rX, rY;
-} b_start, b_exit, b_settings, b_settings_back, b_settings_apply;
+} b_start, b_exit, b_settings, b_settings_back, b_settings_apply, b_muzica;
 
-void init_coord_butoane_settings()
+void init_coord_butoane()
 {
     b_settings_back.lX = rezX - spatiux - lungime;
     b_settings_back.rX = rezX - spatiux;
@@ -18,10 +18,12 @@ void init_coord_butoane_settings()
     b_settings_back.lY = b_settings_back.rY - inaltime;
     b_settings_apply.lX = abs(b_settings_back.lX - rezX );
     b_settings_apply.rX = abs(b_settings_back.rX - rezX );
-
-
     b_settings_apply.rY = rezY - spatiuy;
     b_settings_apply.lY = b_settings_back.rY - inaltime;
+    b_muzica.lX = rezX - 80;
+    b_muzica.lY = rezY - 700;
+    b_muzica.rY = rezY - 650;
+    b_muzica.rX = rezX - 30;
 }
 
 

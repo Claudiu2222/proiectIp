@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <fstream>
+#include <windows.h>
+#include <mmsystem.h>
+
 #include "meniu.h"
 
 int main()

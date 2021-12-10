@@ -19,3 +19,25 @@
 
 1639059719 d:\vscode projects\projectip\fisier.h
 
+1639152222 source:d:\vscode projects\proiectip\main.cpp
+	<winbgim.h>
+	<graphics.h>
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	<fstream>
+	<windows.h>
+	<mmsystem.h>
+	"meniu.h"
+
+1639164230 d:\vscode projects\proiectip\meniu.h
+	"coordonate.h"
+	"settings.h"
+
+1639155991 d:\vscode projects\proiectip\coordonate.h
+
+1639156892 d:\vscode projects\proiectip\settings.h
+	"fisier.h"
+
+1639156856 d:\vscode projects\proiectip\fisier.h
+
