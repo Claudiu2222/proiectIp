@@ -8,7 +8,7 @@ struct coordonate
 {
     int lX, lY;
     int rX, rY;
-} b_start, b_exit, b_settings, b_settings_back, b_settings_apply, b_muzica, b_back_start;
+} b_start, b_exit, b_settings, b_settings_back, b_settings_apply, b_muzica, b_back_start, b_start_game;
 
 void init_coord_butoane()
 {
@@ -35,6 +35,15 @@ void init_coord_butoane()
     b_back_start.rX = b_settings_apply.rX;
     b_back_start.rY = b_settings_apply.rY + 2;
     b_back_start.lY = b_settings_apply.lY;
+
+
+
+    b_start_game.lX = rezX - spatiux - lungime + 1;
+    b_start_game.rX = rezX - spatiux;
+    b_start_game.rY = rezY - spatiuy;
+    b_start_game.lY = b_settings_back.rY - inaltime;
+
+
 
 }
 
