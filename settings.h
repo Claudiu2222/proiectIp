@@ -647,7 +647,6 @@ void sectiune_settings()
 {
     int limba_aux = limba;
     bool _back = 0, _apply = 0;
-    init_coord_butoane();
     int b_fundal_aux = b_fundal, r_fundal_aux = r_fundal, g_fundal_aux = g_fundal;
 
 

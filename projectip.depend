@@ -41,3 +41,32 @@
 
 1639156856 d:\vscode projects\proiectip\fisier.h
 
+1639164372 source:c:\users\gulic\desktop\proiectip-main\main.cpp
+	<winbgim.h>
+	<graphics.h>
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	<fstream>
+	<windows.h>
+	<mmsystem.h>
+	"meniu.h"
+
+1639183913 c:\users\gulic\desktop\proiectip-main\meniu.h
+	"coordonate.h"
+	"settings.h"
+	"start.h"
+
+1639179942 c:\users\gulic\desktop\proiectip-main\coordonate.h
+
+1639179694 c:\users\gulic\desktop\proiectip-main\settings.h
+	"fisier.h"
+
+1639164372 c:\users\gulic\desktop\proiectip-main\fisier.h
+
+1639183798 c:\users\gulic\desktop\proiectip-main\start.h
+	"scripts.h"
+
+1639176907 c:\users\gulic\desktop\proiectip-main\scripts.h
+	"settings.h"
+
