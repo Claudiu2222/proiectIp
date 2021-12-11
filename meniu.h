@@ -159,7 +159,9 @@ void meniu_selectie()
                 // Menu -> Pagina Joc
                 if ((GetKeyState(VK_LBUTTON) & 0x80)!=0)
                 {
+                    setbkcolor(COLOR(r_fundal, g_fundal, b_fundal));
                     clearviewport();
+
                     sectiune_start();
 
 
