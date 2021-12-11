@@ -2,6 +2,7 @@
 #define MENIU
 #include "coordonate.h"
 #include "settings.h"
+#include "start.h"
 
 #define NEGRU 0, 0, 0
 bool was_music_set = false;
@@ -24,7 +25,7 @@ void muzica_set(int alegere)
 
 
 if (muzica_on == true)
-{PlaySound(TEXT("music.wav"), NULL, SND_ASYNC);
+{PlaySound(TEXT("music.wav"), NULL, SND_ASYNC); // <- Eroare la compilare, -lwinmm pentru rezolvare, cel putin pt [Silvian]
 
 }
 else if(muzica_on == false)
@@ -155,6 +156,16 @@ void meniu_selectie()
 
                 afisare_text_meniu(1);
 
+                // Menu -> Pagina Joc
+                if ((GetKeyState(VK_LBUTTON) & 0x80)!=0)
+                {
+                    clearviewport();
+                    sectiune_start();
+
+
+                    break;
+                }
+
 
                 if (!(x >= b_start.lX && x <= b_start.rX && y >= b_start.lY && y <= b_start.rY))
                 {
@@ -259,6 +270,7 @@ void meniu_selectie()
 
 void afisMenu()
 {
+    setfillstyle(SOLID_FILL, WHITE);
     setlinestyle(SOLID_LINE,0,5 );
     clearviewport();
     setbkcolor(COLOR(r_fundal, g_fundal, b_fundal));
@@ -318,6 +330,9 @@ void afisMenu()
 
     afisare_text_meniu(3);
 
+
+    //-> Init de coordoante pt Settings si pentru Start Page
+    init_coord_butoane();
 
 
     meniu_selectie();
