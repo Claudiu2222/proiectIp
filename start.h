@@ -2,7 +2,7 @@
 #define START_H_INCLUDED
 
 #include "scripts.h"
-
+#include "joc.h"
 
 
 
@@ -132,6 +132,15 @@ void buton_start_game(int x, int y){
 
             x = mousex();
             y = mousey();
+
+
+            if ((GetKeyState(VK_LBUTTON) & 0x80)!=0){
+                    setbkcolor(COLOR(r_fundal, g_fundal, b_fundal));
+                    clearviewport();
+                    start_joc();
+                    break;
+            }
+
 
             if(!(x > b_start_game.lX && x < b_start_game.rX && y > b_start_game.lY && y < b_start_game.rY)){
                 //-> Revenire normal
