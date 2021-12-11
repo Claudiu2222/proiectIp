@@ -70,9 +70,11 @@ void buton_back_start(int x, int y){
             y = mousey();
 
             if ((GetKeyState(VK_LBUTTON) & 0x80)!=0){
+                    setbkcolor(COLOR(r_fundal, g_fundal, b_fundal));
                     clearviewport();
                     need_back = true;
                     need_stop = true;
+
                     break;
             }
 
@@ -111,6 +113,7 @@ void sectiune_start(){
     int x, y;
 
     //-> Sincronizare fundal
+    clearviewport();
     setbkcolor(COLOR(r_fundal, g_fundal, b_fundal));
     clearviewport();
 

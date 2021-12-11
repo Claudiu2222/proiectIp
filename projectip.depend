@@ -70,3 +70,32 @@
 1639176907 c:\users\gulic\desktop\proiectip-main\scripts.h
 	"settings.h"
 
+1639164372 source:c:\users\gulic\desktop\bonol - proiect introducere in programare\main.cpp
+	<winbgim.h>
+	<graphics.h>
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	<fstream>
+	<windows.h>
+	<mmsystem.h>
+	"meniu.h"
+
+1639186210 c:\users\gulic\desktop\bonol - proiect introducere in programare\meniu.h
+	"coordonate.h"
+	"settings.h"
+	"start.h"
+
+1639179942 c:\users\gulic\desktop\bonol - proiect introducere in programare\coordonate.h
+
+1639179694 c:\users\gulic\desktop\bonol - proiect introducere in programare\settings.h
+	"fisier.h"
+
+1639164372 c:\users\gulic\desktop\bonol - proiect introducere in programare\fisier.h
+
+1639186456 c:\users\gulic\desktop\bonol - proiect introducere in programare\start.h
+	"scripts.h"
+
+1639176907 c:\users\gulic\desktop\bonol - proiect introducere in programare\scripts.h
+	"settings.h"
+

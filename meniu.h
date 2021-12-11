@@ -199,7 +199,6 @@ void meniu_selectie()
                     clearviewport();
                     sectiune_settings();
 
-
                     break;
                 }
 
