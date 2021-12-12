@@ -10,11 +10,7 @@
 
 
 
-//-> Variabile
-bool need_stop = false,
-     need_back = false;
-
-
+bool need_back, need_play;
 
 //-> Functii
 void text_butoane_start(char a){
@@ -81,7 +77,7 @@ void text_butoane_start(char a){
 
 
 
-void buton_back_start(int x, int y){
+void buton_back_start(int x, int y, int alegere){ // am adaugat o alegere ca sa pot folosi functia si in joc.h, fara sa o rescriu (economisim niste spatiu :D )
 
 
     if(x < b_back_start.lX && x > b_back_start.rX && y > b_back_start.lY && y < b_back_start.rY){
@@ -99,8 +95,11 @@ void buton_back_start(int x, int y){
             if ((GetKeyState(VK_LBUTTON) & 0x80)!=0){
                     setbkcolor(COLOR(r_fundal, g_fundal, b_fundal));
                     clearviewport();
-                    need_back = true;
-                    need_stop = true;
+                    if(alegere == 0)
+                            need_back = true;
+                    else if (alegere == 1)
+                        game_back = true;
+
 
                     break;
             }
@@ -137,7 +136,8 @@ void buton_start_game(int x, int y){
             if ((GetKeyState(VK_LBUTTON) & 0x80)!=0){
                     setbkcolor(COLOR(r_fundal, g_fundal, b_fundal));
                     clearviewport();
-                    start_joc();
+                    need_play = true;
+
                     break;
             }
 
@@ -167,9 +167,13 @@ void mod_de_joc(){
 
 //-> Main Core la Fisier
 void sectiune_start(){
-
+    delay(2);
     //-> Coordonate cursor
     int x, y;
+
+    //-> Variabile
+    need_back = false;
+        need_play = false;
 
     //-> Sincronizare fundal
     clearviewport();
@@ -232,7 +236,7 @@ void sectiune_start(){
 
 
 
-    while(!need_stop){
+    while(need_back == false && need_play == false){
 
 
             //show_mouse_xy();
@@ -242,7 +246,7 @@ void sectiune_start(){
             y = mousey();
 
             //-> Buton Back
-            buton_back_start(x, y);
+            buton_back_start(x, y,0);
 
 
             //-> Buton Start
@@ -255,11 +259,11 @@ void sectiune_start(){
     }
 
     //-> Back
-    if (need_back){
-        need_stop = false;
-        need_back = false;
+    delay(100);
+    if(need_back == true)
         afisMenu();
-    }
+    if(need_play == true)
+        start_joc_pvp();
 
 
 }

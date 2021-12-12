@@ -53,4 +53,26 @@ void scriere_date()
 
     fclose(fptr);
 }
+
+void incarcare_tabla(int t[5][5])
+{
+
+ FILE *fptr;
+    if ((fptr = fopen("tabla.txt","r")) == NULL)
+    {
+        std::cout<< "[!]:Fisierul nu a putut fi deshis sau nu exista."<<std::endl;
+
+        need_exit = true;
+    }
+
+   int i,j;
+   for(i=1;i<=4;i++)
+    for(j=1;j<=4;j++)
+        fscanf(fptr,"%d", &t[i][j]);
+
+
+
+    fclose(fptr);
+}
+
 #endif // FISIER
