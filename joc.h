@@ -41,7 +41,7 @@ void verificare_pozitie(int x,int y, int & ii, int & jj)
 }
 void modificare_piesa(int i, int j,int player)
 {
-    if(player == 1)
+    if(player == 1 )
     {
         t[i][j] = 1;
     }
@@ -63,6 +63,15 @@ void eliminare_piese_dupa_mutare(int t[5][5])
           if(t[i][j] == 5 || t[i][j]==4)
             {   t[i][j] = 0;
               }}
+}
+void schimbare_valori_piese(int alegere)
+{
+    int i,j;
+    for(i=1;i<=4;i++)
+        for(j=1;j<=4;j++)
+        if(t[i][j] == alegere)
+        t[i][j]=4;
+
 }
 void desenare_piese(int t[5][5])
 {
@@ -174,29 +183,37 @@ clearmouseclick(WM_RBUTTONDOWN);
 
 
 void mutare_player(int player)
-{
+{   schimbare_valori_piese(player);
+    desenare_piese(t);
     delay(2);
     int x,y,ii=-1,jj=-1;
     int k=0;
+ clearmouseclick(WM_LBUTTONDOWN);
     while(k!=4 && cursor_in_tabla == true)
     {
         x = mousex();
         y=  mousey();
 
 
-        if((GetKeyState(VK_LBUTTON) & 0x80)!=0 )
+        if(ismouseclick(WM_LBUTTONDOWN)!=0)
         {
             delay(30);
             verificare_pozitie(x,y,ii,jj);
-            if(t[ii][jj]!= player)
+            if(t[ii][jj]==0 || t[ii][jj]==4)
             {
                 modificare_piesa(ii,jj,player);
                 desenare_piese(t);
                 k++;
             }
         }
+
         if(k==4)
+            {
+            clearmouseclick(WM_LBUTTONDOWN);
+            eliminare_piese_dupa_mutare(t);
+            desenare_piese(t);
             break;
+            }
         if(!(x >= 388 && x <=893 && y>= 108 && y <= 613))
         {
             delay(1);
