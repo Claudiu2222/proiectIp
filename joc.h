@@ -162,12 +162,14 @@ void mutare_banut()
 {
     bool schimbat = false, change = false;
     int x,y,ii,jj;
+while(schimbat == false && game_back == false)
+   {
 
-    while(schimbat == false && cursor_in_tabla==true)
+    while(true)
     {
         x = mousex();
         y = mousey();
-        if(ismouseclick(WM_MBUTTONDOWN)!=0)
+        if(ismouseclick(WM_MBUTTONDOWN)!=0 && change ==false)
         {
             schimbat = true;
             clearmouseclick(WM_MBUTTONDOWN);
@@ -204,15 +206,16 @@ void mutare_banut()
         }
         if(!(x >= 388 && x <=893 && y>= 108 && y <= 613))
         {
-            delay(1);
-            cursor_in_tabla = false;
+           break;
 
         }
     }
+
+
+buton_back_start(x,y,1);
 }
 
-
-
+}
 
 void mutare_player(int player)
 {   int a[5][5];
@@ -227,7 +230,7 @@ void mutare_player(int player)
     {int k=0;
     copiere_matrice(a,t);
     clearmouseclick(WM_LBUTTONDOWN);
-        while(k!=4 && cursor_in_tabla == true)
+        while(k!=4)
         {
             x = mousex();
             y=  mousey();
@@ -265,19 +268,22 @@ void mutare_player(int player)
             }
             if(!(x >= 388 && x <=893 && y>= 108 && y <= 613))
             {
-                delay(1);
-                cursor_in_tabla = false;
+
+                break;
 
             }
-        }
+
+        } buton_back_start(x,y,1);
+        break;
     }
+    if(mutat_piesa == true){
     mutare_banut();
-    turn++;
+    turn++;}
 }
 
 void start_joc_pvp()
 {
-    bool first_move = true;
+    turn = 1;
     delay(2);
     //-> Fundal
     game_back == false;
@@ -306,37 +312,21 @@ void start_joc_pvp()
         {
             delay(2);
             cursor_in_tabla = true;
-            if(first_move == true)
-            {
-                first_move = false;
-                if(turn%2==1)
+
+                if(turn%2==1 )
                 {
                     mutare_player(1);
                 }
 
 
-                else
+                else if(turn%2==0 )
                 {
                     mutare_player(2);
                 }
 
-            }
-            else
-            {
-                if(turn%2==1)
-                {
-                    delay(1000);
-                    mutare_player(1);
-                }
 
 
-                else
-                {
-                    delay(1000);
 
-                    mutare_player(2);
-                }
-            }
 
 
 
