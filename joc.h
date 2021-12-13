@@ -8,7 +8,6 @@ void text_butoane_start(char alegere);
 void incarcare_tabla(int t[5][5]);
 int t[5][5];
 int turn = 1;
-bool cursor_in_tabla = false;
 void desenare_tabla()
 {
 
@@ -238,7 +237,7 @@ void mutare_player(int player)
 
             if(ismouseclick(WM_LBUTTONDOWN)!=0)
             {
-                delay(30);
+
                 verificare_pozitie(x,y,ii,jj);
                 if(t[ii][jj]==0 || t[ii][jj]==4)
                 {
@@ -268,8 +267,10 @@ void mutare_player(int player)
             }
             if(!(x >= 388 && x <=893 && y>= 108 && y <= 613))
             {
-
+                copiere_matrice(t,a);
+                 desenare_piese(t);
                 break;
+
 
             }
 
@@ -284,7 +285,7 @@ void mutare_player(int player)
 void start_joc_pvp()
 {
     turn = 1;
-    delay(2);
+
     //-> Fundal
     game_back == false;
     int ii,jj;
@@ -304,14 +305,14 @@ void start_joc_pvp()
 
     while(game_back == false)
     {
-        delay(2);
+
         x=mousex();
         y=mousey();
         buton_back_start(x,y,1);
-        if(x >= 388 && x <=893 && y>= 108 && y <= 613) // b_back_start.lX, b_back_start.lY - 2, b_back_start.rX, b_back_start.rY + 1
+        if(x >= 388 && x <=893 && y>= 108 && y <= 613)
         {
-            delay(2);
-            cursor_in_tabla = true;
+
+
 
                 if(turn%2==1 )
                 {
