@@ -144,6 +144,7 @@ void mutare_banut()
         y = mousey();
         if(ismouseclick(WM_MBUTTONDOWN)!=0)
         {schimbat = true;
+         clearmouseclick(WM_MBUTTONDOWN);
         break;}
          if(ismouseclick(WM_RBUTTONDOWN)!=0 && change == false )
         {
