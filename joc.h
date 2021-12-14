@@ -349,7 +349,15 @@ bool verificare_castigator(int t[5][5], int player){
         for(i = 0; i < 4; i++)
             for(j = 0; j < 4; j++)
                 if (t_player[i][j] >= 4 && t_player[i][j] > min_p) { min_p = t_player[i][j]; t_player[i][j] = 0; }
-        if (min_p >= 4) {  return false; }
+
+        //-> Cautam de patrate de 0
+        for(i = 0; i < 3; i++)
+            for(j = 0; j < 3; j++)
+                if(t_player[i][j] == 0 && t_player[i][j+1] == 0 && t_player[i+1][j+1] == 0 && t_player[i+1][j] == 0) return true;
+
+
+
+        if (min_p >= 4) {return false; }
 
         return true;
     }
