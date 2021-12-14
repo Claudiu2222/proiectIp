@@ -237,7 +237,7 @@ void memorare_pozitie(int player){
         for(int j = 1; j <= 4; j++)
             if (t[i][j] == player) t_pozitii[i][j] = player;
 
-    t_pozitii[0][0] = -1;
+     t_pozitii[0][0] = -1;
      t_pozitii[1][0] = -1;
      t_pozitii[2][0] = -1;
      t_pozitii[3][0] = -1;
@@ -252,54 +252,136 @@ void memorare_pozitie(int player){
 }
 
 
-bool verificare_castigator(int t[5][5]){
+bool verificare_castigator(int t[5][5], int player){
 
 
-    //-> Diagonale si Vecini
-    int vecini = 0;
-    printf("\n");
-    //-> Cautare diagonale[1]
-    for(int i = 1; i <= 4; i++){
-        for(int j = 1; j <= 4; j++){
 
-            //-> Cazul Vecinilor
-            if((t_pozitii[i][j] == 0) && t_pozitii[i+1][j] == 0) vecini++; //jos
-            if((t_pozitii[i][j] == 0) && t_pozitii[i+1][j] == 0) vecini++; //sus
-            if((t_pozitii[i][j] == 0) && t_pozitii[i][j+1] == 0) vecini++; //dreapta
-            if((t_pozitii[i][j] == 0) && t_pozitii[i][j-1] == 0) vecini++; //stanga
+    //-> Initializare Matrice de pozitii fara player
+    int t_player[4][4], i, j;
 
-            printf("%d", t[i][j]);
-
+    for(i = 0; i < 4; i++){
+        for(j = 0; j < 4; j++){
+            if (((t[i+1][j+1] != player) || (t[i+1][j+1] == 0)) && t[i+1][j+1] != 4) t_player[i][j] = t[i+1][j+1];
+            else  {t_player[i][j] = 0; t[i+1][j+1] = 0;}
         }
-        printf("\n");
     }
 
 
-     printf("\n");
-    //-> Cautare diagonale[1]
-    for(int i = 0; i <= 4; i++){
-        for(int j = 0; j <= 4; j++){
 
-            printf("%d", t[i][j]);
+
+    //-> Algoritmul de cautare a numerelor de 0
+    int ii, jj;
+    for(i = 3; i >= 0; i--){
+        for(j = 3; j >= 0; j--){
+            ii = i+1;
+            jj = j+1;
+
+            if (t[ii][jj] == 0){
+
+                //-> Linii Hot
+                if(ii == 4 && jj == 4){
+                    t_player[i][j]++;
+                }
+                else if (ii == 4){
+                    if(t[ii][jj+1] == 0){                       //<- Cautare doar in dreapta
+                        t_player[i][j] = t_player[i][j+1] + 1;
+                        t_player[i][j+1] = 0;
+                    }else t_player[i][j]++;
+                }
+                else if (jj == 4){
+                    if(t[ii+1][jj] == 0){                       //<- Cautare doar in jos si optional diagonala
+                        t_player[i][j] = t_player[i+1][j] + 1;
+                        t_player[i+1][j] = 0;
+
+                        if(t[ii+1][jj-1] == 0){
+                            t_player[i][j] += t_player[i+1][j-1];
+                            t_player[i+1][j-1] = 0;
+                        }
+                    }else t_player[i][j]++;
+
+                }
+                else{
+                    //-> Interior Matrice
+                    if(t[ii+1][jj] == 0 && t[ii][jj+1] == 0){       //<- Adancime si dreapta si optional diagonala
+                        t_player[i][j] = t_player[i+1][j] + t_player[i][j+1] + 1;
+                        t_player[i+1][j] = 0;
+                        t_player[i][j+1] = 0;
+
+                        if(j > 0 && t[ii+1][jj-1] == 0){
+                            t_player[i][j] += t_player[i+1][j-1];
+                            t_player[i+1][j-1] = 0;
+
+                        }
+
+                    }
+                    else if(t[ii+1][jj] == 0){                  //<- Adancime si optional diagonala
+                        t_player[i][j] = t_player[i+1][j] + 1;
+                        t_player[i+1][j] = 0;
+
+                        if(j > 0 && t[ii+1][jj-1] == 0){
+                            t_player[i][j] += t_player[i+1][j-1];
+                            t_player[i+1][j-1] = 0;
+                        }
+
+                    }
+                    else if(t[ii][jj+1] == 0){              //Dreapta
+                        t_player[i][j] = t_player[i][j+1] + 1;
+                        t_player[i][j+1] = 0;
+                    }
+                    else t_player[i][j]++;                  //Fara vecini
+                }
+            }
 
         }
-        printf("\n");
     }
 
-    //-> Verificare de castig
 
-    vecini /= 3;
-    printf("Cati de 0: %d \n", vecini);
+    int min_c = 0, min_p = 0;
 
-    if (vecini != 4 && vecini <= 6) return true; //<- probabil asta e, inca nu sunt sigur
-    else return false;
+    for(i = 0; i < 4; i++)
+        for(j = 0; j < 4; j++)
+            if (t_player[i][j] >= 5 && t_player[i][j] > min_c) { min_c = t_player[i][j]; t_player[i][j] = 0; }
+
+    if (min_c > 5) return false;
+    else if(min_c == 5){
+
+        for(i = 0; i < 4; i++)
+            for(j = 0; j < 4; j++)
+                if (t_player[i][j] >= 4 && t_player[i][j] > min_p) { min_p = t_player[i][j]; t_player[i][j] = 0; }
+        if (min_p >= 4) return false;
+
+
+    }
+    else return true;
+
 }
 
 
 
 
 
+/*
+//-> Afisari pentru a intelege algoritmul
+    printf("Matrice T:\n");
+    for(i = 1; i <= 4; i++){
+        for(j = 1; j <= 4; j++){
+            printf("%d ", t[i][j]);
+        }
+        printf("\n");
+    }
 
+    printf("MAtrice T_PLAYER\n");
+
+
+    for(i = 0; i < 4; i++){
+        for(j = 0; j < 4; j++){
+            printf("%d ", t_player[i][j]);
+        }
+        printf("\n");
+    }
+
+    printf("\n min_c = %d min_p = %d", min_c, min_p);
+*/
 
 
 
@@ -319,7 +401,7 @@ bool verifica_lpiesa(int t[5][5], int player){
             if((t[i][j] == player) && t[i+1][j-1] == player) dig++; //stanga sus
 
             //-> Cazul Vecinilor
-            if((t[i][j] == player) && t[i+1][j] == player) vecini++; //jos
+            if((t[i][j] == player) && t[i-1][j] == player) vecini++; //jos
             if((t[i][j] == player) && t[i+1][j] == player) vecini++; //sus
             if((t[i][j] == player) && t[i][j+1] == player) vecini++; //dreapta
             if((t[i][j] == player) && t[i][j-1] == player) vecini++; //stanga
@@ -343,6 +425,7 @@ bool verifica_lpiesa(int t[5][5], int player){
 }
 
 
+
 void mutare_player(int player)
 {
     int a[5][5];
@@ -354,9 +437,24 @@ void mutare_player(int player)
 
     clearmouseclick(WM_LBUTTONDOWN);
     while(mutat_piesa == false)
-    {int k=0;
-    copiere_matrice(a,t);
-    clearmouseclick(WM_LBUTTONDOWN);
+    {
+
+        int k=0;
+        copiere_matrice(a,t);
+        clearmouseclick(WM_LBUTTONDOWN);
+
+        //-> Verificare Castigator
+        if (verificare_castigator(t, player)){
+
+                if(player == 1) player = 2;
+                else player = 1;
+
+                printf("\n Castigator player %d", player);
+
+                castigator = true;
+                break;
+            }
+
         while(k!=4)
         {
             x = mousex();
@@ -393,6 +491,7 @@ void mutare_player(int player)
 
 
             }
+
 
             if(k==4){
                 clearmouseclick(WM_LBUTTONDOWN);
@@ -466,7 +565,7 @@ void start_joc_pvp()
         x=mousex();
         y=mousey();
         buton_back_start(x,y,1);
-        if((x >= 388 && x <=893 && y>= 108 && y <= 613)/* && !(castigator)*/)
+        if((x >= 388 && x <=893 && y>= 108 && y <= 613) && !(castigator))
         {
 
 
@@ -481,13 +580,7 @@ void start_joc_pvp()
                 {
                     mutare_player(2);
                 }
-            /*
-                if(verificare_castigator(t)){
-                        castigator = true;
-                        printf("Game Over");
-                }
 
-*/
 
 
 

@@ -34,6 +34,7 @@
 		</Compiler>
 		<Unit filename="coordonate.h" />
 		<Unit filename="fisier.h" />
+		<Unit filename="joc.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="meniu.h" />
 		<Unit filename="scripts.h">
