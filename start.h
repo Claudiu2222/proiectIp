@@ -1,7 +1,7 @@
 #ifndef START_H_INCLUDED
 #define START_H_INCLUDED
 
-#include "scripts.h"
+//#include "scripts.h"
 #include "joc.h"
 
 

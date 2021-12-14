@@ -1,12 +1,25 @@
 #ifndef JOC_H_INCLUDED
 #define JOC_H_INCLUDED
+
+
+
+
+//-> Variabile
+
+bool castigator = false;
+
 const int numar = 4, width = 500, height=500, latura=width/numar, sus=(720-width)/2, stanga=(1280-height)/2;
 bool game_back;
 void buton_back_start(int x,int y, int alegere);
 void sectiune_start();
 void text_butoane_start(char alegere);
 void incarcare_tabla(int t[5][5]);
-int t[5][5];
+int t[5][5], t_pozitii[5][5] = { {0, 0, 0, 0, 0},
+                                 {0, 0, 2, 2, 0},
+                                 {0, 0, 1, 2, 0},
+                                 {0, 0, 1, 2, 0},
+                                 {0, 0, 1, 1, 0}
+                               };
 int turn = 1;
 void desenare_tabla()
 {
@@ -150,10 +163,11 @@ void coordonate_tabla() // teoretic trebuie sa retinem coordonatele pt fiecare p
     {
         for(j = 1; j<=4; j++)
         {
-            tc[i][j].lX=392 + (j-1)* 125;    //tc =tabla coordonate sau ceva de genu'( prescurtat ca o sa le folosim des si sa nu arate urat, e initializat in coordonate.h)
+            tc[i][j].lX=392 + (j-1) * 125;    //tc =tabla coordonate sau ceva de genu'( prescurtat ca o sa le folosim des si sa nu arate urat, e initializat in coordonate.h)
             tc[i][j].lY=112 + (i-1) * 125;
             tc[i][j].rX=513 + (j-1) * 125;
             tc[i][j].rY=233 + (i-1) * 125;
+            t_pozitii[i][j] = 0;
         }
     }
 }
@@ -216,8 +230,122 @@ buton_back_start(x,y,1);
 
 }
 
+
+//-> Memorare pozitie [chiar daca e apelata doar odata, e mai bine sa fie functie]
+void memorare_pozitie(int player){
+    for(int i = 1; i <= 4; i++)
+        for(int j = 1; j <= 4; j++)
+            if (t[i][j] == player) t_pozitii[i][j] = player;
+
+    t_pozitii[0][0] = -1;
+     t_pozitii[1][0] = -1;
+     t_pozitii[2][0] = -1;
+     t_pozitii[3][0] = -1;
+     t_pozitii[4][0] = -1;
+
+     t_pozitii[0][0] = -1;
+     t_pozitii[0][1] = -1;
+     t_pozitii[0][2] = -1;
+     t_pozitii[0][3] = -1;
+     t_pozitii[0][4] = -1;
+
+}
+
+
+bool verificare_castigator(int t[5][5]){
+
+
+    //-> Diagonale si Vecini
+    int vecini = 0;
+    printf("\n");
+    //-> Cautare diagonale[1]
+    for(int i = 1; i <= 4; i++){
+        for(int j = 1; j <= 4; j++){
+
+            //-> Cazul Vecinilor
+            if((t_pozitii[i][j] == 0) && t_pozitii[i+1][j] == 0) vecini++; //jos
+            if((t_pozitii[i][j] == 0) && t_pozitii[i+1][j] == 0) vecini++; //sus
+            if((t_pozitii[i][j] == 0) && t_pozitii[i][j+1] == 0) vecini++; //dreapta
+            if((t_pozitii[i][j] == 0) && t_pozitii[i][j-1] == 0) vecini++; //stanga
+
+            printf("%d", t[i][j]);
+
+        }
+        printf("\n");
+    }
+
+
+     printf("\n");
+    //-> Cautare diagonale[1]
+    for(int i = 0; i <= 4; i++){
+        for(int j = 0; j <= 4; j++){
+
+            printf("%d", t[i][j]);
+
+        }
+        printf("\n");
+    }
+
+    //-> Verificare de castig
+
+    vecini /= 3;
+    printf("Cati de 0: %d \n", vecini);
+
+    if (vecini != 4 && vecini <= 6) return true; //<- probabil asta e, inca nu sunt sigur
+    else return false;
+}
+
+
+
+
+
+
+
+
+
+bool verifica_lpiesa(int t[5][5], int player){
+
+    //-> Diagonale si Vecini
+    int dig = 0, vecini = 0, egal = 0;
+
+    //-> Cautare diagonale[1]
+    for(int i = 1; i <= 4; i++){
+        for(int j = 1; j <= 4; j++){
+
+            //-> Cazul Diagonalelor
+            if((t[i][j] == player) && t[i+1][j+1] == player) dig++; //dreapta jos
+            if((t[i][j] == player) && t[i-1][j-1] == player) dig++; //stanga sus
+            if((t[i][j] == player) && t[i-1][j+1] == player) dig++; //dreapta sus
+            if((t[i][j] == player) && t[i+1][j-1] == player) dig++; //stanga sus
+
+            //-> Cazul Vecinilor
+            if((t[i][j] == player) && t[i+1][j] == player) vecini++; //jos
+            if((t[i][j] == player) && t[i+1][j] == player) vecini++; //sus
+            if((t[i][j] == player) && t[i][j+1] == player) vecini++; //dreapta
+            if((t[i][j] == player) && t[i][j-1] == player) vecini++; //stanga
+
+            //-> Verificare pozitie noua
+            if(t[i][j] == t_pozitii[i][j] && t[i][j] == player) egal++;
+        }
+    }
+    //-> Verificare daca este piesa valida
+    if (dig == 2 && vecini == 6 && egal != 4) {
+
+        //->Stergere ultima pozitie din t_pozitii
+        for(int i = 1; i <= 4; i++)
+            for(int j = 1; j <= 4; j++)
+                if(t_pozitii[i][j] == player) t_pozitii[i][j] = 0;
+
+
+
+        return true;
+    } else return false;
+}
+
+
 void mutare_player(int player)
-{   int a[5][5];
+{
+    int a[5][5];
     bool mutat_piesa = false;
     schimbare_valori_piese(player);
     desenare_piese(t);
@@ -245,6 +373,7 @@ void mutare_player(int player)
                     desenare_piese(t);
                     k++;
                 }
+
                 if((GetKeyState(VK_LBUTTON) & 0x80)==0 && k !=4)
                 {
                     copiere_matrice(t,a);
@@ -252,19 +381,30 @@ void mutare_player(int player)
                     break;
 
                 }
+
+
+                if(k == 4 && !(verifica_lpiesa(t, player))){ //<- verificam daca avem deja 4 patrate si daca piesa nu este un L
+                    delay(10);                               //<- il putem pastra doar daca vrei sa vezi si ultima piesa pentru o clipa
+                    clearmouseclick(WM_LBUTTONDOWN);
+                    copiere_matrice(t,a);
+                    desenare_piese(t);
+                    k = 0;
+                }
+
+
             }
 
-
-
-
-            if(k==4)
-            {
+            if(k==4){
                 clearmouseclick(WM_LBUTTONDOWN);
                 eliminare_piese_dupa_mutare(t);
                 desenare_piese(t);
                 mutat_piesa = true;
+
+                //-> Memorare pozitie
+                memorare_pozitie(player);
                 break;
             }
+
             if(!(x >= 388 && x <=893 && y>= 108 && y <= 613))
             {
                 copiere_matrice(t,a);
@@ -286,10 +426,27 @@ void start_joc_pvp()
 {
     turn = 1;
 
+
     //-> Fundal
     game_back == false;
     int ii,jj;
     coordonate_tabla();
+
+    //-> Initializare t_pozitii
+     t_pozitii[2][2] = 1;
+     t_pozitii[3][2] = 1;
+     t_pozitii[4][2] = 1;
+     t_pozitii[4][3] = 1;
+
+     t_pozitii[1][2] = 2;
+     t_pozitii[1][3] = 2;
+     t_pozitii[2][3] = 2;
+     t_pozitii[3][3] = 2;
+
+
+
+
+
     setbkcolor(COLOR(r_fundal, g_fundal, b_fundal));
     clearviewport();
     incarcare_tabla(t);
@@ -309,7 +466,7 @@ void start_joc_pvp()
         x=mousex();
         y=mousey();
         buton_back_start(x,y,1);
-        if(x >= 388 && x <=893 && y>= 108 && y <= 613)
+        if((x >= 388 && x <=893 && y>= 108 && y <= 613)/* && !(castigator)*/)
         {
 
 
@@ -324,9 +481,13 @@ void start_joc_pvp()
                 {
                     mutare_player(2);
                 }
+            /*
+                if(verificare_castigator(t)){
+                        castigator = true;
+                        printf("Game Over");
+                }
 
-
-
+*/
 
 
 
