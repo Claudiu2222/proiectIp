@@ -336,21 +336,22 @@ bool verificare_castigator(int t[5][5], int player){
     }
 
 
+
     int min_c = 0, min_p = 0;
 
     for(i = 0; i < 4; i++)
         for(j = 0; j < 4; j++)
             if (t_player[i][j] >= 5 && t_player[i][j] > min_c) { min_c = t_player[i][j]; t_player[i][j] = 0; }
 
-    if (min_c > 5) return false;
+    if (min_c > 5) { printf("apelat false 1"); return false; }
     else if(min_c == 5){
 
         for(i = 0; i < 4; i++)
             for(j = 0; j < 4; j++)
                 if (t_player[i][j] >= 4 && t_player[i][j] > min_p) { min_p = t_player[i][j]; t_player[i][j] = 0; }
-        if (min_p >= 4) return false;
+        if (min_p >= 4) { printf("apelat false 2"); return false; }
 
-
+        return true;
     }
     else return true;
 
@@ -380,7 +381,6 @@ bool verificare_castigator(int t[5][5], int player){
         printf("\n");
     }
 
-    printf("\n min_c = %d min_p = %d", min_c, min_p);
 */
 
 
@@ -528,6 +528,7 @@ void start_joc_pvp()
 
     //-> Fundal
     game_back == false;
+    castigator = false;
     int ii,jj;
     coordonate_tabla();
 
