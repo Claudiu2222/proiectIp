@@ -255,6 +255,8 @@ void memorare_pozitie(int player){
 bool verificare_castigator(int t[5][5], int player){
 
 
+    system("cls");
+
     //-> Initializare Matrice de pozitii fara player
     int t_player[4][4], i, j;
 
@@ -293,9 +295,14 @@ bool verificare_castigator(int t[5][5], int player){
                         t_player[i][j] = t_player[i+1][j] + 1;
                         t_player[i+1][j] = 0;
 
+
                         if(t[ii+1][jj-1] == 0){
                             t_player[i][j] += t_player[i+1][j-1];
                             t_player[i+1][j-1] = 0;
+
+                            if(ii+1 == 4)
+                                t_player[i][j]++;
+
                         }
                     }else t_player[i][j]++;
 
@@ -338,21 +345,34 @@ bool verificare_castigator(int t[5][5], int player){
 
 
 
-    //-> Cautam min_c(5) min_p(4) min_t(3)
-    int min_c = 0, min_p = 0, min_t = 0;
+    //-> Afisari pentru a intelege algoritmul
+    printf("Matrice T:\n");
+    for(i = 1; i <= 4; i++){
+        for(j = 1; j <= 4; j++){
+            printf("%d ", t[i][j]);
+        }
+        printf("\n");
+    }
+
+    printf("MAtrice T_PLAYER\n");
+
+
+    for(i = 0; i < 4; i++){
+        for(j = 0; j < 4; j++){
+            printf("%d ", t_player[i][j]);
+        }
+        printf("\n");
+    }
+
+
+    //-> Cautam min_c(5) min_p(4)
+    int min_c = 0, min_p = 0;
     for(i = 0; i < 4; i++)
         for(j = 0; j < 4; j++)
             if (t_player[i][j] >= 4 && t_player[i][j] > min_c) { min_c = t_player[i][j]; t_player[i][j] = 0; }
 
 
-    //-> Fix cazu de pe hotline
-    if (min_c == 4){
-        for(i = 0; i < 4; i++)
-            for(j = 0; j < 4; j++)
-                if (t_player[i][j] == 3) { min_t++;}
-        if ((min_t-2) == 2) return false;
-        else return true;
-    }
+
 
 
     //-> Analize de cazuri, sunt mai multe cazuri care trebuie cercetate, cel mai problematic fiind 5, 4
@@ -367,14 +387,14 @@ bool verificare_castigator(int t[5][5], int player){
 
 
         //-> Cautam sa gasim grupul de 3, chiar daca am cautat 4 si nu am gasit, trebuie cautat si grupe de 3 si 1, anume 1 grupa de 3, 2 grupe de 1
-        min_t = 0;
+        int min_t = 0;
         int min_1 = 0;
         for(i = 0; i < 4; i++)
             for(j = 0; j < 4; j++){
                 if (t_player[i][j] == 3) { min_t++;}
                 if (t_player[i][j] == 1) { min_1++;}
             }
-        if((min_t-2) == 1 && min_1 == 2) return false; //<- Cazul dat este valid, mutari exista
+        if((min_t-2) == 1 && min_1 >= 1) return false; //<- Cazul dat este valid, mutari exista
 
 
         //-> Daca totusi avem un grup de 4
