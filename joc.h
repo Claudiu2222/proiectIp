@@ -337,6 +337,9 @@ bool verificare_castigator(int t[5][5], int player){
 
 
 
+
+
+
     int min_c = 0, min_p = 0;
 
     for(i = 0; i < 4; i++)
@@ -413,7 +416,8 @@ bool verificare_castigator(int t[5][5], int player){
 
         if (da) {return false; }
         else return true;
-        }else return false;
+        }else if(min_p < 4) return true;
+        else return false;
 
     }
     else return true;
