@@ -269,6 +269,7 @@ bool verificare_castigator(int t[5][5], int player){
 
 
     //-> Algoritmul de cautare a numerelor de 0
+    //-> Algoritmul impinge numarul de 0 in matricea t_player in cel mai inalt si stang punct.
     int ii, jj;
     for(i = 3; i >= 0; i--){
         for(j = 3; j >= 0; j--){
@@ -358,6 +359,7 @@ bool verificare_castigator(int t[5][5], int player){
     if (min_c > 5) {  return false; }   //<- Iese automat daca a gasit o grupa de 5+ zerouri
     else if(min_c == 5){
 
+        int i_p = 0, j_p = 0;
         //-> Cautam sa gasim grupul de 4
         for(i = 0; i < 4; i++)
             for(j = 0; j < 4; j++)
