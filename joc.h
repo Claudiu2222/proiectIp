@@ -343,21 +343,95 @@ bool verificare_castigator(int t[5][5], int player){
         for(j = 0; j < 4; j++)
             if (t_player[i][j] >= 5 && t_player[i][j] > min_c) { min_c = t_player[i][j]; t_player[i][j] = 0; }
 
+
+    int i_p = 0, j_p = 0;
+
+
     if (min_c > 5) {  return false; }
     else if(min_c == 5){
 
         for(i = 0; i < 4; i++)
             for(j = 0; j < 4; j++)
-                if (t_player[i][j] >= 4 && t_player[i][j] > min_p) { min_p = t_player[i][j]; t_player[i][j] = 0; }
+                if (t_player[i][j] >= 4 && t_player[i][j] > min_p) { min_p = t_player[i][j]; t_player[i][j] = 0; i_p = i; j_p = j;}
 
-        //-> Cautam de patrate de 0
-        for(i = 0; i < 3; i++)
-            for(j = 0; j < 3; j++)
-                if(t_player[i][j] == 0 && t_player[i][j+1] == 0 && t_player[i+1][j+1] == 0 && t_player[i+1][j] == 0) return true;
+        //-> Creare piesa de L din blocul de 4
+        int conectari = 0; bool spate_zero = false;
+        for(i = i_p; i <= 3; i++){
+            for(j = j_p; j <= 3; j++){
+
+                if(i == 3 && j == 3 && spate_zero && t_player[i][j] == 0){
+                    t_player[i][j] = 8;
+                    conectari++;
+                }
+                else if(i == 3){
+                    if(t_player[i][j] == 0 && (t_player[i][j+1] == 0)) { t_player[i][j] = 8; spate_zero = true; conectari++;}
+                    else if(t_player[i][j] == 0 && spate_zero && t_player[i][j-1] != 0 && t_player[i-1][j] != 0) { t_player[i][j] = 8; spate_zero = true; conectari++;}
+                }
+                else if(j == 3){
+                    if(t_player[i][j] == 0 && (t_player[i+1][j] == 0)) { t_player[i][j] = 8; spate_zero = true; conectari++;}
+                    else if(t_player[i][j] == 0 && spate_zero && t_player[i-1][j] != 0 && t_player[i][j-1] != 0) { t_player[i][j] = 8; spate_zero = true; conectari++;}
+                }else{
+                    if(t_player[i][j] == 0 && ((t_player[i][j+1] == 0) || ((t_player[i+1][j] == 0)))) { t_player[i][j] = 8; spate_zero = true; conectari++;}
+                }
+
+                if (conectari == 4) break;
+            }
+
+         if (conectari == 4) break;
+        }
+
+        //-> Verificare daca e un L
+        //-> Diagonale si Vecini
+        int dig = 0, vecini = 0; bool da = false;
+
+        //-> Cautare diagonale[1]
+        for(int i = 0; i <= 3; i++){
+            for(int j = 0; j <= 3; j++){
+
+                //-> Cazul Diagonalelor
+                if((t_player[i][j] == 8) && t_player[i+1][j+1] == 8 && i > 0) dig++; //dreapta jos
+                if((t_player[i][j] == 8) && t_player[i-1][j-1] == 8 && i < 3) dig++; //stanga sus
+                if((t_player[i][j] == 8) && t_player[i-1][j+1] == 8 && j < 3) dig++; //dreapta sus
+                if((t_player[i][j] == 8) && t_player[i+1][j-1] == 8 && j > 0) dig++; //stanga sus
+
+                //-> Cazul Vecinilor
+                if((t_player[i][j] == 8) && t_player[i-1][j] == 8 && i > 0) vecini++; //sus
+                if((t_player[i][j] == 8) && t_player[i+1][j] == 8 && i < 3) vecini++; //jos
+                if((t_player[i][j] == 8) && t_player[i][j+1] == 8 && j < 3) vecini++; //dreapta
+                if((t_player[i][j] == 8) && t_player[i][j-1] == 8 && j > 0) vecini++; //stanga
+
+            }
+        }
+        dig++;
+        //-> Verificare daca este piesa valida
+        if (dig == 2 && vecini == 6 && rand) {
+        da = true;
+    } else da = false;
 
 
+    printf("dig = %d vecini %d\n", dig, vecini);
 
-        if (min_p >= 4) {return false; }
+        //-> Afisari pentru a intelege algoritmul
+    printf("Matrice T:\n");
+    for(i = 1; i <= 4; i++){
+        for(j = 1; j <= 4; j++){
+            printf("%d ", t[i][j]);
+        }
+        printf("\n");
+    }
+
+    printf("MAtrice T_PLAYER\n");
+
+
+    for(i = 0; i < 4; i++){
+        for(j = 0; j < 4; j++){
+            printf("%d ", t_player[i][j]);
+        }
+        printf("\n");
+    }
+
+
+        if (min_p >= 4 && da) {return false; }
 
         return true;
     }
