@@ -354,6 +354,8 @@ bool verificare_castigator(int t[5][5], int player){
             for(j = 0; j < 4; j++)
                 if (t_player[i][j] >= 4 && t_player[i][j] > min_p) { min_p = t_player[i][j]; t_player[i][j] = 0; i_p = i; j_p = j;}
 
+
+        if(min_p == 4){
         //-> Creare piesa de L din blocul de 4
         int conectari = 0; bool spate_zero = false;
         for(i = i_p; i <= 3; i++){
@@ -409,12 +411,21 @@ bool verificare_castigator(int t[5][5], int player){
     } else da = false;
 
 
+        if (da) {return false; }
+        else return true;
+        }else return false;
 
-        if (min_p >= 4 && da) {return false; }
-
-        return true;
     }
     else return true;
+
+
+    //-------------ABSOLUTE MADNESS---------ANYWAY o sa rescriu toata chestia maine sa arate mai estetic
+
+
+
+
+
+
 
 }
 
