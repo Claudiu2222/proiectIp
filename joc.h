@@ -345,7 +345,6 @@ bool verificare_castigator(int t[5][5], int player){
 
 
 
-    //-> Afisari pentru a intelege algoritmul
     printf("Matrice T:\n");
     for(i = 1; i <= 4; i++){
         for(j = 1; j <= 4; j++){
@@ -364,12 +363,11 @@ bool verificare_castigator(int t[5][5], int player){
         printf("\n");
     }
 
-
     //-> Cautam min_c(5) min_p(4)
     int min_c = 0, min_p = 0;
     for(i = 0; i < 4; i++)
         for(j = 0; j < 4; j++)
-            if (t_player[i][j] >= 4 && t_player[i][j] > min_c) { min_c = t_player[i][j]; t_player[i][j] = 0; }
+            if (t_player[i][j] >= 5 && t_player[i][j] > min_c) { min_c = t_player[i][j]; t_player[i][j] = 0; }
 
 
 
@@ -395,6 +393,8 @@ bool verificare_castigator(int t[5][5], int player){
                 if (t_player[i][j] == 1) { min_1++;}
             }
         if((min_t-2) == 1 && min_1 >= 1) return false; //<- Cazul dat este valid, mutari exista
+
+
 
 
         //-> Daca totusi avem un grup de 4
@@ -451,6 +451,25 @@ bool verificare_castigator(int t[5][5], int player){
                 }
             }
             dig++; //<- Eroare la gasire diagonale, este necesara o incrementare
+
+
+            printf("Matrice T:\n");
+    for(i = 1; i <= 4; i++){
+        for(j = 1; j <= 4; j++){
+            printf("%d ", t[i][j]);
+        }
+        printf("\n");
+    }
+
+    printf("MAtrice T_PLAYER\n");
+
+
+    for(i = 0; i < 4; i++){
+        for(j = 0; j < 4; j++){
+            printf("%d ", t_player[i][j]);
+        }
+        printf("\n");
+    }
             //-> Verificare daca este piesa valida
             if (dig == 2 && vecini == 6 && rand) { da = true;}
             else da = false;
