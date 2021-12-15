@@ -255,7 +255,6 @@ void memorare_pozitie(int player){
 bool verificare_castigator(int t[5][5], int player){
 
 
-
     //-> Initializare Matrice de pozitii fara player
     int t_player[4][4], i, j;
 
@@ -338,99 +337,110 @@ bool verificare_castigator(int t[5][5], int player){
 
 
 
-
-
-    int min_c = 0, min_p = 0;
-
+    //-> Cautam min_c(5) min_p(4) min_t(3)
+    int min_c = 0, min_p = 0, min_t = 0;
     for(i = 0; i < 4; i++)
         for(j = 0; j < 4; j++)
-            if (t_player[i][j] >= 5 && t_player[i][j] > min_c) { min_c = t_player[i][j]; t_player[i][j] = 0; }
+            if (t_player[i][j] >= 4 && t_player[i][j] > min_c) { min_c = t_player[i][j]; t_player[i][j] = 0; }
 
 
-    int i_p = 0, j_p = 0;
+    //-> Fix cazu de pe hotline
+    if (min_c == 4){
+        for(i = 0; i < 4; i++)
+            for(j = 0; j < 4; j++)
+                if (t_player[i][j] == 3) { min_t++;}
+        if ((min_t-2) == 2) return false;
+        else return true;
+    }
 
 
-    if (min_c > 5) {  return false; }
+    //-> Analize de cazuri, sunt mai multe cazuri care trebuie cercetate, cel mai problematic fiind 5, 4
+    if (min_c > 5) {  return false; }   //<- Iese automat daca a gasit o grupa de 5+ zerouri
     else if(min_c == 5){
 
+        //-> Cautam sa gasim grupul de 4
         for(i = 0; i < 4; i++)
             for(j = 0; j < 4; j++)
                 if (t_player[i][j] >= 4 && t_player[i][j] > min_p) { min_p = t_player[i][j]; t_player[i][j] = 0; i_p = i; j_p = j;}
 
 
+        //-> Cautam sa gasim grupul de 3, chiar daca am cautat 4 si nu am gasit, trebuie cautat si grupe de 3 si 1, anume 1 grupa de 3, 2 grupe de 1
+        min_t = 0;
+        int min_1 = 0;
+        for(i = 0; i < 4; i++)
+            for(j = 0; j < 4; j++){
+                if (t_player[i][j] == 3) { min_t++;}
+                if (t_player[i][j] == 1) { min_1++;}
+            }
+        if((min_t-2) == 1 && min_1 == 2) return false; //<- Cazul dat este valid, mutari exista
+
+
+        //-> Daca totusi avem un grup de 4
         if(min_p == 4){
-        //-> Creare piesa de L din blocul de 4
-        int conectari = 0; bool spate_zero = false;
-        for(i = i_p; i <= 3; i++){
-            for(j = j_p; j <= 3; j++){
+            //-> Creare piesa de L din blocul de 4
+            int conectari = 0; bool spate_zero = false;
+            for(i = i_p; i <= 3; i++){
+                for(j = j_p; j <= 3; j++){
 
-                if(i == 3 && j == 3 && spate_zero && t_player[i][j] == 0){
-                    t_player[i][j] = 8;
-                    conectari++;
-                }
-                else if(i == 3){
-                    if(t_player[i][j] == 0 && (t_player[i][j+1] == 0)) { t_player[i][j] = 8; spate_zero = true; conectari++;}
-                    else if(t_player[i][j] == 0 && spate_zero && t_player[i][j-1] != 0 && t_player[i-1][j] != 0) { t_player[i][j] = 8; spate_zero = true; conectari++;}
-                }
-                else if(j == 3){
-                    if(t_player[i][j] == 0 && (t_player[i+1][j] == 0)) { t_player[i][j] = 8; spate_zero = true; conectari++;}
-                    else if(t_player[i][j] == 0 && spate_zero && t_player[i-1][j] != 0 && t_player[i][j-1] != 0) { t_player[i][j] = 8; spate_zero = true; conectari++;}
-                }else{
-                    if(t_player[i][j] == 0 && ((t_player[i][j+1] == 0) || ((t_player[i+1][j] == 0)))) { t_player[i][j] = 8; spate_zero = true; conectari++;}
-                }
+                    //-> Verificare pe dreapta si jos, in functie de i si j pentru a nu primi erori la sfarsit de matrice
+                    if(i == 3 && j == 3 && spate_zero && t_player[i][j] == 0){
+                        t_player[i][j] = 8;
+                        conectari++;
+                    }
+                    else if(i == 3){
+                        if(t_player[i][j] == 0 && (t_player[i][j+1] == 0)) { t_player[i][j] = 8; spate_zero = true; conectari++;}
+                        else if(t_player[i][j] == 0 && spate_zero && t_player[i][j-1] != 0 && t_player[i-1][j] != 0) { t_player[i][j] = 8; spate_zero = true; conectari++;}
+                    }
+                    else if(j == 3){
+                        if(t_player[i][j] == 0 && (t_player[i+1][j] == 0)) { t_player[i][j] = 8; spate_zero = true; conectari++;}
+                        else if(t_player[i][j] == 0 && spate_zero && t_player[i-1][j] != 0 && t_player[i][j-1] != 0) { t_player[i][j] = 8; spate_zero = true; conectari++;}
+                    }else{
+                        if(t_player[i][j] == 0 && ((t_player[i][j+1] == 0) || ((t_player[i+1][j] == 0)))) { t_player[i][j] = 8; spate_zero = true; conectari++;}
+                    }
 
+                    //-> Este necesar ca un sa fie conectate, daca e vreo piesa diferita intr-e 0, sarim randul
+                    if(t_player[i][j+1] != 0) break;
+                    if (conectari == 4) break;
+                }
                 if (conectari == 4) break;
             }
 
-         if (conectari == 4) break;
-        }
 
-        //-> Verificare daca e un L
-        //-> Diagonale si Vecini
-        int dig = 0, vecini = 0; bool da = false;
+            //-> Algoritmul clasic de verificare L, modificat pentru tabelul t_playeri
+            //-> Verificare daca e un L
+            //-> Diagonale si Vecini
+            int dig = 0, vecini = 0; bool da = false;
 
-        //-> Cautare diagonale[1]
-        for(int i = 0; i <= 3; i++){
-            for(int j = 0; j <= 3; j++){
+            //-> Cautare diagonale[1]
+            for(int i = 0; i <= 3; i++){
+                for(int j = 0; j <= 3; j++){
 
-                //-> Cazul Diagonalelor
-                if((t_player[i][j] == 8) && t_player[i+1][j+1] == 8 && i > 0) dig++; //dreapta jos
-                if((t_player[i][j] == 8) && t_player[i-1][j-1] == 8 && i < 3) dig++; //stanga sus
-                if((t_player[i][j] == 8) && t_player[i-1][j+1] == 8 && j < 3) dig++; //dreapta sus
-                if((t_player[i][j] == 8) && t_player[i+1][j-1] == 8 && j > 0) dig++; //stanga sus
+                    //-> Cazul Diagonalelor
+                    if((t_player[i][j] == 8) && t_player[i+1][j+1] == 8 && i > 0) dig++; //dreapta jos
+                    if((t_player[i][j] == 8) && t_player[i-1][j-1] == 8 && i < 3) dig++; //stanga sus
+                    if((t_player[i][j] == 8) && t_player[i-1][j+1] == 8 && j < 3) dig++; //dreapta sus
+                    if((t_player[i][j] == 8) && t_player[i+1][j-1] == 8 && j > 0) dig++; //stanga sus
 
-                //-> Cazul Vecinilor
-                if((t_player[i][j] == 8) && t_player[i-1][j] == 8 && i > 0) vecini++; //sus
-                if((t_player[i][j] == 8) && t_player[i+1][j] == 8 && i < 3) vecini++; //jos
-                if((t_player[i][j] == 8) && t_player[i][j+1] == 8 && j < 3) vecini++; //dreapta
-                if((t_player[i][j] == 8) && t_player[i][j-1] == 8 && j > 0) vecini++; //stanga
-
+                    //-> Cazul Vecinilor
+                    if((t_player[i][j] == 8) && t_player[i-1][j] == 8 && i > 0) vecini++; //sus
+                    if((t_player[i][j] == 8) && t_player[i+1][j] == 8 && i < 3) vecini++; //jos
+                    if((t_player[i][j] == 8) && t_player[i][j+1] == 8 && j < 3) vecini++; //dreapta
+                    if((t_player[i][j] == 8) && t_player[i][j-1] == 8 && j > 0) vecini++; //stanga
+                }
             }
+            dig++; //<- Eroare la gasire diagonale, este necesara o incrementare
+            //-> Verificare daca este piesa valida
+            if (dig == 2 && vecini == 6 && rand) { da = true;}
+            else da = false;
+
+            //Daca e DA[piesa valida] miscari inca exista, daca nu jocul s-a terminat
+            if (da) {return false; }
+            else return true;
         }
-        dig++;
-        //-> Verificare daca este piesa valida
-        if (dig == 2 && vecini == 6 && rand) {
-        da = true;
-    } else da = false;
-
-
-        if (da) {return false; }
-        else return true;
-        }else if(min_p < 4) return true;
+        else if(min_p < 4) return true;
         else return false;
 
-    }
-    else return true;
-
-
-    //-------------ABSOLUTE MADNESS---------ANYWAY o sa rescriu toata chestia maine sa arate mai estetic
-
-
-
-
-
-
-
+    }else return true;
 }
 
 
