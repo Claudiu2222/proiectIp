@@ -409,27 +409,6 @@ bool verificare_castigator(int t[5][5], int player){
     } else da = false;
 
 
-    printf("dig = %d vecini %d\n", dig, vecini);
-
-        //-> Afisari pentru a intelege algoritmul
-    printf("Matrice T:\n");
-    for(i = 1; i <= 4; i++){
-        for(j = 1; j <= 4; j++){
-            printf("%d ", t[i][j]);
-        }
-        printf("\n");
-    }
-
-    printf("MAtrice T_PLAYER\n");
-
-
-    for(i = 0; i < 4; i++){
-        for(j = 0; j < 4; j++){
-            printf("%d ", t_player[i][j]);
-        }
-        printf("\n");
-    }
-
 
         if (min_p >= 4 && da) {return false; }
 
