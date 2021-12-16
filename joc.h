@@ -102,15 +102,15 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
             }
         if(limba == 1)
             { settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) -165, 30, text[limba]);
+                outtextxy((rezX / 2) -164, 30, text[limba]);
                    settextstyle(0, HORIZ_DIR, 2);
-             outtextxy((rezX / 2) - 115 , 60, text_mutari[limba]);
+             outtextxy((rezX / 2) - 125 , 60, text_mutari[limba]);
             }
         if(limba == 2)
              { settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) -165, 30, text[limba]);
+                outtextxy((rezX / 2) -200, 30, text[limba]);
                    settextstyle(0, HORIZ_DIR, 2);
-             outtextxy((rezX / 2) - 115 , 60, text_mutari[limba]);
+             outtextxy((rezX / 2) - 164 , 60, text_mutari[limba]);
             }
 
     }
@@ -126,15 +126,15 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
             }
         if(limba == 1 && castigator == false)
             {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text[limba]);
+                outtextxy((rezX / 2) - 164 , 30, text[limba]);
                 settextstyle(0, HORIZ_DIR, 2);
-            outtextxy((rezX / 2) - 115 , 60, text_mutari[limba]);
+            outtextxy((rezX / 2) - 125, 60, text_mutari[limba]);
             }
         if(limba == 2)
            {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text[limba]);
+                outtextxy((rezX / 2) - 200 , 30, text[limba]);
                 settextstyle(0, HORIZ_DIR, 2);
-           outtextxy((rezX / 2) - 115 , 60, text_mutari[limba]);
+           outtextxy((rezX / 2) - 164 , 60, text_mutari[limba]);
             }
 
     }
@@ -149,12 +149,12 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
             }
         if(limba == 1)
             {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_banut[limba]);
+                outtextxy((rezX / 2) - 149 , 30, text_banut[limba]);
 
             }
         if(limba == 2)
            {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_banut[limba]);
+                outtextxy((rezX / 2) - 200 , 30, text_banut[limba]);
 
             }
 
@@ -170,12 +170,12 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
             }
         if(limba == 1)
             {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_banut[limba]);
+                outtextxy((rezX / 2) - 149 , 30, text_banut[limba]);
 
             }
         if(limba == 2)
            {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_banut[limba]);
+                outtextxy((rezX / 2) - 200 , 30, text_banut[limba]);
 
             }
 
@@ -191,12 +191,12 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
             }
         if(limba == 1)
             {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_castigator[limba]);
+                outtextxy((rezX / 2) - 70 , 30, text_castigator[limba]);
 
             }
         if(limba == 2)
            {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_castigator[limba]);
+                outtextxy((rezX / 2) - 80 , 30, text_castigator[limba]);
 
             }
     }
@@ -211,12 +211,12 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
             }
         if(limba == 1)
             {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_castigator[limba]);
+                outtextxy((rezX / 2) - 70 , 30, text_castigator[limba]);
 
             }
         if(limba == 2)
            {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_castigator[limba]);
+                outtextxy((rezX / 2) - 80, 30, text_castigator[limba]);
 
             }
     }
@@ -913,7 +913,7 @@ void mutare_player(int player)
     delay(2);
 
     int x,y,ii=-1,jj=-1;
-bool afisat_text = false;
+
     clearmouseclick(WM_LBUTTONDOWN);
     while(mutat_piesa == false)
     {
@@ -935,10 +935,10 @@ afisare_text_joc(turn%2);
                  colorare_tabla(player);
                 break;
             }
-            if(afisat_text == false)
-            {afisare_text_joc(turn%2);
-            afisat_text = true;
-            }
+   delay(50);
+ afisare_text_joc(turn%2);
+ delay(2);
+
         while(k!=4)
         {
             x = mousex();
