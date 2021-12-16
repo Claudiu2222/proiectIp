@@ -32,6 +32,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="cautare_piese.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="coordonate.h" />
 		<Unit filename="fisier.h" />
 		<Unit filename="joc.h" />

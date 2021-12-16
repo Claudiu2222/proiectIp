@@ -1,7 +1,6 @@
 #ifndef JOC_H_INCLUDED
 #define JOC_H_INCLUDED
 
-#include "cautare_piese.h"
 
 
 //-> Variabile
@@ -620,6 +619,99 @@ bool verificare_castigator(int t[5][5], int player){
 
 
 
+void colorare_tabla(int player){
+
+    //-> Am facut un for da idk de ce nu dorea sa se faca toata tabla 0
+    //-> Resetare tabla la 0
+    t[1][1] = 0;
+    t[1][2] = 0;
+    t[1][3] = 0;
+    t[1][4] = 0;
+
+    t[2][1] = 0;
+    t[2][2] = 0;
+    t[2][3] = 0;
+    t[2][4] = 0;
+
+    t[3][1] = 0;
+    t[3][2] = 0;
+    t[3][3] = 0;
+    t[3][4] = 0;
+
+    t[4][1] = 0;
+    t[4][2] = 0;
+    t[4][3] = 0;
+    t[4][4] = 0;
+    //------------------------
+
+    //-> Desenare in centru
+    delay(50);
+    t[2][2] = player;
+    desenare_piese(t);
+
+    delay(50);
+    t[2][3] = player;
+    desenare_piese(t);
+
+    delay(50);
+    t[3][3] = player;
+    desenare_piese(t);
+
+    delay(50);
+    t[3][2] = player;
+    desenare_piese(t);
+
+
+    //-> Desenare laturi
+    delay(25);
+    t[3][1] = player;
+    desenare_piese(t);
+
+    delay(25);
+    t[2][1] = player;
+    desenare_piese(t);
+    delay(25);
+    t[1][1] = player;
+    desenare_piese(t);
+    delay(25);
+    t[1][2] = player;
+    desenare_piese(t);
+    delay(25);
+    t[1][3] = player;
+    desenare_piese(t);
+    delay(25);
+    t[1][4] = player;
+    desenare_piese(t);
+
+    delay(25);
+    t[2][4] = player;
+    desenare_piese(t);
+    delay(25);
+    t[3][4] = player;
+    desenare_piese(t);
+    delay(25);
+    t[4][4] = player;
+    desenare_piese(t);
+    delay(25);
+    t[4][3] = player;
+    desenare_piese(t);
+    delay(25);
+    t[4][2] = player;
+    desenare_piese(t);
+    delay(25);
+    t[4][1] = player;
+    desenare_piese(t);
+    delay(25);
+
+
+
+    desenare_piese(t);
+
+
+}
+
+
+
 bool verifica_lpiesa(int t[5][5], int player){
 
     //-> Diagonale si Vecini
@@ -683,6 +775,9 @@ void mutare_player(int player)
 
                 if(player == 1) player = 2;
                 else player = 1;
+
+
+                colorare_tabla(player);
 
                 printf("\n Castigator player %d", player);
 
