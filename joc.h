@@ -1,7 +1,7 @@
 #ifndef JOC_H_INCLUDED
 #define JOC_H_INCLUDED
 
-
+#include "cautare_piese.h"
 
 
 //-> Variabile
@@ -20,6 +20,7 @@ int t[5][5], t_pozitii[5][5] = { {0, 0, 0, 0, 0},
                                  {0, 0, 1, 2, 0},
                                  {0, 0, 1, 1, 0}
                                };
+int t_player[4][4];
 int turn = 1;
 void desenare_tabla()
 {
@@ -252,20 +253,123 @@ void memorare_pozitie(int player){
 }
 
 
+
+//-> Algoritmul "BackTrack" nu il pot implementa intr-un fisier aparte, imi da erori
+//-> Functii ce returneaza vecinii in functie de pozitie(am folosit ssus si sstanga ca aparent exsita deja in fisier chestiile astea
+int ssus(int x, int y) {
+    if (x > 0) return t_player[x-1][y];
+    else return -1;
+}
+
+int jos(int x, int y) {
+    if (x < 3) return t_player[x+1][y];
+    else return -1;
+}
+
+int sstanga(int x, int y) {
+    if (y > 0) return t_player[x][y-1];
+    else return -1;
+}
+
+int dreapta(int x, int y) {
+    if (y < 3) return t_player[x][y+1];
+    else return -1;
+}
+
+bool caz_unu(int i, int j){
+    if((dreapta(i, j) == 0) && (jos(i, j+1) == 0) && (jos(i+1, j+1) == 0)) return true;
+    else return false;
+}
+
+bool caz_doi(int i, int j){
+    if((sstanga(i, j) == 0) && (jos(i, j-1) == 0) && (jos(i+1, j-1) == 0)) return true;
+    else return false;
+}
+
+bool caz_trei(int i, int j){
+    if((jos(i, j) == 0) && (dreapta(i+1, j) == 0) && (dreapta(i+1, j+1) == 0)) return true;
+    else return false;
+}
+
+bool caz_patru(int i, int j){
+    if((jos(i, j) == 0) && (sstanga(i+1, j) == 0) && (sstanga(i+1, j-1) == 0)) return true;
+    else return false;
+}
+
+bool caz_cinci(int i, int j){
+    if((ssus(i, j) == 0) && (dreapta(i-1, j) == 0) && (dreapta(i-1, j+1) == 0)) return true;
+    else return false;
+}
+
+bool caz_sase(int i, int j){
+    if((ssus(i, j) == 0) && (sstanga(i-1, j) == 0) && (sstanga(i-1, j-1) == 0)) return true;
+    else return false;
+}
+
+bool caz_sapte(int i, int j){
+    if((sstanga(i, j) == 0) && (ssus(i, j-1) == 0) && (ssus(i-1, j-1) == 0)) return true;
+    else return false;
+}
+
+bool caz_opt(int i, int j){
+    if((dreapta(i, j) == 0) && (ssus(i, j+1) == 0) && (ssus(i-1, j+1) == 0)) return true;
+    else return false;
+}
+
+
 bool verificare_castigator(int t[5][5], int player){
 
 
     system("cls");
 
     //-> Initializare Matrice de pozitii fara player
-    int t_player[4][4], i, j;
-
-    for(i = 0; i < 4; i++){
-        for(j = 0; j < 4; j++){
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
             if (((t[i+1][j+1] != player) || (t[i+1][j+1] == 0)) && t[i+1][j+1] != 4) t_player[i][j] = t[i+1][j+1];
             else  {t_player[i][j] = 0; t[i+1][j+1] = 0;}
         }
     }
+
+
+    //-> Cautare L
+
+    //-> Numarul de pozitii
+    int nr_poz = 0;
+
+    //-> Incepem cautarea de 0
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+
+            //->Verificam cazurile de L
+
+            if(t_player[i][j] == 0){
+                if(caz_unu(i, j)) {nr_poz++; /*printf("[CAZ_UNU] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
+                if(caz_doi(i, j)) {nr_poz++; /*printf("[CAZ_DOI] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
+                if(caz_trei(i, j)) {nr_poz++; /*printf("[CAZ_TREI] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
+                if(caz_patru(i,j)) {nr_poz++; /*printf("[CAZ_PATRU] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
+                if(caz_cinci(i,j)) {nr_poz++; /*printf("[CAZ_CINCI] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
+                if(caz_sase(i,j)) {nr_poz++; /*printf("[CAZ_SASE] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
+                if(caz_sapte(i,j)) {nr_poz++; /*printf("[CAZ_SAPTE] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
+                if(caz_opt(i,j)) {nr_poz++; /*printf("[CAZ_OPT] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
+            }
+
+
+        }
+    }
+
+    //->Scoate pozitia initiala a noastra
+    nr_poz--;
+
+    //Afisare nr de mutari posibile
+    printf("Nr de mutari posibile : %d", nr_poz);
+
+
+    if (nr_poz == 0) return true;
+    else return false;
+
+
+
+    /*
 
 
 
@@ -482,7 +586,11 @@ bool verificare_castigator(int t[5][5], int player){
         else return false;
 
     }else return true;
+
+*/
+
 }
+
 
 
 
