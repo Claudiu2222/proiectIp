@@ -813,22 +813,109 @@ bool verifica_lpiesa(int t[5][5], int player){
 }
 
 
+void colorare_tabla(int player){
+
+    //-> Am facut un for da idk de ce nu dorea sa se faca toata tabla 0
+    //-> Resetare tabla la 0
+    t[1][1] = 0;
+    t[1][2] = 0;
+    t[1][3] = 0;
+    t[1][4] = 0;
+
+    t[2][1] = 0;
+    t[2][2] = 0;
+    t[2][3] = 0;
+    t[2][4] = 0;
+
+    t[3][1] = 0;
+    t[3][2] = 0;
+    t[3][3] = 0;
+    t[3][4] = 0;
+
+    t[4][1] = 0;
+    t[4][2] = 0;
+    t[4][3] = 0;
+    t[4][4] = 0;
+    //------------------------
+
+    //-> Desenare in centru
+    delay(50);
+    t[2][2] = player;
+    desenare_piese(t);
+
+    delay(50);
+    t[2][3] = player;
+    desenare_piese(t);
+
+    delay(50);
+    t[3][3] = player;
+    desenare_piese(t);
+
+    delay(50);
+    t[3][2] = player;
+    desenare_piese(t);
+
+
+    //-> Desenare laturi
+    delay(25);
+    t[3][1] = player;
+    desenare_piese(t);
+
+    delay(25);
+    t[2][1] = player;
+    desenare_piese(t);
+    delay(25);
+    t[1][1] = player;
+    desenare_piese(t);
+    delay(25);
+    t[1][2] = player;
+    desenare_piese(t);
+    delay(25);
+    t[1][3] = player;
+    desenare_piese(t);
+    delay(25);
+    t[1][4] = player;
+    desenare_piese(t);
+
+    delay(25);
+    t[2][4] = player;
+    desenare_piese(t);
+    delay(25);
+    t[3][4] = player;
+    desenare_piese(t);
+    delay(25);
+    t[4][4] = player;
+    desenare_piese(t);
+    delay(25);
+    t[4][3] = player;
+    desenare_piese(t);
+    delay(25);
+    t[4][2] = player;
+    desenare_piese(t);
+    delay(25);
+    t[4][1] = player;
+    desenare_piese(t);
+    delay(25);
+
+
+
+    desenare_piese(t);
+
+
+}
 
 void mutare_player(int player)
 {
-    if(castigator == false)
-   {
-
     int a[5][5];
     bool mutat_piesa = false;
     schimbare_valori_piese(player);
     desenare_piese(t);
     delay(2);
-    afisare_text_joc(turn%2);
+
     int x,y,ii=-1,jj=-1;
 
     clearmouseclick(WM_LBUTTONDOWN);
-    while(mutat_piesa == false && castigator == false)
+    while(mutat_piesa == false)
     {
 
         int k=0;
@@ -842,12 +929,12 @@ void mutare_player(int player)
                 else player = 1;
 
 
-
+                 colorare_tabla(player);
                 castigator = true;
                 afisare_text_joc(turn%2);
                 break;
             }
-
+afisare_text_joc(turn%2);
         while(k!=4)
         {
             x = mousex();
@@ -909,10 +996,11 @@ void mutare_player(int player)
         } buton_back_start(x,y,1);
         break;
     }
-    if(mutat_piesa == true && castigator == false){
+    if(mutat_piesa == true){
     mutare_banut();
     turn++;}
-}}
+}
+
 
 void start_joc_pvp()
 {
@@ -959,18 +1047,18 @@ void start_joc_pvp()
         x=mousex();
         y=mousey();
         buton_back_start(x,y,1);
-        if((x >= 388 && x <=893 && y>= 108 && y <= 613) && !(castigator))
+        if(!(castigator))
         {
 
 
 
-                if(turn%2==1 &&!(castigator))
+                if(turn%2==1 )
                 {
                     mutare_player(1);
                 }
 
 
-                else if(turn%2==0 && !(castigator))
+                else if(turn%2==0 )
                 {
                     mutare_player(2);
                 }
