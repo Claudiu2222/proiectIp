@@ -74,7 +74,7 @@ void modificare_piesa(int i, int j,int player,int t[5][5])
 }
 void afisare_text_joc(int alegere)
 {
-    setviewport(300,20,990,90,0);
+    setviewport(300,20,990,80,0);
 
 
 setbkcolor(COLOR(r_fundal, g_fundal, b_fundal));
@@ -144,7 +144,7 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
 
         if(limba == 0)
             {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_banut[limba]);
+                outtextxy((rezX / 2) - 135, 30, text_banut[limba]);
 
             }
         if(limba == 1)
@@ -165,7 +165,7 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
 
         if(limba == 0)
             {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_banut[limba]);
+                outtextxy((rezX / 2) - 135 , 30, text_banut[limba]);
 
             }
         if(limba == 1)
@@ -180,9 +180,9 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
             }
 
     }
-    else  if(alegere == 0 && castigator == true)
+    else  if(alegere == 1 && castigator == true)
     {
-        setcolor(COLOR(0,0,255));
+        setcolor(COLOR(255,0,0));
 
         if(limba == 0)
             {   settextstyle(0, HORIZ_DIR, 3);
@@ -200,7 +200,7 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
 
             }
     }
-    else  if(alegere == 1 && castigator == true)
+    else  if(alegere == 0 && castigator == true)
     {
         setcolor(COLOR(0,0,255));
 
@@ -514,7 +514,7 @@ bool verificare_castigator(int t[5][5], int player){
     nr_poz--;
 
     //Afisare nr de mutari posibile
-    printf("Nr de mutari posibile : %d", nr_poz);
+   // printf("Nr de mutari posibile : %d", nr_poz);
 
 
     if (nr_poz == 0) return true;
@@ -913,7 +913,7 @@ void mutare_player(int player)
     delay(2);
 
     int x,y,ii=-1,jj=-1;
-
+bool afisat_text = false;
     clearmouseclick(WM_LBUTTONDOWN);
     while(mutat_piesa == false)
     {
@@ -929,12 +929,16 @@ void mutare_player(int player)
                 else player = 1;
 
 
-                 colorare_tabla(player);
+
                 castigator = true;
-                afisare_text_joc(turn%2);
+afisare_text_joc(turn%2);
+                 colorare_tabla(player);
                 break;
             }
-afisare_text_joc(turn%2);
+            if(afisat_text == false)
+            {afisare_text_joc(turn%2);
+            afisat_text = true;
+            }
         while(k!=4)
         {
             x = mousex();
@@ -988,12 +992,17 @@ afisare_text_joc(turn%2);
             {
                 copiere_matrice(t,a);
                  desenare_piese(t);
+
                 break;
 
 
             }
 
-        } buton_back_start(x,y,1);
+        }
+
+
+
+        buton_back_start(x,y,1);
         break;
     }
     if(mutat_piesa == true){
@@ -1040,7 +1049,7 @@ void start_joc_pvp()
 
     int x,y;
 //  setviewport(388,108,893,613,0);
-    afisare_text_joc(turn%2);
+
     while(game_back == false)
     {
 
