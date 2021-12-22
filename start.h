@@ -79,33 +79,55 @@ void text_butoane_start(char a)
             outtextxy(b_start_game.lX + 2, 612, text[limba]);
     }
 }
-void desenare_culori_piese(int alegere)
+void desenare_culori_piese(int alegere) //deseneaza patratele pt fiecare player in meniul de start
 {
     if(alegere == 0)
     {
         setfillstyle(SOLID_FILL,COLOR(r_player_1,g_player_1,b_player_1));
-    bar(553,203,648,298);
-    bar(653,203,748,298);
-    bar(753,203,848,298);
-    bar(553,303,648,398);
+        bar(553,203,648,298);
+        bar(653,203,748,298);
+        bar(753,203,848,298);
+        bar(553,303,648,398);
 
     }
     else if(alegere == 1)
-    {setfillstyle(SOLID_FILL,COLOR(r_player_2,g_player_2,b_player_2));
+    {
+        setfillstyle(SOLID_FILL,COLOR(r_player_2,g_player_2,b_player_2));
         bar(853,203,948,298);
-     bar(653,303,748,398);
-      bar(753,303,848,398);
-       bar(853,303,948,398);
+        bar(653,303,748,398);
+        bar(753,303,848,398);
+        bar(853,303,948,398);
     }
 }
-void casute_color()
+void casute_color() // asta teoretic face toate patrulaterele de la butoane, afiseaza toate imaginile pt sageti (la butoane)
 {
+    setlinestyle(SOLID_LINE,0,5);
+     desenare_culori_piese(0);
+    desenare_culori_piese(1);
     rectangle(280,290,320,310);
     rectangle(370,290,410,310);
     rectangle(460,290,500,310);
     rectangle(1005,290,1045,310);
     rectangle(1095,290,1135,310);
     rectangle(1185,290,1225,310);
+    line(b_color[1][1].rX,b_color[1][1].lY,b_color[1][3].lX,b_color[1][3].lY);
+    line(b_color[1][3].rX,b_color[1][3].lY,b_color[1][5].lX,b_color[1][5].lY);
+    line(b_color[1][2].rX,b_color[1][2].rY,b_color[1][4].lX,b_color[1][4].rY);
+    line(b_color[1][4].rX,b_color[1][4].rY,b_color[1][6].lX,b_color[1][6].rY);
+     line(b_color[2][1].rX,b_color[2][1].lY,b_color[2][3].lX,b_color[2][3].lY);
+    line(b_color[2][3].rX,b_color[2][3].lY,b_color[2][5].lX,b_color[2][5].lY);
+    line(b_color[2][2].rX,b_color[2][2].rY,b_color[2][4].lX,b_color[2][4].rY);
+    line(b_color[2][4].rX,b_color[2][4].rY,b_color[2][6].lX,b_color[2][6].rY);
+    line(b_color[1][3].rX,b_color[1][3].lY,b_color[1][5].lX,b_color[1][5].lY);
+    line(b_color[1][1].rX,b_color[1][1].lY,b_color[1][4].lX,b_color[1][4].rY);
+    line(b_color[1][3].rX,b_color[1][3].lY,b_color[1][6].lX,b_color[1][6].rY);
+    line(b_color[1][2].rX,b_color[1][2].rY,b_color[1][3].lX,b_color[1][3].lY);
+    line(b_color[1][4].rX,b_color[1][4].rY,b_color[1][5].lX,b_color[2][5].lY);
+    line(b_color[2][1].rX,b_color[2][1].lY,b_color[2][4].lX,b_color[2][4].rY);
+    line(b_color[2][3].rX,b_color[2][3].lY,b_color[2][6].lX,b_color[2][6].rY);
+    line(b_color[2][2].rX,b_color[2][2].rY,b_color[2][3].lX,b_color[2][3].lY);
+    line(b_color[2][4].rX,b_color[2][4].rY,b_color[2][5].lX,b_color[2][5].lY);
+
     setfillstyle(SOLID_FILL,COLOR(255,0,0));
     bar(282,292,318,308);
     bar(1007,292,1043,308);
@@ -135,286 +157,315 @@ void casute_color()
     afisare_butoane_culori(3,2);
     afisare_butoane_culori(4,2);
     afisare_butoane_culori(5,2);
-    desenare_culori_piese(0);
-    desenare_culori_piese(1);
+
+
 
 }
-void culoare_player(int x, int y, int &r_fundal_aux, int &g_fundal_aux, int &b_fundal_aux, int alegere)
+void init_coord_butoane_culori()  // folosesc o fct sa memorez coordonatele pt cele 2 seturi de butoane de culori ( ma ajuta in functia urmatoare
+                                 // sa scriu mai putine linii de cod ( pot face  1 functie pt ambele seturi de butoane, in loc de 2 separate)
 {
-    rectangle(391,520,463,550);
-    rectangle(604,520,676,550);
-    rectangle(817,520,889,550);
-    rectangle(584,600,696,700);
-    setviewport(394,523,461,548,0);
-    setbkcolor(COLOR(255,0,0));
-    clearviewport();
+    b_color[1][1].lX=280;
+    b_color[1][1].lY=270;
+    b_color[1][1].rX=320;
+    b_color[1][1].rY=289;
+    b_color[1][2].lX=280; //280,311,320,330
+    b_color[1][2].lY=311;
+    b_color[1][2].rX=320;
+    b_color[1][2].rY=330;
+    b_color[1][3].lX=370; // 370,270,410,289
+    b_color[1][3].lY=270;
+    b_color[1][3].rX=410;
+    b_color[1][3].rY=289;
+    b_color[1][4].lX=370; // 370,311,410,330
+    b_color[1][4].lY=311;
+    b_color[1][4].rX=410;
+    b_color[1][4].rY=330;
+    b_color[1][5].lX=460; // 460,270,500,289
+    b_color[1][5].lY=270;
+    b_color[1][5].rX=500;
+    b_color[1][5].rY=289;
+    b_color[1][6].lX=460; // 460,311,500,330
+    b_color[1][6].lY=311;
+    b_color[1][6].rX=500;
+    b_color[1][6].rY=330;
+    b_color[2][1].lX=1005; // 1005,270,1045,289
+    b_color[2][1].lY=270;
+    b_color[2][1].rX=1045;
+    b_color[2][1].rY=289;
+    b_color[2][2].lX=1005; // 1005,311,1045,330
+    b_color[2][2].lY=311;
+    b_color[2][2].rX=1045;
+    b_color[2][2].rY=330;
+    b_color[2][3].lX=1095; // 1095,270,1135,289
+    b_color[2][3].lY=270;
+    b_color[2][3].rX=1135;
+    b_color[2][3].rY=289;
+    b_color[2][4].lX=1095; // 1095,311,1135,330
+    b_color[2][4].lY=311;
+    b_color[2][4].rX=1135;
+    b_color[2][4].rY=330;
+    b_color[2][5].lX=1185; // 1185,270,1225,289
+    b_color[2][5].lY=270;
+    b_color[2][5].rX=1225;
+    b_color[2][5].rY=289;
+    b_color[2][6].lX=1185; //1185,311,1225,330
+    b_color[2][6].lY=311;
+    b_color[2][6].rX=1225;
+    b_color[2][6].rY=330;
 
-    setviewport(607,523,674,548,0);
-    setbkcolor(COLOR(0,255,0));
-    clearviewport();
+}
+void culoare_player(int x, int y, int &r_fundal_aux, int &g_fundal_aux, int &b_fundal_aux, int k) // k = alege setul de butoane 1 sau 2
+{                                                                                               // si schimba culorile
+                                                                            // in fisier.h am adaugat si o functie ce scrie in alt fisier txt
+                                                                            //culorile playerilor ( pt a fi salvate si reutilizate)
+                                                                            // aceasta functie de scriere gasita in fisier.h se apeleaza la
+                                                                            //apasarea butonului start sau back
 
-    setviewport(820,523,887,548,0);
-    setbkcolor(COLOR(0,0,255));
-    clearviewport();
-    setviewport(0,0,1280,720,0);
-    if(x >= 391 && x <= 463 && y >=490 && y<=519)
+    if(x >= b_color[k][1].lX && x <= b_color[k][1].rX && y >=b_color[k][1].lY && y<=b_color[k][1].rY)
     {
         while(true)
         {
 
             x=mousex();
             y=mousey();
-            delay(50);
+
 
 
 
             while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
             {
-                readimagefile("img/arrowupred.jpg",391,490,463,519);
+                delay(15);
+                readimagefile("img/arrowupred.jpg",b_color[k][1].lX,b_color[k][1].lY,b_color[k][1].rX,b_color[k][1].rY);
                 setcolor(COLOR(255,0,0));
-                rectangle(391,490,463,519);
+                rectangle(b_color[k][1].lX,b_color[k][1].lY,b_color[k][1].rX,b_color[k][1].rY);
 
-                setviewport(587,603,694,698,0);
+
                 if(r_fundal_aux%255 < 254)
                     r_fundal_aux++;
-                setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux%255));
-                clearviewport();
+                desenare_culori_piese(k-1);
 
-                afisare_butoane_culori(0,0);
+
+
                 if((GetKeyState(VK_LBUTTON) & 0x80)==0)
                 {
-                    setviewport(0,0,1280,720,0);
+
                     setcolor(BLACK);
-                    afisare_butoane_culori(0,0);
+                    afisare_butoane_culori(0,k);
                     delay(2);
                     break;
                 }
             }
             if((GetKeyState(VK_LBUTTON) & 0x80)==0)
             {
-                setviewport(0,0,1280,720,0);
                 setcolor(BLACK);
-                afisare_butoane_culori(0,0);
+                afisare_butoane_culori(0,k);
                 delay(2);
                 break;
             }
 
         }
     }
-    if(x >= 391 && x <= 463 && y >=551 && y<=579)
+    if(x >= b_color[k][2].lX && x <= b_color[k][2].rX && y >=b_color[k][2].lY && y<=b_color[k][2].rY)
     {
         while(true)
         {
 
             x=mousex();
             y=mousey();
-            delay(50);
+
 
 
 
             while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
             {
-                readimagefile("img/arrowdownred.jpg",391,551,463,579);
+                delay(15);
+                readimagefile("img/arrowdownred.jpg",b_color[k][2].lX,b_color[k][2].lY,b_color[k][2].rX,b_color[k][2].rY);
                 setcolor(COLOR(255,0,0));
-                rectangle(391,551,463,579);
+                rectangle(b_color[k][2].lX,b_color[k][2].lY,b_color[k][2].rX,b_color[k][2].rY);
 
-                setviewport(587,603,694,698,0);
+
                 if(r_fundal_aux%255 > 1)
                     r_fundal_aux--;
-                setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux%255));
-                clearviewport();
+                desenare_culori_piese(k-1);
 
-                afisare_butoane_culori(0,0);
                 if((GetKeyState(VK_LBUTTON) & 0x80)==0)
                 {
-                    setviewport(0,0,1280,720,0);
+
                     setcolor(BLACK);
-                    afisare_butoane_culori(1,0);
+                    afisare_butoane_culori(1,k);
                     delay(2);
                     break;
                 }
             }
             if((GetKeyState(VK_LBUTTON) & 0x80)==0)
             {
-                setviewport(0,0,1280,720,0);
+
                 setcolor(BLACK);
-                afisare_butoane_culori(1,0);
+                afisare_butoane_culori(1,k);
                 delay(2);
                 break;
             }
 
         }
     }
-    if(x >= 604 && x <= 676 && y >=490 && y<=519)
+    if(x >= b_color[k][3].lX && x <= b_color[k][3].rX && y >=b_color[k][3].lY && y<=b_color[k][3].rY)
     {
         while(true)
         {
 
             x=mousex();
             y=mousey();
-            delay(50);
+
 
 
 
             while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
             {
-                readimagefile("img/arrowupred.jpg",604,490,676,519);
+                delay(15);
+                readimagefile("img/arrowupred.jpg",b_color[k][3].lX,b_color[k][3].lY,b_color[k][3].rX,b_color[k][3].rY);
                 setcolor(COLOR(255,0,0));
-                rectangle(604,490,676,519);
+                rectangle(b_color[k][3].lX,b_color[k][3].lY,b_color[k][3].rX,b_color[k][3].rY);
 
-                setviewport(587,603,694,698,0);
+
                 if(g_fundal_aux%255 < 254)
                     g_fundal_aux++;
-                setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux %255));
-                clearviewport();
+                desenare_culori_piese(k-1);
 
-                afisare_butoane_culori(0,0);
+
                 if((GetKeyState(VK_LBUTTON) & 0x80)==0)
                 {
-                    setviewport(0,0,1280,720,0);
+
                     setcolor(BLACK);
-                    afisare_butoane_culori(2,0);
+                    afisare_butoane_culori(2,k);
                     delay(2);
                     break;
                 }
             }
             if((GetKeyState(VK_LBUTTON) & 0x80)==0)
             {
-                setviewport(0,0,1280,720,0);
+
                 setcolor(BLACK);
-                afisare_butoane_culori(2,0);
+                afisare_butoane_culori(2,k);
                 delay(2);
                 break;
             }
 
         }
     }
-    if(x >= 604 && x <= 676 && y >=551 && y<=579)
+    if(x >= b_color[k][4].lX && x <= b_color[k][4].rX && y >=b_color[k][4].lY && y<=b_color[k][4].rY)
     {
         while(true)
         {
 
             x=mousex();
             y=mousey();
-            delay(50);
+
 
 
 
             while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-            {
-                readimagefile("img/arrowdownred.jpg",604,551,676,579);
+            {delay(15);
+                readimagefile("img/arrowdownred.jpg",b_color[k][4].lX,b_color[k][4].lY,b_color[k][4].rX,b_color[k][4].rY);
                 setcolor(COLOR(255,0,0));
-                rectangle(604,551,676,579);
-
-                setviewport(587,603,694,698,0);
+                rectangle(b_color[k][4].lX,b_color[k][4].lY,b_color[k][4].rX,b_color[k][4].rY);
                 if(g_fundal_aux%255 > 1)
                     g_fundal_aux--;
-                setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux%255));
-                clearviewport();
+                desenare_culori_piese(k-1);
 
-                afisare_butoane_culori(0,0);
                 if((GetKeyState(VK_LBUTTON) & 0x80)==0)
                 {
-                    setviewport(0,0,1280,720,0);
+
                     setcolor(BLACK);
-                    afisare_butoane_culori(3,0);
+                    afisare_butoane_culori(3,k);
                     delay(2);
                     break;
                 }
             }
             if((GetKeyState(VK_LBUTTON) & 0x80)==0)
             {
-                setviewport(0,0,1280,720,0);
+
                 setcolor(BLACK);
-                afisare_butoane_culori(3,0);
+                afisare_butoane_culori(3,k);
                 delay(2);
                 break;
             }
 
         }
     }
-    if(x >= 817 && x <= 889 && y >=490 && y<=519)
+      if(x >= b_color[k][5].lX && x <= b_color[k][5].rX && y >=b_color[k][5].lY && y<=b_color[k][5].rY)
     {
         while(true)
         {
 
             x=mousex();
             y=mousey();
-            delay(50);
+
 
 
 
             while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-            {
-                readimagefile("img/arrowupred.jpg",817,490,889,519);
+            {delay(15);
+                readimagefile("img/arrowupred.jpg",b_color[k][5].lX,b_color[k][5].lY,b_color[k][5].rX,b_color[k][5].rY);
                 setcolor(COLOR(255,0,0));
-                rectangle(817,490,889,519);
-
-                setviewport(587,603,694,698,0);
-                if(b_fundal_aux%255 < 254)
+                rectangle(b_color[k][5].lX,b_color[k][5].lY,b_color[k][5].rX,b_color[k][5].rY);
+                if(b_fundal_aux%255 > 1)
                     b_fundal_aux++;
-                setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux%255));
-                clearviewport();
+                desenare_culori_piese(k-1);
 
-                afisare_butoane_culori(0,0);
                 if((GetKeyState(VK_LBUTTON) & 0x80)==0)
                 {
-                    setviewport(0,0,1280,720,0);
+
                     setcolor(BLACK);
-                    afisare_butoane_culori(4,0);
+                    afisare_butoane_culori(4,k);
                     delay(2);
                     break;
                 }
             }
             if((GetKeyState(VK_LBUTTON) & 0x80)==0)
             {
-                setviewport(0,0,1280,720,0);
+
                 setcolor(BLACK);
-                afisare_butoane_culori(4,0);
+                afisare_butoane_culori(4,k);
                 delay(2);
                 break;
             }
 
         }
     }
-    if(x >= 817 && x <= 889 && y >=551 && y<=579)
+          if(x >= b_color[k][6].lX && x <= b_color[k][6].rX && y >=b_color[k][6].lY && y<=b_color[k][6].rY)
     {
         while(true)
         {
 
             x=mousex();
             y=mousey();
-            delay(50);
+
 
 
 
             while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-            {
-                readimagefile("img/arrowdownred.jpg",817,551,889,579);
+            {delay(15);
+                readimagefile("img/arrowdownred.jpg",b_color[k][6].lX,b_color[k][6].lY,b_color[k][6].rX,b_color[k][6].rY);
                 setcolor(COLOR(255,0,0));
-                rectangle(817,551,889,579);
-
-                setviewport(587,603,694,698,0);
+                rectangle(b_color[k][6].lX,b_color[k][6].lY,b_color[k][6].rX,b_color[k][6].rY);
                 if(b_fundal_aux%255 > 1)
                     b_fundal_aux--;
-                setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux%255));
-                clearviewport();
+                desenare_culori_piese(k-1);
 
-                afisare_butoane_culori(0,0);
                 if((GetKeyState(VK_LBUTTON) & 0x80)==0)
                 {
-                    setviewport(0,0,1280,720,0);
+
                     setcolor(BLACK);
-                    afisare_butoane_culori(5,0);
+                    afisare_butoane_culori(5,k);
                     delay(2);
                     break;
                 }
             }
             if((GetKeyState(VK_LBUTTON) & 0x80)==0)
             {
-                setviewport(0,0,1280,720,0);
+
                 setcolor(BLACK);
-                afisare_butoane_culori(5,0);
+                afisare_butoane_culori(5,k);
                 delay(2);
                 break;
             }
@@ -423,7 +474,7 @@ void culoare_player(int x, int y, int &r_fundal_aux, int &g_fundal_aux, int &b_f
     }
 }
 
-void buton_back_start(int x, int y, int alegere)  // am adaugat o alegere ca sa pot folosi functia si in joc.h, fara sa o rescriu (economisim niste spatiu :D )
+void buton_back_start(int x, int y, int alegere)
 {
 
 
@@ -474,11 +525,11 @@ void desenare_piese_jucatori()
     int i,j;
     setlinestyle(SOLID_LINE,0,5 );
     setcolor(WHITE);
-    clearviewport();
     for (i=1; i<=4; i++)
         for (j=1; j<=2; j++)
             rectangle(550+latura_p*(i-1),200+latura_p*(j-1),550+latura_p*i,200+latura_p*j);
     setcolor(BLACK);
+
 
 
 
@@ -606,16 +657,15 @@ void sectiune_start()
     setcolor(BLACK);
 
 
+
+    init_coord_butoane_culori();
+
     casute_color();
-
-
-
 
     while(need_back == false && need_play == false)
     {
 
-
-        //show_mouse_xy();
+       // show_mouse_xy();
 
         //-> Citire coordonate
         x = mousex();
@@ -623,7 +673,8 @@ void sectiune_start()
 
         //-> Buton Back
         buton_back_start(x, y,0);
-        show_mouse_xy();
+        culoare_player(x,y,r_player_1,g_player_1,b_player_1,1);
+        culoare_player(x,y,r_player_2,g_player_2,b_player_2,2);
 
         //-> Buton Start
         buton_start_game(x, y);
@@ -637,13 +688,16 @@ void sectiune_start()
     //-> Back
     delay(100);
     if(need_back == true)
-        {scriere_date_player();
-            afisMenu();}
+    {
+        scriere_date_player();
+        afisMenu();
+    }
     if(need_play == true)
-        {scriere_date_player();
-            start_joc_pvp();
+    {
+        scriere_date_player();
+        start_joc_pvp();
 
-        }
+    }
 
 
 }

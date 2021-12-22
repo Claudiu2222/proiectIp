@@ -91,7 +91,7 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
    if(alegere == 0 && castigator == false)
     {
 
-        setcolor(COLOR(255,0,0));
+        setcolor(COLOR(r_player_2,g_player_2,b_player_2));
 
 
         if(limba == 0)
@@ -116,7 +116,7 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
     }
     else  if(alegere == 1 && castigator == false)
     {
-        setcolor(COLOR(0,0,255));
+        setcolor(COLOR(r_player_1,g_player_1,b_player_1));
 
         if(limba == 0 && castigator == false)
             {   settextstyle(0, HORIZ_DIR, 3);
@@ -140,7 +140,7 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
     }
     else  if(alegere == 2)
     {
-        setcolor(COLOR(255,0,0));
+        setcolor(COLOR(r_player_2,g_player_2,b_player_2));
 
         if(limba == 0)
             {   settextstyle(0, HORIZ_DIR, 3);
@@ -161,7 +161,7 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
     }
       else  if(alegere == 3)
     {
-        setcolor(COLOR(0,0,255));
+        setcolor(COLOR(r_player_1,g_player_1,b_player_1));
 
         if(limba == 0)
             {   settextstyle(0, HORIZ_DIR, 3);
@@ -182,7 +182,7 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
     }
     else  if(alegere == 1 && castigator == true)
     {
-        setcolor(COLOR(255,0,0));
+        setcolor(COLOR(r_player_2,g_player_2,b_player_2));
 
         if(limba == 0)
             {   settextstyle(0, HORIZ_DIR, 3);
@@ -202,7 +202,7 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
     }
     else  if(alegere == 0 && castigator == true)
     {
-        setcolor(COLOR(0,0,255));
+        setcolor(COLOR(r_player_1,g_player_1,b_player_1));
 
         if(limba == 0)
             {   settextstyle(0, HORIZ_DIR, 3);
@@ -289,12 +289,12 @@ void desenare_piese(int t[5][5])
             }
             else if (t[i][j] == 2)
             {
-                setfillstyle(SOLID_FILL,RED);
+                setfillstyle(SOLID_FILL,COLOR(r_player_2,g_player_2,b_player_2));
                 bar(tc[i][j].lX,tc[i][j].lY,tc[i][j].rX,tc[i][j].rY);
             }
             else if (t[i][j] == 1)
             {
-                setfillstyle(SOLID_FILL,BLUE);
+                setfillstyle(SOLID_FILL,COLOR(r_player_1,g_player_1,b_player_1));
                 bar(tc[i][j].lX,tc[i][j].lY,tc[i][j].rX,tc[i][j].rY);
             }
             else if(t[i][j] == 0)

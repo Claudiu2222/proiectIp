@@ -8,7 +8,7 @@ struct coordonate
 {
     int lX, lY;
     int rX, rY;
-} b_start, b_exit, b_settings, b_settings_back, b_settings_apply, b_muzica, b_back_start, b_start_game, tc[5][5];
+} b_start, b_exit, b_settings, b_settings_back, b_settings_apply, b_muzica, b_back_start, b_start_game, tc[5][5],b_color[3][7];
 
 void init_coord_butoane()
 {

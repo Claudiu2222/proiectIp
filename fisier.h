@@ -78,7 +78,7 @@ void scriere_date_player()
         exit(1);
     }
     fprintf(fptr,"%d %d %d",r_player_1,g_player_1,b_player_1);
-     fprintf(fptr,"\n %d %d %d",r_player_2,g_player_2,b_player_2);
+     fprintf(fptr,"\n%d %d %d",r_player_2,g_player_2,b_player_2);
 
 
     fclose(fptr);
