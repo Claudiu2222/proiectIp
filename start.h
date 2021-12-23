@@ -13,6 +13,7 @@
 bool need_back, need_play;
 short int latura_p = latura - 25;
 //-> Functii
+
 void text_butoane_start(char a)
 {
 
@@ -474,6 +475,112 @@ void culoare_player(int x, int y, int &r_fundal_aux, int &g_fundal_aux, int &b_f
     }
 }
 
+void imagini_mod_de_joc(int alegere)
+{
+       // ** Player vs Player
+
+    setcolor(BLACK);
+    readimagefile("img/pvp_gray.jpg", b_back_start.rX + 18, 195, b_back_start.rX + 21 + 156, 293);
+    rectangle(b_back_start.rX + 18 - 2, 195 - 2, b_back_start.rX + 21 + 156 + 2, 295);
+
+
+
+    // ** Player vs AI
+    readimagefile("img/pvpc_gray.jpg", b_back_start.rX + 18, 313, b_back_start.rX + 21 + 156, 411);
+    rectangle(b_back_start.rX + 18 - 2, 313 - 2, b_back_start.rX + 21 + 156 + 2, 413);
+setcolor(YELLOW);
+ if(alegere == 1)
+ {
+    readimagefile("img/pvp.jpg", b_back_start.rX + 18, 195, b_back_start.rX + 21 + 156, 293);
+    rectangle(b_back_start.rX + 18 - 2, 195 - 2, b_back_start.rX + 21 + 156 + 2, 295);
+
+ }
+ else if (alegere == 2)
+ {
+
+    readimagefile("img/pvpc.jpg", b_back_start.rX + 18, 313, b_back_start.rX + 21 + 156, 411);
+    rectangle(b_back_start.rX + 16, 311, b_back_start.rX + 23 + 156, 413);
+
+ }
+ setcolor(BLACK);
+ }
+
+void selectare_mod_de_joc(int x, int y )
+{//     readimagefile("img/pvp.jpg", b_back_start.rX + 18, 195, b_back_start.rX + 21 + 156, 293);
+      if(x >=b_back_start.rX +18&& x <= b_back_start.rX + 177 && y >= 195 && y <= 293)
+        {
+
+            while(true)
+            {
+                delay(2);
+
+                x=mousex();
+                y=mousey();
+
+
+                setcolor(COLOR(255, 145, 0));
+                rectangle(b_back_start.rX + 18 - 2, 195 - 2, b_back_start.rX + 21 + 156 + 2, 295);
+                if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
+                {
+                    delay(70);
+                    mod_joc = 1;
+                    imagini_mod_de_joc(mod_joc);
+
+                    break;
+                }
+                delay(2);
+                if (!(x >=b_back_start.rX +18&& x <= b_back_start.rX + 177 && y >= 195 && y <= 293))
+                {
+                    if(mod_joc == 2)
+                    setcolor(BLACK);
+                    else
+                     setcolor(YELLOW);
+            rectangle(b_back_start.rX + 18 - 2, 195 - 2, b_back_start.rX + 21 + 156 + 2, 295);
+
+                    break;
+                }
+
+            }
+        }
+        /*    readimagefile("img/pvpc_gray.jpg", b_back_start.rX + 18, 313, b_back_start.rX + 21 + 156, 411);
+    rectangle(b_back_start.rX + 18 - 2, 313 - 2, b_back_start.rX + 21 + 156 + 2, 413);*/
+        if(x >=b_back_start.rX +18&& x <= b_back_start.rX + 177 && y >= 313 && y <= 411)
+        {
+
+            while(true)
+            {
+                delay(2);
+
+                x=mousex();
+                y=mousey();
+
+
+                setcolor(COLOR(255, 145, 0));
+                 rectangle(b_back_start.rX + 18 - 2, 313 - 2, b_back_start.rX + 21 + 156 + 2, 413);
+                if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
+                {
+                    delay(70);
+                    mod_joc = 2;
+                    imagini_mod_de_joc(mod_joc);
+
+                    break;
+                }
+                delay(2);
+                if (!(x >=b_back_start.rX +18&& x <= b_back_start.rX + 177 && y >= 313 && y <= 411))
+                {
+                    if(mod_joc == 1)
+                    setcolor(BLACK);
+                    else
+                     setcolor(YELLOW);
+          rectangle(b_back_start.rX + 18 - 2, 313 - 2, b_back_start.rX + 21 + 156 + 2, 413);
+
+                    break;
+                }
+
+            }
+        } setcolor(BLACK);
+
+}
 void buton_back_start(int x, int y, int alegere)
 {
 
@@ -644,19 +751,8 @@ void sectiune_start()
             outtextxy(b_back_start.rX + 22, 170, text[limba]);
     }
 
-    // ** Player vs Player
-    readimagefile("img/pvp.jpg", b_back_start.rX + 18, 195, b_back_start.rX + 21 + 156, 293);
-    setcolor(YELLOW);
-    rectangle(b_back_start.rX + 18 - 2, 195 - 2, b_back_start.rX + 21 + 156 + 2, 295);
-    setcolor(BLACK);
 
-
-    // ** Player vs AI
-    readimagefile("img/pvpc_gray.jpg", b_back_start.rX + 18, 313, b_back_start.rX + 21 + 156, 411);
-    rectangle(b_back_start.rX + 18 - 2, 313 - 2, b_back_start.rX + 21 + 156 + 2, 413);
-    setcolor(BLACK);
-
-
+    imagini_mod_de_joc(mod_joc);
 
     init_coord_butoane_culori();
 
@@ -675,7 +771,7 @@ void sectiune_start()
         buton_back_start(x, y,0);
         culoare_player(x,y,r_player_1,g_player_1,b_player_1,1);
         culoare_player(x,y,r_player_2,g_player_2,b_player_2,2);
-
+        selectare_mod_de_joc(x,y);
         //-> Buton Start
         buton_start_game(x, y);
 
@@ -692,10 +788,16 @@ void sectiune_start()
         scriere_date_player();
         afisMenu();
     }
-    if(need_play == true)
+    if(need_play == true && mod_joc == 1)
     {
         scriere_date_player();
         start_joc_pvp();
+
+    }
+    else if(need_play == true && mod_joc == 2)
+    {
+        scriere_date_player();
+        // start_joc_pvpc
 
     }
 
