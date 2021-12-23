@@ -408,7 +408,7 @@ void culoare_player(int x, int y, int &r_fundal_aux, int &g_fundal_aux, int &b_f
                 readimagefile("img/arrowupred.jpg",b_color[k][5].lX,b_color[k][5].lY,b_color[k][5].rX,b_color[k][5].rY);
                 setcolor(COLOR(255,0,0));
                 rectangle(b_color[k][5].lX,b_color[k][5].lY,b_color[k][5].rX,b_color[k][5].rY);
-                if(b_fundal_aux%255 > 1)
+                if(b_fundal_aux%255 < 254)
                     b_fundal_aux++;
                 desenare_culori_piese(k-1);
 
