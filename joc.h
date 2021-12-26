@@ -91,7 +91,7 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
    if(alegere == 0 && castigator == false)
     {
 
-        setcolor(COLOR(255,0,0));
+        setcolor(COLOR(r_player_2,g_player_2,b_player_2));
 
 
         if(limba == 0)
@@ -102,21 +102,21 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
             }
         if(limba == 1)
             { settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) -165, 30, text[limba]);
+                outtextxy((rezX / 2) -164, 30, text[limba]);
                    settextstyle(0, HORIZ_DIR, 2);
-             outtextxy((rezX / 2) - 115 , 60, text_mutari[limba]);
+             outtextxy((rezX / 2) - 125 , 60, text_mutari[limba]);
             }
         if(limba == 2)
              { settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) -165, 30, text[limba]);
+                outtextxy((rezX / 2) -200, 30, text[limba]);
                    settextstyle(0, HORIZ_DIR, 2);
-             outtextxy((rezX / 2) - 115 , 60, text_mutari[limba]);
+             outtextxy((rezX / 2) - 164 , 60, text_mutari[limba]);
             }
 
     }
     else  if(alegere == 1 && castigator == false)
     {
-        setcolor(COLOR(0,0,255));
+        setcolor(COLOR(r_player_1,g_player_1,b_player_1));
 
         if(limba == 0 && castigator == false)
             {   settextstyle(0, HORIZ_DIR, 3);
@@ -126,21 +126,21 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
             }
         if(limba == 1 && castigator == false)
             {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text[limba]);
+                outtextxy((rezX / 2) - 164 , 30, text[limba]);
                 settextstyle(0, HORIZ_DIR, 2);
-            outtextxy((rezX / 2) - 115 , 60, text_mutari[limba]);
+            outtextxy((rezX / 2) - 125, 60, text_mutari[limba]);
             }
         if(limba == 2)
            {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text[limba]);
+                outtextxy((rezX / 2) - 200 , 30, text[limba]);
                 settextstyle(0, HORIZ_DIR, 2);
-           outtextxy((rezX / 2) - 115 , 60, text_mutari[limba]);
+           outtextxy((rezX / 2) - 164 , 60, text_mutari[limba]);
             }
 
     }
     else  if(alegere == 2)
     {
-        setcolor(COLOR(255,0,0));
+        setcolor(COLOR(r_player_2,g_player_2,b_player_2));
 
         if(limba == 0)
             {   settextstyle(0, HORIZ_DIR, 3);
@@ -149,19 +149,19 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
             }
         if(limba == 1)
             {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_banut[limba]);
+                outtextxy((rezX / 2) - 149 , 30, text_banut[limba]);
 
             }
         if(limba == 2)
            {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_banut[limba]);
+                outtextxy((rezX / 2) - 200 , 30, text_banut[limba]);
 
             }
 
     }
       else  if(alegere == 3)
     {
-        setcolor(COLOR(0,0,255));
+        setcolor(COLOR(r_player_1,g_player_1,b_player_1));
 
         if(limba == 0)
             {   settextstyle(0, HORIZ_DIR, 3);
@@ -170,19 +170,19 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
             }
         if(limba == 1)
             {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_banut[limba]);
+                outtextxy((rezX / 2) - 149 , 30, text_banut[limba]);
 
             }
         if(limba == 2)
            {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_banut[limba]);
+                outtextxy((rezX / 2) - 200 , 30, text_banut[limba]);
 
             }
 
     }
     else  if(alegere == 1 && castigator == true)
     {
-        setcolor(COLOR(255,0,0));
+        setcolor(COLOR(r_player_2,g_player_2,b_player_2));
 
         if(limba == 0)
             {   settextstyle(0, HORIZ_DIR, 3);
@@ -191,18 +191,18 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
             }
         if(limba == 1)
             {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_castigator[limba]);
+                outtextxy((rezX / 2) - 70 , 30, text_castigator[limba]);
 
             }
         if(limba == 2)
            {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_castigator[limba]);
+                outtextxy((rezX / 2) - 80 , 30, text_castigator[limba]);
 
             }
     }
     else  if(alegere == 0 && castigator == true)
     {
-        setcolor(COLOR(0,0,255));
+        setcolor(COLOR(r_player_1,g_player_1,b_player_1));
 
         if(limba == 0)
             {   settextstyle(0, HORIZ_DIR, 3);
@@ -211,12 +211,12 @@ char text[3][18] = {"Muta piesa","Move the piece","Déplacer la pièce"};
             }
         if(limba == 1)
             {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_castigator[limba]);
+                outtextxy((rezX / 2) - 70 , 30, text_castigator[limba]);
 
             }
         if(limba == 2)
            {   settextstyle(0, HORIZ_DIR, 3);
-                outtextxy((rezX / 2) - 115 , 30, text_castigator[limba]);
+                outtextxy((rezX / 2) - 80, 30, text_castigator[limba]);
 
             }
     }
@@ -289,12 +289,12 @@ void desenare_piese(int t[5][5])
             }
             else if (t[i][j] == 2)
             {
-                setfillstyle(SOLID_FILL,RED);
+                setfillstyle(SOLID_FILL,COLOR(r_player_2,g_player_2,b_player_2));
                 bar(tc[i][j].lX,tc[i][j].lY,tc[i][j].rX,tc[i][j].rY);
             }
             else if (t[i][j] == 1)
             {
-                setfillstyle(SOLID_FILL,BLUE);
+                setfillstyle(SOLID_FILL,COLOR(r_player_1,g_player_1,b_player_1));
                 bar(tc[i][j].lX,tc[i][j].lY,tc[i][j].rX,tc[i][j].rY);
             }
             else if(t[i][j] == 0)
@@ -913,7 +913,7 @@ void mutare_player(int player)
     delay(2);
 
     int x,y,ii=-1,jj=-1;
-bool afisat_text = false;
+
     clearmouseclick(WM_LBUTTONDOWN);
     while(mutat_piesa == false)
     {
@@ -935,10 +935,10 @@ afisare_text_joc(turn%2);
                  colorare_tabla(player);
                 break;
             }
-            if(afisat_text == false)
-            {afisare_text_joc(turn%2);
-            afisat_text = true;
-            }
+   delay(50);
+ afisare_text_joc(turn%2);
+ delay(2);
+
         while(k!=4)
         {
             x = mousex();

@@ -36,6 +36,7 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="coordonate.h" />
+		<Unit filename="date_player.txt" />
 		<Unit filename="fisier.h" />
 		<Unit filename="joc.h" />
 		<Unit filename="main.cpp" />
