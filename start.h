@@ -484,9 +484,9 @@ void imagini_mod_de_joc(int alegere)
     rectangle(b_back_start.rX + 18 - 2, 195 - 2, b_back_start.rX + 21 + 156 + 2, 295);
 
     readimagefile("img/easy_gray.jpg", 68, 431, 138, 481);
-    rectangle(68 - 2, 431 - 2, 138 + 2, 481);
+    rectangle(68 - 2, 431 - 2, 138 + 2, 481+2);
     readimagefile("img/hard_gray.jpg", 157, 431, 227, 481);
-    rectangle(157 - 2, 431 - 2, 227 + 2, 481);
+    rectangle(157 - 2, 431 - 2, 227 + 2, 481+2);
 
 
 
@@ -505,12 +505,24 @@ setcolor(YELLOW);
 
     readimagefile("img/pvpc.jpg", b_back_start.rX + 18, 313, b_back_start.rX + 21 + 156, 411);
     rectangle(b_back_start.rX + 16, 311, b_back_start.rX + 23 + 156, 413);
-    setcolor(BLACK);
-    readimagefile("img/easy.jpg", 68, 431, 138, 481);
-    rectangle(68 - 2, 431 - 2, 138 + 2, 481);
-    readimagefile("img/hard.jpg", 157, 431, 227, 481);
-    rectangle(157 - 2, 431 - 2, 227 + 2, 481);
 
+    readimagefile("img/easy.jpg", 68, 431, 138, 481);
+
+    readimagefile("img/hard.jpg", 157, 431, 227, 481);
+    if(dificultate == 1)
+    { setcolor(YELLOW);
+        rectangle(68 - 2, 431 - 2, 138 + 2, 481 + 2);
+    setcolor(BLACK);
+        rectangle(157 - 2, 431 - 2, 227 + 2, 481 + 2);
+    }
+    else if (dificultate == 2)
+    {
+        setcolor(YELLOW);
+        rectangle(157 - 2, 431 - 2, 227 + 2, 481 + 2);
+
+    setcolor(BLACK);
+        rectangle(68 - 2, 431 - 2, 138 + 2, 481 + 2);
+    }
  }
  setcolor(BLACK);
  }
@@ -588,7 +600,87 @@ void selectare_mod_de_joc(int x, int y )
                 }
 
             }
-        } setcolor(BLACK);
+        }
+        if(mod_joc == 2)
+        {
+             if(x >=68&& x <= 138 && y >= 431 && y <= 481)
+        {
+            /*readimagefile("img/easy.jpg", 68, 431, 138, 481);
+
+    readimagefile("img/hard.jpg", 157, 431, 227, 481);*/
+
+            while(true)
+            {
+                delay(2);
+
+                x=mousex();
+                y=mousey();
+
+
+                setcolor(COLOR(255, 145, 0));
+                 rectangle(68- 2, 431 - 2, 138 + 2, 481 + 2);
+                if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
+                {
+                    delay(70);
+                    dificultate = 1;
+                    imagini_mod_de_joc(mod_joc);
+
+                    break;
+                }
+                delay(2);
+                if (!(x >=68&& x <= 138 && y >= 431 && y <= 481))
+                {
+                    if(dificultate == 2)
+                    setcolor(BLACK);
+                    else
+                     setcolor(YELLOW);
+          rectangle(68- 2, 431 - 2, 138 + 2, 481 + 2);
+
+                    break;
+                }
+
+            }
+        }
+        if(x >=157&& x <= 227 && y >= 431 && y <= 481)
+        {
+            /*readimagefile("img/easy.jpg", 68, 431, 138, 481);
+
+    readimagefile("img/hard.jpg", 157, 431, 227, 481);*/
+
+            while(true)
+            {
+                delay(2);
+
+                x=mousex();
+                y=mousey();
+
+
+                setcolor(COLOR(255, 145, 0));
+                 rectangle(157- 2, 431 - 2, 227 + 2, 481 + 2);
+                if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
+                {
+                    delay(70);
+                    dificultate = 2;
+                    imagini_mod_de_joc(mod_joc);
+
+                    break;
+                }
+                delay(2);
+                if (!(x >=157&& x <= 227 && y >= 431 && y <= 481))
+                {
+                    if(dificultate == 1)
+                    setcolor(BLACK);
+                    else
+                     setcolor(YELLOW);
+          rectangle(157- 2, 431 - 2, 227 + 2, 481 + 2);
+
+                    break;
+                }
+
+            }
+        }
+        }
+        setcolor(BLACK);
 
 }
 void buton_back_start(int x, int y, int alegere)
@@ -804,10 +896,16 @@ void sectiune_start()
         start_joc_pvp();
 
     }
-    else if(need_play == true && mod_joc == 2)
+    else if(need_play == true && mod_joc == 2 && dificultate == 1)
     {
         scriere_date_player();
-        // start_joc_pvpc
+        // start_joc_pvpc ez
+
+    }
+    else if(need_play == true && mod_joc == 2 && dificultate == 2)
+    {
+        scriere_date_player();
+        // start_joc_pvpc hARD
 
     }
 
