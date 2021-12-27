@@ -483,6 +483,11 @@ void imagini_mod_de_joc(int alegere)
     readimagefile("img/pvp_gray.jpg", b_back_start.rX + 18, 195, b_back_start.rX + 21 + 156, 293);
     rectangle(b_back_start.rX + 18 - 2, 195 - 2, b_back_start.rX + 21 + 156 + 2, 295);
 
+    readimagefile("img/easy_gray.jpg", 68, 431, 138, 481);
+    rectangle(68 - 2, 431 - 2, 138 + 2, 481);
+    readimagefile("img/hard_gray.jpg", 157, 431, 227, 481);
+    rectangle(157 - 2, 431 - 2, 227 + 2, 481);
+
 
 
     // ** Player vs AI
@@ -500,6 +505,11 @@ setcolor(YELLOW);
 
     readimagefile("img/pvpc.jpg", b_back_start.rX + 18, 313, b_back_start.rX + 21 + 156, 411);
     rectangle(b_back_start.rX + 16, 311, b_back_start.rX + 23 + 156, 413);
+    setcolor(BLACK);
+    readimagefile("img/easy.jpg", 68, 431, 138, 481);
+    rectangle(68 - 2, 431 - 2, 138 + 2, 481);
+    readimagefile("img/hard.jpg", 157, 431, 227, 481);
+    rectangle(157 - 2, 431 - 2, 227 + 2, 481);
 
  }
  setcolor(BLACK);
