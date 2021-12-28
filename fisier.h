@@ -4,7 +4,7 @@ bool need_exit = false;
 int limba ;
 int r_fundal, g_fundal, b_fundal, r_player_1, g_player_1,b_player_1,r_player_2,g_player_2,b_player_2;
 bool muzica_on;
-short int mod_joc;
+short int mod_joc, dificultate;
 void incarcare_date()
 {
 
@@ -51,6 +51,7 @@ void incarcare_date()
     fscanf(fptrdate,"%d", &g_player_2);
     fscanf(fptrdate,"%d", &b_player_2);
     fscanf(fptrdate,"%d", &mod_joc);
+    fscanf(fptrdate,"%d", &dificultate);
 
 }
 void scriere_date()
@@ -80,6 +81,7 @@ void scriere_date_player()
     fprintf(fptr,"%d %d %d",r_player_1,g_player_1,b_player_1);
      fprintf(fptr,"\n%d %d %d",r_player_2,g_player_2,b_player_2);
       fprintf(fptr,"\n%d",mod_joc);
+      fprintf(fptr,"\n%d",dificultate);
 
 
     fclose(fptr);
