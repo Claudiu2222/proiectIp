@@ -4,8 +4,17 @@
 //#include "scripts.h"
 #include "joc.h"
 
+//-> Variabilele pt mod de joc
+int jPlayer = 0; //<- 0 pt Player vs Player, 1 pt P vs PC
+int hPlayer = 0; //<- 0 pt Easy, 1 pt Hard
 
 
+/*
+    Inca nu am reusit sa fac ceva din cauza pregatirilor de sarbatori pe acasa, sorry about that,
+    dar, m-am gandit la agoritm si la tot, si o sa ne folosim asa cum ai zis tu, de joc.h
+    Deci jPlayer o sa decidaca daca exista un player sau calculatorul, si atunci practic cand trebuie sa mute player2
+    o sa se verifice daca playerul este un Om(jPlayer == 0) sau este PC(jPlayer == 1) si deja o sa se se faca mutarea.
+    Maine(Miercuri) de la 12 ziua o sa fiu online sa implementez tot, daca ceva ma gasesti pe Discord */
 
 
 
