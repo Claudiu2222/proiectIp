@@ -799,8 +799,9 @@ void mutare_player(int player)
 
 
 
-void adancime_cazuri(int y, int x){
+void adancime_cazuri(int y, int x, int caz){
 
+    system("cls");
     //Construim piesa in T_Player
     //Doar pt CAZ UNU
     t_player[y][x]   = 2;
@@ -809,9 +810,37 @@ void adancime_cazuri(int y, int x){
     t_player[y+2][x+1] = 2;
 
 
+    //-> Schimbare pozitii in t_player pt PLAYER = 1
+    for(int i = 0; i<=3; i++)
+        for(int j = 0; j <= 3; j++) if (t_player[i][j] == 1) t_player[i][j] = 0;
+
+    //-> Cautare nr de pozitii afectate
+    int nr_pz = 0;
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+
+            //->Verificam cazurile de L
+            if(t_player[i][j] == 0){
+                if(caz_unu(i, j, 0)) {nr_pz++; }
+                if(caz_doi(i, j, 0)) {nr_pz++; }
+                if(caz_trei(i, j, 0)) {nr_pz++; }
+                if(caz_patru(i,j, 0)) {nr_pz++; }
+                if(caz_cinci(i,j, 0)) {nr_pz++; }
+                if(caz_sase(i,j, 0)) {nr_pz++;}
+                if(caz_sapte(i,j, 0)) {nr_pz++; }
+                if(caz_opt(i,j, 0)) {nr_pz++; }
+            }
+
+
+        }
+    }
+
+
+
+    --nr_pz;
     
 
-    printf("Nr poziti %d\n", nr_poz);
+    printf("Nr poziti %d\n", nr_pz);
 
 
 
@@ -825,30 +854,27 @@ void adancime_cazuri(int y, int x){
 
 
 
-system("cls");
-int i, j;
-                printf("Matrice T:\n");
-                for(i = 1; i <= 4; i++){
-                    for(j = 1; j <= 4; j++){
-                        printf("%d ", t[i][j]);
-                    }
-                    printf("\n");
-                }
 
-                printf("MAtrice T_PLAYER\n");
-
-
-                for(i = 0; i < 4; i++){
-                    for(j = 0; j < 4; j++){
-                        printf("%d ", t_player[i][j]);
-                    }
-                    printf("\n");
-                }
+    int i, j;
+    printf("Matrice T:\n");
+    for(i = 1; i <= 4; i++){
+        for(j = 1; j <= 4; j++){
+            printf("%d ", t[i][j]);
+        }
+        printf("\n");
+    }
+    printf("MAtrice T_PLAYER\n");
+    for(i = 0; i < 4; i++){
+        for(j = 0; j < 4; j++){
+            printf("%d ", t_player[i][j]);
+        }
+        printf("\n");
+    }
 
 
-            delay(10000);
+    delay(10000);
 
-t_player[y][x]   = 0;
+    t_player[y][x]   = 0;
     t_player[y][x+1] = 0;
     t_player[y+1][x+1] = 0;
     t_player[y+2][x+1] = 0;
@@ -967,27 +993,7 @@ void mutare_player_pc(int player)
             if(dificultate == 1)
             {
 
-                //Afisare rezultate
-                system("cls");
-                printf("Matrice T:\n");
-                for(int i = 1; i <= 4; i++){
-                    for(int j = 1; j <= 4; j++){
-                        printf("%d ", t[i][j]);
-                    }
-                    printf("\n");
-                }
-
-                printf("MAtrice T_PLAYER\n");
-
-
-                for(int i = 0; i < 4; i++){
-                    for(int j = 0; j < 4; j++){
-                        printf("%d ", t_player[i][j]);
-                    }
-                    printf("\n");
-                }
-
-
+                
                 //Cautam in matricea T figuri
                 //-> Incepem cautarea de 0
                 for(int i = 0; i < 4; i++){
@@ -1008,6 +1014,16 @@ void mutare_player_pc(int player)
                     }
                 }
 
+                //-> Egalare din T in T_player
+                //-> Initializare Matrice de pozitii fara player
+                for(int i = 0; i < 4; i++){
+                    for(int j = 0; j < 4; j++){
+                        if (((t[i+1][j+1] != player) || (t[i+1][j+1] == 0)) && t[i+1][j+1] != 4) t_player[i][j] = t[i+1][j+1];
+                        else  {t_player[i][j] = 0; t[i+1][j+1] = 0;}
+                    }
+                }
+
+                //-> Desenare pe tabla a pieselor castigatorului
 
             }
 
@@ -1030,8 +1046,7 @@ void start_joc_pvp()
 {
     turn = 1;
 
-    mod_joc = 0;
-    dificultate = 0;
+    
 
     //-> Fundal
     game_back == false;
