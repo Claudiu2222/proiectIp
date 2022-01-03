@@ -331,7 +331,7 @@ void mutare_banut(int player)
     int x,y,ii,jj;
     afisare_text_joc(turn%2+2);
 
-    if (dificultate == 1 && mod_joc == 1 && player == 2) schimbat = true;
+    if (dificultate == 1 && mod_joc == 2 && player == 2) schimbat = true;
 
 while(schimbat == false && game_back == false)
    {
@@ -535,23 +535,23 @@ bool verificare_castigator(int t[5][5], int player){
 
 /*
 //-> Afisari pentru a intelege algoritmul
-    printf("Matrice T:\n");
-    for(i = 1; i <= 4; i++){
-        for(j = 1; j <= 4; j++){
-            printf("%d ", t[i][j]);
+        printf("Matrice T:\n");
+        for(i = 1; i <= 4; i++){
+            for(j = 1; j <= 4; j++){
+                printf("%d ", t[i][j]);
+            }
+            printf("\n");
         }
-        printf("\n");
-    }
 
-    printf("MAtrice T_PLAYER\n");
+        printf("MAtrice T_PLAYER\n");
 
 
-    for(i = 0; i < 4; i++){
-        for(j = 0; j < 4; j++){
-            printf("%d ", t_player[i][j]);
+        for(i = 0; i < 4; i++){
+            for(j = 0; j < 4; j++){
+                printf("%d ", t_player[i][j]);
+            }
+            printf("\n");
         }
-        printf("\n");
-    }
 
 */
 
@@ -729,7 +729,7 @@ void mutare_player(int player)
             y=  mousey();
 
 
-            if(ismouseclick(WM_LBUTTONDOWN)!=0)
+            if(ismouseclick(WM_LBUTTONDOWN)!=0 && (x >= 388 && x <=893 && y>= 108 && y <= 613))
             {
 
                 verificare_pozitie(x,y,ii,jj);
@@ -795,8 +795,78 @@ void mutare_player(int player)
 }
 
 
-void mutare_player_pc(int player){
 
+
+
+
+void adancime_cazuri(int y, int x){
+
+    //Construim piesa in T_Player
+    //Doar pt CAZ UNU
+    t_player[y][x]   = 2;
+    t_player[y][x+1] = 2;
+    t_player[y+1][x+1] = 2;
+    t_player[y+2][x+1] = 2;
+
+
+    
+
+    printf("Nr poziti %d\n", nr_poz);
+
+
+
+
+
+
+
+
+
+
+
+
+
+system("cls");
+int i, j;
+                printf("Matrice T:\n");
+                for(i = 1; i <= 4; i++){
+                    for(j = 1; j <= 4; j++){
+                        printf("%d ", t[i][j]);
+                    }
+                    printf("\n");
+                }
+
+                printf("MAtrice T_PLAYER\n");
+
+
+                for(i = 0; i < 4; i++){
+                    for(j = 0; j < 4; j++){
+                        printf("%d ", t_player[i][j]);
+                    }
+                    printf("\n");
+                }
+
+
+            delay(10000);
+
+t_player[y][x]   = 0;
+    t_player[y][x+1] = 0;
+    t_player[y+1][x+1] = 0;
+    t_player[y+2][x+1] = 0;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+void mutare_player_pc(int player)
+{
     int a[5][5];
     bool mutat_piesa = false;
     schimbare_valori_piese(player);
@@ -829,19 +899,17 @@ void mutare_player_pc(int player){
         delay(50);
         afisare_text_joc(turn%2);
         delay(2);
-
-        //-> Mutare Persoana
-        if(player == 1) {
+        if(player == 1){
             while(k!=4)
             {
                 x = mousex();
                 y=  mousey();
 
 
-                if(ismouseclick(WM_LBUTTONDOWN)!=0)
-                {
+               if(ismouseclick(WM_LBUTTONDOWN)!=0 && (x >= 388 && x <=893 && y>= 108 && y <= 613))
+               {
 
-                    (x,y,ii,jj);
+                    verificare_pozitie(x,y,ii,jj);
                     if(t[ii][jj]==0 || t[ii][jj]==4)
                     {
                         modificare_piesa(ii,jj,player,t);
@@ -858,13 +926,13 @@ void mutare_player_pc(int player){
                     }
 
 
-                    if(k == 4 && !(verifica_lpiesa(t, player))){ //<- verificam daca avem deja 4 patrate si daca piesa nu este un L
+                   if(k == 4 && !(verifica_lpiesa(t, player))){ //<- verificam daca avem deja 4 patrate si daca piesa nu este un L
                         delay(10);                               //<- il putem pastra doar daca vrei sa vezi si ultima piesa pentru o clipa
                         clearmouseclick(WM_LBUTTONDOWN);
                         copiere_matrice(t,a);
                         desenare_piese(t);
                         k = 0;
-                    }
+                   }
 
 
                 }
@@ -889,114 +957,61 @@ void mutare_player_pc(int player){
                     break;
 
 
-                }
+               }
+
             }
         }
 
-        //-> Muta PC
         if(player == 2){
-            if (dificultate == 1){
 
+            if(dificultate == 1)
+            {
 
-                int nr_caz = 0;
-
-                //-> Cautam cazul piesei create anterior
-                for(int i = 0; i < 4; i++){
-                    for(int j = 0; j < 4; j++){
-                        t_player[i][j] = t[i+1][j+1];
+                //Afisare rezultate
+                system("cls");
+                printf("Matrice T:\n");
+                for(int i = 1; i <= 4; i++){
+                    for(int j = 1; j <= 4; j++){
+                        printf("%d ", t[i][j]);
                     }
+                    printf("\n");
                 }
 
                 printf("MAtrice T_PLAYER\n");
 
 
-                    for(int i = 0; i < 4; i++){
-                        for(int j = 0; j < 4; j++){
-                            printf("%d ", t_player[i][j]);
-                        }
-                        printf("\n");
-                    }
-
                 for(int i = 0; i < 4; i++){
                     for(int j = 0; j < 4; j++){
-                        if(t_player[i][j] == 4){
-                            if(caz_unu(i, j, 4)) {nr_caz = 1; break; /*printf("[CAZ_UNU] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-                            if(caz_doi(i, j, 4)) {nr_caz = 2; break; /*printf("[CAZ_DOI] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-                            if(caz_trei(i, j, 4)) {nr_caz = 3; break; /*printf("[CAZ_TREI] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-                            if(caz_patru(i,j, 4)) {nr_caz = 4; break; /*printf("[CAZ_PATRU] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-                            if(caz_cinci(i,j, 4)) {nr_caz = 5; break; /*printf("[CAZ_CINCI] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-                            if(caz_sase(i,j, 4)) {nr_caz = 6; break; /*printf("[CAZ_SASE] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-                            if(caz_sapte(i,j, 4)) {nr_caz = 7; break; /*printf("[CAZ_SAPTE] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-                            if(caz_opt(i,j, 4)) {nr_caz = 8; break; /*printf("[CAZ_OPT] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-
-                        }
+                        printf("%d ", t_player[i][j]);
                     }
-                    if (nr_caz != 0) break;
-                }
-
-                printf("Caz este %d", nr_caz);
-
-
-                //-> Initializare Matrice de pozitii fara player
-                for(int i = 0; i < 4; i++){
-                    for(int j = 0; j < 4; j++){
-                        if (((t[i+1][j+1] != player) || (t[i+1][j+1] == 0)) && t[i+1][j+1] != 4) t_player[i][j] = t[i+1][j+1];
-                        else  {t_player[i][j] = 0; t[i+1][j+1] = 0;}
-                    }
-                }
-
-                {   //-> Pentru afisare
-                    //system("cls");
-                    printf("Matrice T:\n");
-                    for(int i = 1; i <= 4; i++){
-                        for(int j = 1; j <= 4; j++){
-                            printf("%d ", t[i][j]);
-                        }
-                        printf("\n");
-                    }
-
-                    printf("MAtrice T_PLAYER\n");
-
-
-                    for(int i = 0; i < 4; i++){
-                        for(int j = 0; j < 4; j++){
-                            printf("%d ", t_player[i][j]);
-                        }
-                        printf("\n");
-                    }
+                    printf("\n");
                 }
 
 
-
-
-                nr_poz = -1;
-                //-> Algoritmul de cautare de piese
+                //Cautam in matricea T figuri
+                //-> Incepem cautarea de 0
                 for(int i = 0; i < 4; i++){
                     for(int j = 0; j < 4; j++){
 
                         //->Verificam cazurile de L
 
                         if(t_player[i][j] == 0){
-                            if(caz_unu(i, j, 0)) {nr_poz++; /*printf("[CAZ_UNU] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-                            if(caz_doi(i, j, 0)) {nr_poz++; /*printf("[CAZ_DOI] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-                            if(caz_trei(i, j, 0)) {nr_poz++; /*printf("[CAZ_TREI] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-                            if(caz_patru(i,j, 0)) {nr_poz++; /*printf("[CAZ_PATRU] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-                            if(caz_cinci(i,j, 0)) {nr_poz++; /*printf("[CAZ_CINCI] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-                            if(caz_sase(i,j, 0)) {nr_poz++; /*printf("[CAZ_SASE] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-                            if(caz_sapte(i,j, 0)) {nr_poz++; /*printf("[CAZ_SAPTE] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
-                            if(caz_opt(i,j, 0)) {nr_poz++; /*printf("[CAZ_OPT] i = %d, j = %d  nr_poz = %d\n ", i, j, nr_poz);*/}
+                            if(caz_unu(i, j, 0)) {adancime_cazuri(i, j);}
+                            /*if(caz_doi(i, j, 0)) {}
+                            if(caz_trei(i, j, 0)) {}
+                            if(caz_patru(i,j, 0)) {}
+                            if(caz_cinci(i,j, 0)) {}
+                            if(caz_sase(i,j, 0)) {}
+                            if(caz_sapte(i,j, 0)) {}
+                            if(caz_opt(i,j, 0)) {}*/
                         }
                     }
                 }
-                printf("Numarul de pozitii pt AI: %d", nr_poz);
 
-
-
-            }else {
 
             }
-        }
 
+        }
 
 
         buton_back_start(x,y,1);
@@ -1006,6 +1021,9 @@ void mutare_player_pc(int player){
     mutare_banut(player);
     turn++;}
 }
+
+
+
 
 
 void start_joc_pvp()
