@@ -786,13 +786,7 @@ void buton_start_game(int x, int y)
 }
 
 
-void mod_de_joc()
-{
 
-
-
-
-}
 
 
 //-> Main Core la Fisier
@@ -898,7 +892,7 @@ void sectiune_start()
     else if(need_play == true && mod_joc == 2 && dificultate != 0)
     {
         scriere_date_player();
-        start_joc_pvpc(dificultate);
+        start_joc_pvpc();
 
     }
 }

@@ -331,69 +331,7 @@ void coordonate_tabla() // teoretic trebuie sa retinem coordonatele pt fiecare p
         }
     }
 }
-void mutare_banut(int player)
-{
-    bool schimbat = false, change = false;
 
-    int x,y,ii,jj;
-    afisare_text_joc(turn%2+2);
-
-    if (dificultate == 1 && mod_joc == 2 && player == 2) schimbat = true;
-
-while(schimbat == false && game_back == false)
-   {
-
-    while(true)
-    {
-        x = mousex();
-        y = mousey();
-        if(ismouseclick(WM_MBUTTONDOWN)!=0 && change ==false)
-        {
-            schimbat = true;
-            clearmouseclick(WM_MBUTTONDOWN);
-            break;
-        }
-        if(ismouseclick(WM_RBUTTONDOWN)!=0 && change == false )
-        {
-            delay(2);
-            verificare_pozitie(x,y,ii,jj);
-            if(t[ii][jj]== 3)
-            {
-                t[ii][jj] = 5;
-                desenare_piese(t);
-                change = true;
-            }
-            clearmouseclick(WM_RBUTTONDOWN);
-        }
-
-        x=mousex();
-        y=mousey();
-        if(ismouseclick(WM_RBUTTONDOWN)!=0 && change == true)
-        {
-            verificare_pozitie(x,y,ii,jj);
-            if(t[ii][jj] == 0 || t[ii][jj] == 5 )
-            {
-                t[ii][jj] = 3;
-                eliminare_piese_dupa_mutare(t);
-                desenare_piese(t);
-                schimbat = true;
-                break;
-            }
-            clearmouseclick(WM_RBUTTONDOWN);
-
-        }
-        if(!(x >= 388 && x <=893 && y>= 108 && y <= 613))
-        {
-           break;
-
-        }
-    }
-
-
-buton_back_start(x,y,1);
-}
-
-}
 
 
 //-> Memorare pozitie [chiar daca e apelata doar odata, e mai bine sa fie functie]
@@ -479,6 +417,129 @@ bool caz_opt(int i, int j, int val){
     if((dreapta(i, j) == val) && (ssus(i, j+1) == val) && (ssus(i-1, j+1) == val)) return true;
     else return false;
 }
+
+//[S]: Functie ce cauta numarul de miscari cat mai mici al unei mutari de banut
+int posibilitati_banut(){
+
+    //[S]: Inlocuire 1 cu 0
+    for(int i = 0; i < 4; i++)
+        for(int j = 0; j < 4; j++) 
+            if (t_player[i][j] == 1) t_player[i][j] = 0;
+
+
+    //[S]: Cautare numar de miscari dupa algoritmul original
+    int nr_miscari = -1;
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+            if(t_player[i][j] == 0){
+                if(caz_unu(i, j, 0))    nr_miscari++;
+                if(caz_doi(i, j, 0))    nr_miscari++;
+                if(caz_trei(i, j, 0))   nr_miscari++;
+                if(caz_patru(i,j, 0))   nr_miscari++;
+                if(caz_cinci(i,j, 0))   nr_miscari++;
+                if(caz_sase(i,j, 0))    nr_miscari++;
+                if(caz_sapte(i,j, 0))   nr_miscari++;
+                if(caz_opt(i,j, 0))     nr_miscari++;
+            }
+        }
+    }
+
+
+    return nr_miscari;
+
+} 
+
+
+
+
+
+
+
+void mutare_banut(int player)
+{
+    bool schimbat = false, change = false;
+
+    int x,y,ii,jj;
+    afisare_text_joc(turn%2+2);
+
+    if (dificultate == 1 && mod_joc == 2 && player == 2) schimbat = true;
+    if (dificultate == 2 && mod_joc == 2 && player == 2) {
+
+        //[S]: Algoritm de cautare si aranjare corecta a banutilor
+        
+        //[S]: Egalare matrice intermediara(T_Player) cu T
+        for(int i = 1; i <=4; i++)
+            for(int j = 1; j <= 4; j++) t_player[i-1][j-1] = t[i][j];
+
+        //[S]: Testare daca este necesare modificare unui banuts
+        if(posibilitati_banut() != 0){
+            while(true){delay(1000);}
+        }
+        schimbat = true;
+    }
+
+while(schimbat == false && game_back == false)
+   {
+
+    while(true)
+    {
+        x = mousex();
+        y = mousey();
+        if(ismouseclick(WM_MBUTTONDOWN)!=0 && change ==false)
+        {
+            schimbat = true;
+            clearmouseclick(WM_MBUTTONDOWN);
+            break;
+        }
+        if(ismouseclick(WM_RBUTTONDOWN)!=0 && change == false )
+        {
+            delay(2);
+            verificare_pozitie(x,y,ii,jj);
+            if(t[ii][jj]== 3)
+            {
+                t[ii][jj] = 5;
+                desenare_piese(t);
+                change = true;
+            }
+            clearmouseclick(WM_RBUTTONDOWN);
+        }
+
+        x=mousex();
+        y=mousey();
+        if(ismouseclick(WM_RBUTTONDOWN)!=0 && change == true)
+        {
+            verificare_pozitie(x,y,ii,jj);
+            if(t[ii][jj] == 0 || t[ii][jj] == 5 )
+            {
+                t[ii][jj] = 3;
+                eliminare_piese_dupa_mutare(t);
+                desenare_piese(t);
+                schimbat = true;
+                break;
+            }
+            clearmouseclick(WM_RBUTTONDOWN);
+
+        }
+        if(!(x >= 388 && x <=893 && y>= 108 && y <= 613))
+        {
+           break;
+
+        }
+    }
+
+
+buton_back_start(x,y,1);
+}
+
+}
+
+
+
+
+
+
+
+
 
 
 bool verificare_castigator(int t[5][5], int player){
@@ -970,18 +1031,34 @@ void adancime_cazuri(int y, int x, int caz){
 
 
     //[DEV CONTROL] printf("nr de pz: %d \n", nr_pz);
-    if(nr_pz > NR_POSIBILITATI) {
-        NR_POSIBILITATI = nr_pz;
-        ind_ai = y;
-        ind_aj = x;
-        ind_caz = caz;
-        printf("-> [v]: Caz intermediar utilizat : %d \n", ind_caz);
-        printf("-> [v]: Coordonata [i] intermediar utilizat : %d \n", ind_ai);
-        printf("-> [v]: Coordonata [j] intermediar utilizat : %d \n\n", ind_aj);
+    if(dificultate == 1){
+        if(nr_pz > NR_POSIBILITATI) {
+            NR_POSIBILITATI = nr_pz;
+            ind_ai = y;
+            ind_aj = x;
+            ind_caz = caz;
+            printf("-> [v]: Caz intermediar utilizat : %d \n", ind_caz);
+            printf("-> [v]: Coordonata [i] intermediar utilizat : %d \n", ind_ai);
+            printf("-> [v]: Coordonata [j] intermediar utilizat : %d \n\n", ind_aj);
+        }
+    }
+
+    if(dificultate == 2){
+        printf("-> [x]: Nr de posiblitati: %d\n", nr_pz);
+        if(nr_pz < NR_POSIBILITATI) {
+            NR_POSIBILITATI = nr_pz;
+            ind_ai = y;
+            ind_aj = x;
+            ind_caz = caz;
+            printf("-> [v]: Caz intermediar utilizat : %d \n", ind_caz);
+            printf("-> [v]: Coordonata [i] intermediar utilizat : %d \n", ind_ai);
+            printf("-> [v]: Coordonata [j] intermediar utilizat : %d \n\n", ind_aj);
+        }
     }
 
 
-    //delay(1000);
+
+        //delay(1000);
 
 /*
 printf("nr caz %d \n", nr_pz);
@@ -1003,8 +1080,7 @@ printf("nr caz %d \n", nr_pz);
             }
             printf("\n");
         }
-
-//delay(3000);
+        //delay(3000);
 
 */
 
@@ -1127,7 +1203,9 @@ void mutare_player_pc(int player)
 
         if(player == 2){
 
-            if(dificultate == 1)
+            if(dificultate == 2) NR_POSIBILITATI = 17;
+
+            if(dificultate == 1 || dificultate == 2)
             {
                 system("cls");
                 /* [DEV CONTROL]
@@ -1147,11 +1225,11 @@ void mutare_player_pc(int player)
 
                 /* [DEV CONTROL]
                 for(int i = 0; i < 4; i++){
-                for(int j = 0; j < 4; j++){
-                printf("%d ", t_player[i][j]);
-                }
-            printf("\n");
-        }*/ 
+                    for(int j = 0; j < 4; j++){
+                        printf("%d ", t_player[i][j]);
+                    }
+                    printf("\n");
+                }*/ 
 
 
 
@@ -1391,7 +1469,7 @@ void start_joc_pvp()
 
 
 
-void start_joc_pvpc(int dificultate)
+void start_joc_pvpc()
 {
     turn = 1;
 
