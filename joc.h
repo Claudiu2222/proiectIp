@@ -26,6 +26,8 @@ int turn = 1;
 //-> Pentru AI
 int ai_i, ai_j, nr_caz;
 
+int NR_POSIBILITATI = 0, ind_ai = 0, ind_aj = 0, ind_caz = 0;
+
 
 void desenare_tabla()
 {
@@ -806,34 +808,144 @@ void mutare_player(int player)
 
 void adancime_cazuri(int y, int x, int caz){
 
-    system("cls");
+    //system("cls");
+    int i, j;
     //Construim piesa LUI AI in T_Player
     switch(caz){
-        case 1: 
+        case 1:
             t_player[y][x]   = 2;
             t_player[y][x+1] = 2;
             t_player[y+1][x+1] = 2;
             t_player[y+2][x+1] = 2;
+
+            if(t[y+1][x+1] != 0 || t[y+1][x+1+1] != 0 || t[y+1+1][x+1+1] != 0 || t[y+2+1][x+1+1] != 0) {
+                for(i = 1; i <= 4; i++){
+                    for(j = 1; j <= 4; j++){
+                        t_player[i-1][j-1] = t[i][j];
+                    }
+                }
+                return;
+            }
+
         break;
         case 2:
             t_player[y][x]   = 2;
             t_player[y][x-1] = 2;
             t_player[y+1][x-1] = 2;
-            t_player[y+2][x-1] = 2; 
+            t_player[y+2][x-1] = 2;
+
+            if(t[y+1][x+1] != 0 || t[y+1][x+1-1] != 0 || t[y+1+1][x+1-1] != 0 || t[y+2+1][x+1-1] != 0) {
+                for(i = 1; i <= 4; i++){
+                    for(j = 1; j <= 4; j++){
+                        t_player[i-1][j-1] = t[i][j];
+                    }
+                }
+                return;
+            }
+        break;
+        case 3:
+            t_player[y][x]   = 2;
+            t_player[y+1][x] = 2;
+            t_player[y+1][x+1] = 2;
+            t_player[y+1][x+2] = 2;
+
+            if(t[y+1][x+1] != 0 || t[y+1][x+1+1] != 0 || t[y+1+1][x+1+1] != 0 || t[y+1+1][x+2+1] != 0) {
+                for(i = 1; i <= 4; i++){
+                    for(j = 1; j <= 4; j++){
+                        t_player[i-1][j-1] = t[i][j];
+                    }
+                }
+                return;
+            }
+        break;
+        case 4:
+            t_player[y][x]   = 2;
+            t_player[y+1][x] = 2;
+            t_player[y+1][x-1] = 2;
+            t_player[y+1][x-2] = 2;
+
+            if(t[y+1][x+1] != 0 || t[y+1+1][x+1] != 0 || t[y+1+1][x+1-1] != 0 || t[y+1+1][x+1-2] != 0) {
+                for(i = 1; i <= 4; i++){
+                    for(j = 1; j <= 4; j++){
+                        t_player[i-1][j-1] = t[i][j];
+                    }
+                }
+                return;
+            }
+        break;
+        case 5:
+            t_player[y][x]   = 2;
+            t_player[y-1][x] = 2;
+            t_player[y-1][x+1] = 2;
+            t_player[y-1][x+2] = 2;
+
+            if(t[y+1][x+1] != 0 || t[y+1-1][x+1] != 0 || t[y-1+1][x+1+1] != 0 || t[y-1+1][x+2+1] != 0) {
+                for(i = 1; i <= 4; i++){
+                    for(j = 1; j <= 4; j++){
+                        t_player[i-1][j-1] = t[i][j];
+                    }
+                }
+                return;
+            }
+        break;
+        case 6:
+            t_player[y][x]   = 2;
+            t_player[y-1][x] = 2;
+            t_player[y-1][x-1] = 2;
+            t_player[y-1][x-2] = 2;
+
+            if(t[y+1][x+1] != 0 || t[y+1-1][x+1] != 0 || t[y+1-1][x+1-1] != 0 || t[y+1-1][x+1-2] != 0) {
+                for(i = 1; i <= 4; i++){
+                    for(j = 1; j <= 4; j++){
+                        t_player[i-1][j-1] = t[i][j];
+                    }
+                }
+                return;
+            }
+        break;
+        case 7:
+            t_player[y][x]   = 2;
+            t_player[y][x-1] = 2;
+            t_player[y-1][x-1] = 2;
+            t_player[y-2][x-1] = 2;
+
+            if(t[y+1][x+1] != 0 || t[y+1][x+1+1] != 0 || t[y+1+1][x+1+1] != 0 || t[y+2+1][x+1+1] != 0) {
+                for(i = 1; i <= 4; i++){
+                    for(j = 1; j <= 4; j++){
+                        t_player[i-1][j-1] = t[i][j];
+                    }
+                }
+                return;
+            }
+        break;
+        case 8:
+            t_player[y][x]   = 2;
+            t_player[y][x+1] = 2;
+            t_player[y-1][x+1] = 2;
+            t_player[y-2][x+1] = 2;
+
+            if(t[y+1][x+1] != 0 || t[y+1][x+1+1] != 0 || t[y-1+1][x+1+1] != 0 || t[y-2+1][x+1+1] != 0) {
+                for(i = 1; i <= 4; i++){
+                    for(j = 1; j <= 4; j++){
+                        t_player[i-1][j-1] = t[i][j];
+                    }
+                }
+                return;
+            }
         break;
         default: printf("[*] Err: NR CAZ DE INTRARE IN ADANCIME GRESIT.");
     }
-        
+
 
 
     //-> Schimbare pozitii in t_player pt PLAYER = 1
-    for(int i = 0; i<=3; i++)
-        for(int j = 0; j <= 3; j++) if (t_player[i][j] == 1) t_player[i][j] = 0;
+    for(i = 0; i<=3; i++)
+        for(j = 0; j <= 3; j++) if (t_player[i][j] == 1) t_player[i][j] = 0;
 
     //-> Cautare nr de pozitii afectate
     int nr_pz = 0;
-    for(int i = 0; i < 4; i++){
-        for(int j = 0; j < 4; j++){
+    for(i = 0; i < 4; i++){
+        for(j = 0; j < 4; j++){
 
             //->Verificam cazurile de L
             if(t_player[i][j] == 0){
@@ -856,44 +968,58 @@ void adancime_cazuri(int y, int x, int caz){
     --nr_pz;
 
 
-    printf("Nr poziti %d\n", nr_pz);
+
+    if(nr_pz > NR_POSIBILITATI) {
+        NR_POSIBILITATI = nr_pz;
+        ind_ai = y;
+        ind_aj = x;
+        ind_caz = caz;
+        printf("Caz Gasit!: %d \n ", ind_caz);
+        printf("ind_ai Gasit!: %d \n ", ind_ai);
+        printf("ind_aj Gasit!: %d \n ", ind_aj);
+    }
+
+
+    //delay(1000);
+
+system("cls");
+printf("nr caz %d \n", nr_pz);
+//-> Afisari pentru a intelege algoritmul
+        printf("Matrice T:\n");
+        for(i = 1; i <= 4; i++){
+            for(j = 1; j <= 4; j++){
+                printf("%d ", t[i][j]);
+            }
+            printf("\n");
+        }
+
+        printf("MAtrice T_PLAYER\n");
+
+
+        for(i = 0; i < 4; i++){
+            for(j = 0; j < 4; j++){
+                printf("%d ", t_player[i][j]);
+            }
+            printf("\n");
+        }
+
+//delay(3000);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-    int i, j;
-    printf("Matrice T:\n");
     for(i = 1; i <= 4; i++){
         for(j = 1; j <= 4; j++){
-            printf("%d ", t[i][j]);
+            t_player[i-1][j-1] = t[i][j];
         }
-        printf("\n");
-    }
-    printf("MAtrice T_PLAYER\n");
-    for(i = 0; i < 4; i++){
-        for(j = 0; j < 4; j++){
-            printf("%d ", t_player[i][j]);
-        }
-        printf("\n");
     }
 
 
-    delay(10000);
 
-    
+
+/*
     //-> Aducem la starea initiala.
     switch(caz){
-        case 1: 
+        case 1:
             t_player[y][x]   = 0;
             t_player[y][x+1] = 0;
             t_player[y+1][x+1] = 0;
@@ -903,11 +1029,47 @@ void adancime_cazuri(int y, int x, int caz){
             t_player[y][x]   = 0;
             t_player[y][x-1] = 0;
             t_player[y+1][x-1] = 0;
-            t_player[y+2][x-1] = 0; 
+            t_player[y+2][x-1] = 0;
+        break;
+        case 3:
+            t_player[y][x]   = 0;
+            t_player[y+1][x] = 0;
+            t_player[y+1][x+1] = 0;
+            t_player[y+1][x+2] = 0;
+        break;
+        case 4:
+            t_player[y][x]   = 0;
+            t_player[y+1][x] = 0;
+            t_player[y+1][x-1] = 0;
+            t_player[y+1][x-2] = 0;
+        break;
+        case 5:
+            t_player[y][x]   = 0;
+            t_player[y-1][x] = 0;
+            t_player[y-1][x+1] = 0;
+            t_player[y-1][x+2] = 0;
+        break;
+        case 6:
+            t_player[y][x]   = 0;
+            t_player[y-1][x] = 0;
+            t_player[y-1][x-1] = 0;
+            t_player[y-1][x-2] = 0;
+        break;
+        case 7:
+            t_player[y][x]   = 0;
+            t_player[y][x-1] = 0;
+            t_player[y-1][x-1] = 0;
+            t_player[y-2][x-1] = 0;
+        break;
+        case 8:
+            t_player[y][x]   = 0;
+            t_player[y][x+1] = 0;
+            t_player[y-1][x+1] = 0;
+            t_player[y-2][x+1] = 0;
         break;
         default: printf("[*] Err: NR CAZ DE INTRARE IN ADANCIME GRESIT.");
     }
-
+*/
 
 }
 
@@ -1007,7 +1169,7 @@ void mutare_player_pc(int player)
                 if(!(x >= 388 && x <=893 && y>= 108 && y <= 613))
                 {
                     copiere_matrice(t,a);
-                     desenare_piese(t);
+                    desenare_piese(t);
 
                     break;
 
@@ -1021,6 +1183,20 @@ void mutare_player_pc(int player)
 
             if(dificultate == 1)
             {
+                /*
+                system("cls");
+                printf("ai %d \n", ai_i);
+                printf("ai %d \n", ai_j);
+                printf("nr caz %d \n ", nr_caz);
+
+                delay(5000);
+                */
+                //-> Doar ca siguranta, inlocuim cu 0 pozitia lui 2
+                for(int i = 1; i <= 4; i++){
+                    for(int j = 1; j <= 4; j++){
+                        if(t[i][j] == 2) t[i][j] = 0;
+                    }
+                }
 
                 int intm = 1;
                 //Cautam in matricea T figuri
@@ -1030,44 +1206,123 @@ void mutare_player_pc(int player)
 
                         //->Verificam cazurile de L
 
-                        if(t_player[i][j] == 0){
+                        if(t_player[i][j] == 0 && t[i+1][j+1] != 1){
 
                             if(i == ai_i && j == ai_j){
                                 if(caz_unu(i, j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 1);} intm++;
                                 if(caz_doi(i, j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 2);} intm++;
-                                /*if(caz_trei(i, j, 0)) {}
-                                if(caz_patru(i,j, 0)) {}
-                                if(caz_cinci(i,j, 0)) {}
-                                if(caz_sase(i,j, 0)) {}
-                                if(caz_sapte(i,j, 0)) {}
-                                if(caz_opt(i,j, 0)) {}*/
+                                if(caz_trei(i, j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 3);} intm++;
+                                if(caz_patru(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 4);} intm++;
+                                if(caz_cinci(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 5);} intm++;
+                                if(caz_sase(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 6);} intm++;
+                                if(caz_sapte(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 7);} intm++;
+                                if(caz_opt(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 8);}
                             }else{
                                 if(caz_unu(i, j, 0)) {adancime_cazuri(i, j, 1);}
                                 if(caz_doi(i, j, 0)) {adancime_cazuri(i, j, 2);}
-                                /*if(caz_trei(i, j, 0)) {}
-                                if(caz_patru(i,j, 0)) {}
-                                if(caz_cinci(i,j, 0)) {}
-                                if(caz_sase(i,j, 0)) {}
-                                if(caz_sapte(i,j, 0)) {}
-                                if(caz_opt(i,j, 0)) {}*/
+                                if(caz_trei(i, j, 0)) {adancime_cazuri(i, j, 3);}
+                                if(caz_patru(i,j, 0)) {adancime_cazuri(i, j, 4);}
+                                if(caz_cinci(i,j, 0)) {adancime_cazuri(i, j, 5);}
+                                if(caz_sase(i,j, 0)) {adancime_cazuri(i, j, 6);}
+                                if(caz_sapte(i,j, 0)) {adancime_cazuri(i, j, 7);}
+                                if(caz_opt(i,j, 0)) {adancime_cazuri(i, j, 8);}
                             }
 
                         }
                     }
                 }
 
-                /*
-                //-> Egalare din T in T_player
-                //-> Initializare Matrice de pozitii fara player
-                for(int i = 0; i < 4; i++){
-                    for(int j = 0; j < 4; j++){
-                        if (((t[i+1][j+1] != player) || (t[i+1][j+1] == 0)) && t[i+1][j+1] != 4) t_player[i][j] = t[i+1][j+1];
-                        else  {t_player[i][j] = 0; t[i+1][j+1] = 0;}
-                    }
-                }
-                */
+                //-> Resetare valori ce vin din Adancime Cazuri
+                NR_POSIBILITATI = 0;
+                ai_i = ind_ai+1;
+                ai_j = ind_aj+1;
+                nr_caz = ind_caz;
+
+                system("cls");
+                printf("ai %d \n", ai_i);
+                printf("ai %d \n", ai_j);
+                printf("nr caz %d \n ", nr_caz);
+
+
+                ind_ai = 0;
+                ind_aj = 0;
+                ind_caz = 0;
+
 
                 //-> Desenare pe tabla a pieselor castigatorului
+                switch(nr_caz){
+                    case 1:
+                        t[ai_i][ai_j]   = 2;
+                        t[ai_i][ai_j+1] = 2;
+                        t[ai_i+1][ai_j+1] = 2;
+                        t[ai_i+2][ai_j+1] = 2;
+                    break;
+                    case 2:
+                        t[ai_i][ai_j]   = 2;
+                        t[ai_i][ai_j-1] = 2;
+                        t[ai_i+1][ai_j-1] = 2;
+                        t[ai_i+2][ai_j-1] = 2;
+                    break;
+                    case 3:
+                        t[ai_i][ai_j]   = 2;
+                        t[ai_i+1][ai_j] = 2;
+                        t[ai_i+1][ai_j+1] = 2;
+                        t[ai_i+1][ai_j+2] = 2;
+                    break;
+                    case 4:
+                        t[ai_i][ai_j]   = 2;
+                        t[ai_i+1][ai_j] = 2;
+                        t[ai_i+1][ai_j-1] = 2;
+                        t[ai_i+1][ai_j-2] = 2;
+                    break;
+                    case 5:
+                        t[ai_i][ai_j]   = 2;
+                        t[ai_i-1][ai_j] = 2;
+                        t[ai_i-1][ai_j+1] = 2;
+                        t[ai_i-1][ai_j+2] = 2;
+                    break;
+                    case 6:
+                        t[ai_i][ai_j]   = 2;
+                        t[ai_i-1][ai_j] = 2;
+                        t[ai_i-1][ai_j-1] = 2;
+                        t[ai_i-1][ai_j-2] = 2;
+                    break;
+                    case 7:
+                        t[ai_i][ai_j]   = 2;
+                        t[ai_i][ai_j-1] = 2;
+                        t[ai_i-1][ai_j-1] = 2;
+                        t[ai_i-2][ai_j-1] = 2;
+                    break;
+                    case 8:
+                        t[ai_i][ai_j]   = 2;
+                        t[ai_i][ai_j+1] = 2;
+                        t[ai_i-1][ai_j+1] = 2;
+                        t[ai_i-2][ai_j+1] = 2;
+                    break;
+                    default: printf("[*] Err: TF?.");
+                }
+                desenare_piese(t);
+                --ai_j; --ai_i;
+                mutat_piesa = true;
+
+                printf("Matrice T:\n");
+                int i, j;
+        for(i = 1; i <= 4; i++){
+            for(j = 1; j <= 4; j++){
+                printf("%d ", t[i][j]);
+            }
+            printf("\n");
+        }
+
+        printf("MAtrice T_PLAYER\n");
+
+
+        for(i = 0; i < 4; i++){
+            for(j = 0; j < 4; j++){
+                printf("%d ", t_player[i][j]);
+            }
+            printf("\n");
+        }
 
             }
 
