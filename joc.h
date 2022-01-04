@@ -22,6 +22,11 @@ int t[5][5], t_pozitii[5][5] = { {0, 0, 0, 0, 0},
                                };
 int t_player[4][4];
 int turn = 1;
+
+//-> Pentru AI
+int ai_i, ai_j, nr_caz;
+
+
 void desenare_tabla()
 {
 
@@ -802,12 +807,23 @@ void mutare_player(int player)
 void adancime_cazuri(int y, int x, int caz){
 
     system("cls");
-    //Construim piesa in T_Player
-    //Doar pt CAZ UNU
-    t_player[y][x]   = 2;
-    t_player[y][x+1] = 2;
-    t_player[y+1][x+1] = 2;
-    t_player[y+2][x+1] = 2;
+    //Construim piesa LUI AI in T_Player
+    switch(caz){
+        case 1: 
+            t_player[y][x]   = 2;
+            t_player[y][x+1] = 2;
+            t_player[y+1][x+1] = 2;
+            t_player[y+2][x+1] = 2;
+        break;
+        case 2:
+            t_player[y][x]   = 2;
+            t_player[y][x-1] = 2;
+            t_player[y+1][x-1] = 2;
+            t_player[y+2][x-1] = 2; 
+        break;
+        default: printf("[*] Err: NR CAZ DE INTRARE IN ADANCIME GRESIT.");
+    }
+        
 
 
     //-> Schimbare pozitii in t_player pt PLAYER = 1
@@ -838,7 +854,7 @@ void adancime_cazuri(int y, int x, int caz){
 
 
     --nr_pz;
-    
+
 
     printf("Nr poziti %d\n", nr_pz);
 
@@ -874,10 +890,23 @@ void adancime_cazuri(int y, int x, int caz){
 
     delay(10000);
 
-    t_player[y][x]   = 0;
-    t_player[y][x+1] = 0;
-    t_player[y+1][x+1] = 0;
-    t_player[y+2][x+1] = 0;
+    
+    //-> Aducem la starea initiala.
+    switch(caz){
+        case 1: 
+            t_player[y][x]   = 0;
+            t_player[y][x+1] = 0;
+            t_player[y+1][x+1] = 0;
+            t_player[y+2][x+1] = 0;
+        break;
+        case 2:
+            t_player[y][x]   = 0;
+            t_player[y][x-1] = 0;
+            t_player[y+1][x-1] = 0;
+            t_player[y+2][x-1] = 0; 
+        break;
+        default: printf("[*] Err: NR CAZ DE INTRARE IN ADANCIME GRESIT.");
+    }
 
 
 }
@@ -993,7 +1022,7 @@ void mutare_player_pc(int player)
             if(dificultate == 1)
             {
 
-                
+                int intm = 1;
                 //Cautam in matricea T figuri
                 //-> Incepem cautarea de 0
                 for(int i = 0; i < 4; i++){
@@ -1002,18 +1031,32 @@ void mutare_player_pc(int player)
                         //->Verificam cazurile de L
 
                         if(t_player[i][j] == 0){
-                            if(caz_unu(i, j, 0)) {adancime_cazuri(i, j);}
-                            /*if(caz_doi(i, j, 0)) {}
-                            if(caz_trei(i, j, 0)) {}
-                            if(caz_patru(i,j, 0)) {}
-                            if(caz_cinci(i,j, 0)) {}
-                            if(caz_sase(i,j, 0)) {}
-                            if(caz_sapte(i,j, 0)) {}
-                            if(caz_opt(i,j, 0)) {}*/
+
+                            if(i == ai_i && j == ai_j){
+                                if(caz_unu(i, j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 1);} intm++;
+                                if(caz_doi(i, j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 2);} intm++;
+                                /*if(caz_trei(i, j, 0)) {}
+                                if(caz_patru(i,j, 0)) {}
+                                if(caz_cinci(i,j, 0)) {}
+                                if(caz_sase(i,j, 0)) {}
+                                if(caz_sapte(i,j, 0)) {}
+                                if(caz_opt(i,j, 0)) {}*/
+                            }else{
+                                if(caz_unu(i, j, 0)) {adancime_cazuri(i, j, 1);}
+                                if(caz_doi(i, j, 0)) {adancime_cazuri(i, j, 2);}
+                                /*if(caz_trei(i, j, 0)) {}
+                                if(caz_patru(i,j, 0)) {}
+                                if(caz_cinci(i,j, 0)) {}
+                                if(caz_sase(i,j, 0)) {}
+                                if(caz_sapte(i,j, 0)) {}
+                                if(caz_opt(i,j, 0)) {}*/
+                            }
+
                         }
                     }
                 }
 
+                /*
                 //-> Egalare din T in T_player
                 //-> Initializare Matrice de pozitii fara player
                 for(int i = 0; i < 4; i++){
@@ -1022,6 +1065,7 @@ void mutare_player_pc(int player)
                         else  {t_player[i][j] = 0; t[i+1][j+1] = 0;}
                     }
                 }
+                */
 
                 //-> Desenare pe tabla a pieselor castigatorului
 
@@ -1046,7 +1090,7 @@ void start_joc_pvp()
 {
     turn = 1;
 
-    
+
 
     //-> Fundal
     game_back == false;
@@ -1129,6 +1173,12 @@ void start_joc_pvpc(int dificultate)
     //-> Fundal
     game_back == false;
     castigator = false;
+
+
+    ai_i = 0;
+    ai_j = 1;
+    nr_caz =1;
+
     int ii,jj;
     coordonate_tabla();
 
