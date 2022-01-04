@@ -808,7 +808,7 @@ void mutare_player(int player)
 
 void adancime_cazuri(int y, int x, int caz){
 
-    printf("[*]Am intrat cu caz: %d \n", caz);
+    printf("[*]Am intrat cu caz: %d(i = %d, j = %d) \n", caz, y, x);
 
     //system("cls");
     int i, j;
@@ -854,9 +854,7 @@ void adancime_cazuri(int y, int x, int caz){
                 for(i = 1; i <= 4; i++){
                     for(j = 1; j <= 4; j++){
                         t_player[i-1][j-1] = t[i][j];
-                        printf("%d ", t[i][j]);
                     }
-                    printf("\n");
                 }
                 return;
             }
@@ -968,18 +966,18 @@ void adancime_cazuri(int y, int x, int caz){
 
 
 
-   // --nr_pz;
+   --nr_pz;
 
 
-    printf("nr de pz: %d \n", nr_pz);
-    if(nr_pz >= NR_POSIBILITATI) {
+    //[DEV CONTROL] printf("nr de pz: %d \n", nr_pz);
+    if(nr_pz > NR_POSIBILITATI) {
         NR_POSIBILITATI = nr_pz;
         ind_ai = y;
         ind_aj = x;
         ind_caz = caz;
-        /*printf("Caz Gasit!: %d \n ", ind_caz);
-        printf("ind_ai Gasit!: %d \n ", ind_ai);
-        printf("ind_aj Gasit!: %d \n ", ind_aj);*/
+        printf("-> [v]: Caz intermediar utilizat : %d \n", ind_caz);
+        printf("-> [v]: Coordonata [i] intermediar utilizat : %d \n", ind_ai);
+        printf("-> [v]: Coordonata [j] intermediar utilizat : %d \n\n", ind_aj);
     }
 
 
@@ -1131,13 +1129,14 @@ void mutare_player_pc(int player)
 
             if(dificultate == 1)
             {
-                
-                
+                system("cls");
+                /* [DEV CONTROL]
                 printf("ai %d \n", ai_i);
                 printf("ai %d \n", ai_j);
                 printf("nr caz %d \n ", nr_caz);
 
-                
+                */
+
                 //-> Doar ca siguranta, inlocuim cu 0 pozitia lui 2
                 for(int i = 1; i <= 4; i++){
                     for(int j = 1; j <= 4; j++){
@@ -1146,12 +1145,13 @@ void mutare_player_pc(int player)
                     }
                 }
 
+                /* [DEV CONTROL]
                 for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++){
+                for(int j = 0; j < 4; j++){
                 printf("%d ", t_player[i][j]);
-            }
+                }
             printf("\n");
-        }
+        }*/ 
 
 
 
@@ -1169,28 +1169,28 @@ void mutare_player_pc(int player)
                             
 
                             if(i == ai_i && j == ai_j){
-                                printf("Coordonate: i=%d j=%d [CAZ EGAL ANTERIOR]\n", i, j);
-                                if(caz_unu(i, j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 1); printf("->1 \n");} intm++;
-                                if(caz_doi(i, j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 2); printf("->2 \n");} intm++;
-                                if(caz_trei(i, j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 3);printf("->3 \n");} intm++;
-                                if(caz_patru(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 4);printf("->4 \n");} intm++;
-                                if(caz_cinci(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 5);printf("->5 \n");} intm++;
-                                if(caz_sase(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 6); printf("->6 \n");} intm++;
-                                if(caz_sapte(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 7);printf("->7 \n");} intm++;
-                                if(caz_opt(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 8);  printf("->8 \n");}
-                                delay(1000);
+                                //printf("Coordonate: i=%d j=%d [CAZ EGAL ANTERIOR]\n", i, j);
+                                if(caz_unu(i, j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 1); /*printf("->1 \n");*/} intm++;
+                                if(caz_doi(i, j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 2); /*printf("->2 \n");*/} intm++;
+                                if(caz_trei(i, j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 3);/*printf("->3 \n");*/} intm++;
+                                if(caz_patru(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 4);/*printf("->4 \n");*/} intm++;
+                                if(caz_cinci(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 5);/*printf("->5 \n");*/} intm++;
+                                if(caz_sase(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 6); /*printf("->6 \n");*/} intm++;
+                                if(caz_sapte(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 7);/*printf("->7 \n");*/} intm++;
+                                if(caz_opt(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 8);  /*printf("->8 \n");*/}
+                                //delay(1000);
                                 
                             }else{
-                                printf("Coordonate: i=%d j=%d [CAZ OBISNUIT] \n", i, j);
-                                if(caz_unu(i, j, 0)) {adancime_cazuri(i, j, 1); printf("->1 \n");}
-                                if(caz_doi(i, j, 0)) {adancime_cazuri(i, j, 2);printf("->2 \n");}
-                                if(caz_trei(i, j, 0)) {adancime_cazuri(i, j, 3);printf("->3 \n");}
-                                if(caz_patru(i,j, 0)) {adancime_cazuri(i, j, 4);printf("->4 \n");}
-                                if(caz_cinci(i,j, 0)) {adancime_cazuri(i, j, 5);printf("->5 \n");}
-                                if(caz_sase(i,j, 0)) {adancime_cazuri(i, j, 6);printf("->6 \n");}
-                                if(caz_sapte(i,j, 0)) {adancime_cazuri(i, j, 7);printf("->7 \n");}
-                                if(caz_opt(i,j, 0)) {adancime_cazuri(i, j, 8);printf("->8 \n");}
-                                delay(1000);
+                                //printf("Coordonate: i=%d j=%d [CAZ OBISNUIT] \n", i, j);
+                                if(caz_unu(i, j, 0)) {adancime_cazuri(i, j, 1); /*printf("->1 \n");*/}
+                                if(caz_doi(i, j, 0)) {adancime_cazuri(i, j, 2);/*printf("->2 \n");*/}
+                                if(caz_trei(i, j, 0)) {adancime_cazuri(i, j, 3);/*printf("->3 \n");*/}
+                                if(caz_patru(i,j, 0)) {adancime_cazuri(i, j, 4);/*printf("->4 \n");*/}
+                                if(caz_cinci(i,j, 0)) {adancime_cazuri(i, j, 5);/*printf("->5 \n");*/}
+                                if(caz_sase(i,j, 0)) {adancime_cazuri(i, j, 6);/*printf("->6 \n");*/}
+                                if(caz_sapte(i,j, 0)) {adancime_cazuri(i, j, 7);/*printf("->7 \n");*/}
+                                if(caz_opt(i,j, 0)) {adancime_cazuri(i, j, 8);/*printf("->8 \n");*/}
+                                //delay(1000);
                                 
                             }
 
@@ -1206,10 +1206,12 @@ void mutare_player_pc(int player)
                 ai_j = ind_aj+1;
                 nr_caz = ind_caz;
 
-                /*system("cls");
-                printf("ai %d \n", ai_i);
-                printf("ai %d \n", ai_j);
-                printf("nr caz %d \n ", nr_caz);*/
+
+
+               
+                printf("\n\n[x]: Coordonata finala pt mutare [i] : %d \n", ai_i-1);
+                printf("[x]: Coordonata finala pt mutare [j] : %d \n", ai_j-1);
+                printf("[x]: Numar CAZ :  %d \n ", nr_caz);
 
 
                 ind_ai = 0;
@@ -1273,6 +1275,7 @@ void mutare_player_pc(int player)
                 --ai_j; --ai_i;
                 mutat_piesa = true;
 
+/* [DEV CONTROL]
                 printf("Matrice T:\n");
                 int i, j;
         for(i = 1; i <= 4; i++){
@@ -1291,7 +1294,7 @@ void mutare_player_pc(int player)
             }
             printf("\n");
         }
-
+*/
             }
 
         }
