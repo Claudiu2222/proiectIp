@@ -1124,7 +1124,7 @@ void adancime_cazuri(int y, int x, int caz){
             t_player[y-1][x-1] = 2;
             t_player[y-2][x-1] = 2;
 
-            if(t[y+1][x+1] != 0 || t[y+1][x+1+1] != 0 || t[y+1+1][x+1+1] != 0 || t[y+2+1][x+1+1] != 0) {
+            if(t[y+1][x+1] != 0 || t[y+1][x+1-1] != 0 || t[y+1-1][x+1-1] != 0 || t[y-2+1][x+1-1] != 0) {
                 for(i = 1; i <= 4; i++){
                     for(j = 1; j <= 4; j++){
                         t_player[i-1][j-1] = t[i][j];
