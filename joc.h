@@ -421,14 +421,9 @@ bool caz_opt(int i, int j, int val){
 //[S]: Functie ce cauta numarul de miscari cat mai mici al unei mutari de banut
 int posibilitati_banut(){
 
-    //[S]: Inlocuire 1 cu 0
-    for(int i = 0; i < 4; i++)
-        for(int j = 0; j < 4; j++) 
-            if (t_player[i][j] == 1) t_player[i][j] = 0;
-
 
     //[S]: Cautare numar de miscari dupa algoritmul original
-    int nr_miscari = -1;
+    int nr_miscari = 0;
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){
             if(t_player[i][j] == 0){
@@ -444,10 +439,15 @@ int posibilitati_banut(){
         }
     }
 
+    --nr_miscari;
+
+    printf("\n[BANUT]: Nr de miscari: %d", nr_miscari);
+
+    
 
     return nr_miscari;
 
-} 
+}
 
 
 
@@ -465,16 +465,169 @@ void mutare_banut(int player)
     if (dificultate == 1 && mod_joc == 2 && player == 2) schimbat = true;
     if (dificultate == 2 && mod_joc == 2 && player == 2) {
 
+        delay(200); //<- Pentru a putea vedea piesa modificanduse
+
         //[S]: Algoritm de cautare si aranjare corecta a banutilor
-        
         //[S]: Egalare matrice intermediara(T_Player) cu T
         for(int i = 1; i <=4; i++)
             for(int j = 1; j <= 4; j++) t_player[i-1][j-1] = t[i][j];
 
+
+        //[S]: Egalare temporara a lui 1 cu 0
+        printf("\n");
+        for(int i = 0; i < 4; i++){
+            for(int j = 0; j < 4; j++){
+                if(t_player[i][j] == 1) t_player[i][j] = 0;
+            }
+        }
+
+
+        printf("\n");
+        for(int i = 0; i < 4; i++){
+            for(int j = 0; j < 4; j++){
+                printf("%d ", t_player[i][j]);
+            }
+        printf("\n");
+        }
+        
+
         //[S]: Testare daca este necesare modificare unui banuts
         if(posibilitati_banut() != 0){
-            while(true){delay(1000);}
-        }
+
+
+            int nr_modificari = 17, contor = 0;
+
+            //[S]: Cautare a primului banuts si incercare de a il modifica
+            struct ban{
+                int imd_i, imd_j;
+                int init_i, init_j;
+                int val;
+            }b1, b2;
+            bool gasit = false;
+
+            for (int i = 0; i < 4; ++i){
+                for(int j = 0; j < 4; ++j)
+                    if(t_player[i][j] == 3) {
+                        gasit = true;
+                        b1.init_i = i;
+                        b1.init_j = j;
+                        t_player[i][j] = 0;
+                        printf("\n!Banuts Gasit 1: i = %d j = %d \n", b1.init_i, b1.init_j);
+                        break;}
+                if(gasit) break;
+            }
+
+            //[S]: Modificare primului banuts pe tabla si compararea repetata
+            for (int i = 0; i < 4; ++i){
+                for(int j = 0; j < 4; ++j){
+                    if(t_player[i][j] == 0) {
+
+                        t_player[i][j] = 3;
+
+                        printf("\n");
+                        for(int i = 0; i < 4; i++){
+                            for(int j = 0; j < 4; j++){
+                                if(t_player[i][j] == 1) t_player[i][j] = 0;
+                                printf("%d ", t_player[i][j]);
+                            }
+                            printf("\n");
+                        }
+
+                        contor = posibilitati_banut();
+                        if(contor < nr_modificari){
+                            nr_modificari = contor;
+                            b1.imd_i = i;
+                            b1.imd_j = j;
+                            b1.val = nr_modificari;
+                        }
+
+                        for(int i = 0; i < 4; i++)
+                            for(int j = 0; j < 4; j++)
+                                if(t[i+1][j+1] == 1) t_player[i][j] = 1;
+
+                        t_player[i][j] = 0;
+                    }
+                }
+            }
+
+            
+            
+            gasit = false; nr_modificari = 17; contor = 0;
+            //[S]: Modificare al doilea banuts pe tabla si compararea repetata
+             for (int i = 0; i < 4; ++i){
+                for(int j = 0; j < 4; ++j){
+                    if(t_player[i][j] == 3) {
+                        gasit = true;
+                        b2.init_i = i;
+                        b2.init_j = j;
+                        t_player[i][j] = 0;
+                        printf("\n!Banuts Gasit 2: i = %d j = %d \n", b2.init_i, b2.init_j);
+                        break;}
+                }
+                if(gasit) break;
+            }
+            //[S]: Readucere piesa in T_Player la normal
+            t_player[b1.init_i][b1.init_j] = 3;
+
+            
+            for (int i = 0; i < 4; ++i){
+                for(int j = 0; j < 4; ++j){
+                    if(t_player[i][j] == 0) {
+
+                        t_player[i][j] = 3;
+
+                        printf("\n");
+                        for(int i = 0; i < 4; i++){
+                            for(int j = 0; j < 4; j++){
+                                if(t_player[i][j] == 1) t_player[i][j] = 0;
+                                printf("%d ", t_player[i][j]);
+                            }
+                            printf("\n");
+                        }
+
+                        contor = posibilitati_banut();
+                        if(contor < nr_modificari){
+                            nr_modificari = contor;
+                            b2.imd_i = i;
+                            b2.imd_j = j;
+                            b2.val = nr_modificari;
+                        }
+
+                        for(int i = 0; i < 4; i++)
+                            for(int j = 0; j < 4; j++)
+                                if(t[i+1][j+1] == 1) t_player[i][j] = 1;
+
+                        t_player[i][j] = 0;
+                    }
+                }
+            }
+            
+        
+            //-- Partea cu if
+
+            if(b1.val < b2.val){
+                t[b1.init_i+1][b1.init_j+1] = 0;
+                t[b1.imd_i+1][b1.imd_j+1] = 3;
+            }else {
+                t[b2.init_i+1][b2.init_j+1] = 0;
+                t[b2.imd_i+1][b2.imd_j+1] = 3;
+            }
+
+
+            printf("\n");
+            for(int i = 0; i < 4; i++){
+                for(int j = 0; j < 4; j++){
+                    printf("%d ", t[i+1][j+1]);
+                }
+                printf("\n");
+            }
+
+            desenare_piese(t);
+            delay(1000);
+
+            }
+
+
         schimbat = true;
     }
 
@@ -1229,7 +1382,7 @@ void mutare_player_pc(int player)
                         printf("%d ", t_player[i][j]);
                     }
                     printf("\n");
-                }*/ 
+                }*/
 
 
 
@@ -1244,7 +1397,7 @@ void mutare_player_pc(int player)
 
                         if(t_player[i][j] == 0 && t[i+1][j+1] != 1){
 
-                            
+
 
                             if(i == ai_i && j == ai_j){
                                 //printf("Coordonate: i=%d j=%d [CAZ EGAL ANTERIOR]\n", i, j);
@@ -1257,7 +1410,7 @@ void mutare_player_pc(int player)
                                 if(caz_sapte(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 7);/*printf("->7 \n");*/} intm++;
                                 if(caz_opt(i,j, 0) && nr_caz != intm) {adancime_cazuri(i, j, 8);  /*printf("->8 \n");*/}
                                 //delay(1000);
-                                
+
                             }else{
                                 //printf("Coordonate: i=%d j=%d [CAZ OBISNUIT] \n", i, j);
                                 if(caz_unu(i, j, 0)) {adancime_cazuri(i, j, 1); /*printf("->1 \n");*/}
@@ -1269,7 +1422,7 @@ void mutare_player_pc(int player)
                                 if(caz_sapte(i,j, 0)) {adancime_cazuri(i, j, 7);/*printf("->7 \n");*/}
                                 if(caz_opt(i,j, 0)) {adancime_cazuri(i, j, 8);/*printf("->8 \n");*/}
                                 //delay(1000);
-                                
+
                             }
 
                         }
@@ -1286,10 +1439,10 @@ void mutare_player_pc(int player)
 
 
 
-               
+
                 printf("\n\n[x]: Coordonata finala pt mutare [i] : %d \n", ai_i-1);
                 printf("[x]: Coordonata finala pt mutare [j] : %d \n", ai_j-1);
-                printf("[x]: Numar CAZ :  %d \n ", nr_caz);
+                printf("[x]: Numar CAZ :  %d \n", nr_caz);
 
 
                 ind_ai = 0;
