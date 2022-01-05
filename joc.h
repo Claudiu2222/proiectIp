@@ -494,6 +494,11 @@ void mutare_banut(int player)
         //[S]: Testare daca este necesare modificare unui banuts
         if(posibilitati_banut() != 0){
 
+            //[S]: Readucere la normal pentru a nu intr-a in conflict banutul cu 
+            for(int i = 0; i < 4; i++)
+                for(int j = 0; j < 4; j++)
+                    if(t[i+1][j+1] == 1) t_player[i][j] = 1;
+
 
             int nr_modificari = 17, contor = 0;
 
