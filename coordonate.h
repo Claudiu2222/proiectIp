@@ -4,13 +4,13 @@
 const int spatiux = 50, spatiuy = 50;
 const int inaltime = 100, lungime = 200;
 int rezX=1280, rezY=720;
-struct coordonate
+struct coordonate // coordonate butoane
 {
     int lX, lY;
     int rX, rY;
 } b_start, b_exit, b_settings, b_settings_back, b_settings_apply, b_muzica, b_back_start, b_start_game, tc[5][5],b_color[3][7];
 
-void init_coord_butoane()
+void init_coord_butoane()  // initiere coordonate butoane
 {
     b_settings_back.lX = rezX - spatiux - lungime;
     b_settings_back.rX = rezX - spatiux;

@@ -3,8 +3,8 @@
 #include "fisier.h"
 
 void afisMenu();
-void buton_muzica(int alegere);
-void selectare_buton_muzica(int x, int y, bool &muzica_on);
+void buton_muzica_info(int alegere);
+void selectare_buton_muzica_info(int x, int y, bool &muzica_on,short alegere);
 void afisare_text_settings(int alegere)
 {
     if(alegere == 0)
@@ -60,7 +60,7 @@ void afisare_text_settings(int alegere)
     }
     else if(alegere == 4)
     {
-         setbkcolor(COLOR(r_fundal, g_fundal, b_fundal));
+        setbkcolor(COLOR(r_fundal, g_fundal, b_fundal));
         settextstyle(0, HORIZ_DIR, 5);
         char text[3][11] = {"Fundal","Background","Fond"};
         if(limba == 0)
@@ -160,121 +160,123 @@ void selectare_steag(int alegere)
 
 void afisare_butoane_culori(int alegere, int alegere_2)
 {
-if(alegere_2 == 0)
-{if(alegere == 0)
+    if(alegere_2 == 0)
     {
-        readimagefile("img/arrowup.jpg",391,490,463,519);
-        rectangle(391,490,463,519);
+        if(alegere == 0)
+        {
+            readimagefile("img/arrowup.jpg",391,490,463,519);
+            rectangle(391,490,463,519);
+        }
+        else if(alegere == 1)
+        {
+            readimagefile("img/arrowdown.jpg",391,551,463,579);
+            rectangle(391,551,463,579);
+        }
+        else if (alegere == 2)
+        {
+            readimagefile("img/arrowup.jpg",604,490,676,519);
+            rectangle(604,490,676,519);
+        }
+        else if(alegere == 3)
+        {
+            readimagefile("img/arrowdown.jpg",604,551,676,579);
+            rectangle(604,551,676,579);
+        }
+        else if(alegere == 4)
+        {
+            readimagefile("img/arrowup.jpg",817,490,889,519);
+            rectangle(817,490,889,519);
+        }
+        else if (alegere == 5)
+        {
+            readimagefile("img/arrowdown.jpg",817,551,889,579);
+            rectangle(817,551,889,579);
+        }
     }
-    else if(alegere == 1)
+    else if(alegere_2 == 1)
     {
-        readimagefile("img/arrowdown.jpg",391,551,463,579);
-        rectangle(391,551,463,579);
+        if(alegere == 0)
+        {
+            readimagefile("img/arrowup.jpg",280,270,320,289);
+            rectangle(280,270,320,289);
+        }
+        else if(alegere == 1)
+        {
+            readimagefile("img/arrowdown.jpg",280,311,320,330);
+            rectangle(280,311,320,330);
+        }
+        else if (alegere == 2)
+        {
+            readimagefile("img/arrowup.jpg",370,270,410,289);
+            rectangle(370,270,410,289);
+        }
+        else if(alegere == 3)
+        {
+            readimagefile("img/arrowdown.jpg",370,311,410,330);
+            rectangle(370,311,410,330);
+        }
+        else if(alegere == 4)
+        {
+            readimagefile("img/arrowup.jpg",460,270,500,289);
+            rectangle(460,270,500,289);
+        }
+        else if (alegere == 5)
+        {
+            readimagefile("img/arrowdown.jpg",460,311,500,330);
+            rectangle(460,311,500,330);
+        }
     }
-    else if (alegere == 2)
+    else if(alegere_2 == 2)
     {
-        readimagefile("img/arrowup.jpg",604,490,676,519);
-        rectangle(604,490,676,519);
+        if(alegere == 0)
+        {
+            readimagefile("img/arrowup.jpg",1005,270,1045,289);
+            rectangle(1005,270,1045,289);
+        }
+        else if(alegere == 1)
+        {
+            readimagefile("img/arrowdown.jpg",1005,311,1045,330);
+            rectangle(1005,311,1045,330);
+        }
+        else if (alegere == 2)
+        {
+            readimagefile("img/arrowup.jpg",1095,270,1135,289);
+            rectangle(1095,270,1135,289);
+        }
+        else if(alegere == 3)
+        {
+            readimagefile("img/arrowdown.jpg",1095,311,1135,330);
+            rectangle(1095,311,1135,330);
+        }
+        else if(alegere == 4)
+        {
+            readimagefile("img/arrowup.jpg",1185,270,1225,289);
+            rectangle(1185,270,1225,289);
+        }
+        else if (alegere == 5)
+        {
+            readimagefile("img/arrowdown.jpg",1185,311,1225,330);
+            rectangle(1185,311,1225,330);
+        }
     }
-    else if(alegere == 3)
-    {
-        readimagefile("img/arrowdown.jpg",604,551,676,579);
-        rectangle(604,551,676,579);
-    }
-    else if(alegere == 4)
-    {
-        readimagefile("img/arrowup.jpg",817,490,889,519);
-        rectangle(817,490,889,519);
-    }
-    else if (alegere == 5)
-    {
-        readimagefile("img/arrowdown.jpg",817,551,889,579);
-        rectangle(817,551,889,579);
-    }
-}
-else if(alegere_2 == 1)
-{
-    if(alegere == 0)
-    {
-        readimagefile("img/arrowup.jpg",280,270,320,289);
-        rectangle(280,270,320,289);
-    }
-    else if(alegere == 1)
-    {
-        readimagefile("img/arrowdown.jpg",280,311,320,330);
-        rectangle(280,311,320,330);
-    }
-    else if (alegere == 2)
-    {
-        readimagefile("img/arrowup.jpg",370,270,410,289);
-        rectangle(370,270,410,289);
-    }
-    else if(alegere == 3)
-    {
-        readimagefile("img/arrowdown.jpg",370,311,410,330);
-        rectangle(370,311,410,330);
-    }
-    else if(alegere == 4)
-    {
-        readimagefile("img/arrowup.jpg",460,270,500,289);
-        rectangle(460,270,500,289);
-    }
-    else if (alegere == 5)
-    {
-        readimagefile("img/arrowdown.jpg",460,311,500,330);
-        rectangle(460,311,500,330);
-    }
-}
-else if(alegere_2 == 2)
-{
-    if(alegere == 0)
-    {
-        readimagefile("img/arrowup.jpg",1005,270,1045,289);
-        rectangle(1005,270,1045,289);
-    }
-    else if(alegere == 1)
-    {
-        readimagefile("img/arrowdown.jpg",1005,311,1045,330);
-        rectangle(1005,311,1045,330);
-    }
-    else if (alegere == 2)
-    {
-        readimagefile("img/arrowup.jpg",1095,270,1135,289);
-        rectangle(1095,270,1135,289);
-    }
-    else if(alegere == 3)
-    {
-        readimagefile("img/arrowdown.jpg",1095,311,1135,330);
-        rectangle(1095,311,1135,330);
-    }
-    else if(alegere == 4)
-    {
-        readimagefile("img/arrowup.jpg",1185,270,1225,289);
-        rectangle(1185,270,1225,289);
-    }
-    else if (alegere == 5)
-    {
-        readimagefile("img/arrowdown.jpg",1185,311,1225,330);
-        rectangle(1185,311,1225,330);
-    }
-}
-/*rectangle(1005,290,1045,310);
-    rectangle(1095,290,1135,310);
-    rectangle(1185,290,1225,310);*/
+    /*rectangle(1005,290,1045,310);
+        rectangle(1095,290,1135,310);
+        rectangle(1185,290,1225,310);*/
 
 
 }
 
 void culoare_fundal(int x, int y, int &r_fundal_aux, int &g_fundal_aux, int &b_fundal_aux)
-{ rectangle(391,520,463,550);
+{
+    rectangle(391,520,463,550);
     rectangle(604,520,676,550);
     rectangle(817,520,889,550);
     rectangle(584,600,696,700);
-      setviewport(394,523,461,548,0);
+    setviewport(394,523,461,548,0);
     setbkcolor(COLOR(255,0,0));
     clearviewport();
 
-     setviewport(607,523,674,548,0);
+    setviewport(607,523,674,548,0);
     setbkcolor(COLOR(0,255,0));
     clearviewport();
 
@@ -282,436 +284,448 @@ void culoare_fundal(int x, int y, int &r_fundal_aux, int &g_fundal_aux, int &b_f
     setbkcolor(COLOR(0,0,255));
     clearviewport();
     setviewport(0,0,1280,720,0);
-     if(x >= 391 && x <= 463 && y >=490 && y<=519)
+    if(x >= 391 && x <= 463 && y >=490 && y<=519)
+    {
+        while(true)
         {
-            while(true)
+
+            x=mousex();
+            y=mousey();
+            delay(50);
+
+
+
+            while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
             {
+                readimagefile("img/arrowupred.jpg",391,490,463,519);
+                setcolor(COLOR(255,0,0));
+                rectangle(391,490,463,519);
 
-                x=mousex();
-                y=mousey();
-                delay(50);
-
-
-
-                while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-                {
-                    readimagefile("img/arrowupred.jpg",391,490,463,519);
-                    setcolor(COLOR(255,0,0));
-                    rectangle(391,490,463,519);
-
-                    setviewport(587,603,694,698,0);
-                    if(r_fundal_aux%255 < 254)
+                setviewport(587,603,694,698,0);
+                if(r_fundal_aux%255 < 254)
                     r_fundal_aux++;
-                    setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255 ,b_fundal_aux%255));
-                    clearviewport();
+                setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux%255));
+                clearviewport();
 
-                    afisare_butoane_culori(0,0);
-                  if((GetKeyState(VK_LBUTTON) & 0x80)==0)
-                    {setviewport(0,0,1280,720,0);
-                setcolor(BLACK);
                 afisare_butoane_culori(0,0);
-                delay(2);
-                break;
-                    }
-                }
                 if((GetKeyState(VK_LBUTTON) & 0x80)==0)
-                    {setviewport(0,0,1280,720,0);
+                {
+                    setviewport(0,0,1280,720,0);
+                    setcolor(BLACK);
+                    afisare_butoane_culori(0,0);
+                    delay(2);
+                    break;
+                }
+            }
+            if((GetKeyState(VK_LBUTTON) & 0x80)==0)
+            {
+                setviewport(0,0,1280,720,0);
                 setcolor(BLACK);
                 afisare_butoane_culori(0,0);
                 delay(2);
                 break;
-                    }
-
             }
+
         }
-         if(x >= 391 && x <= 463 && y >=551 && y<=579)
+    }
+    if(x >= 391 && x <= 463 && y >=551 && y<=579)
+    {
+        while(true)
         {
-            while(true)
+
+            x=mousex();
+            y=mousey();
+            delay(50);
+
+
+
+            while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
             {
+                readimagefile("img/arrowdownred.jpg",391,551,463,579);
+                setcolor(COLOR(255,0,0));
+                rectangle(391,551,463,579);
 
-                x=mousex();
-                y=mousey();
-                delay(50);
-
-
-
-                while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-                {
-                    readimagefile("img/arrowdownred.jpg",391,551,463,579);
-                    setcolor(COLOR(255,0,0));
-                    rectangle(391,551,463,579);
-
-                   setviewport(587,603,694,698,0);
-            if(r_fundal_aux%255 > 1)
+                setviewport(587,603,694,698,0);
+                if(r_fundal_aux%255 > 1)
                     r_fundal_aux--;
-                    setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux%255));
-                    clearviewport();
+                setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux%255));
+                clearviewport();
 
-                    afisare_butoane_culori(0,0);
-                  if((GetKeyState(VK_LBUTTON) & 0x80)==0)
-                    {setviewport(0,0,1280,720,0);
-                setcolor(BLACK);
-                afisare_butoane_culori(1,0);
-                delay(2);
-                break;
-                    }
-                }
+                afisare_butoane_culori(0,0);
                 if((GetKeyState(VK_LBUTTON) & 0x80)==0)
-                    {setviewport(0,0,1280,720,0);
+                {
+                    setviewport(0,0,1280,720,0);
+                    setcolor(BLACK);
+                    afisare_butoane_culori(1,0);
+                    delay(2);
+                    break;
+                }
+            }
+            if((GetKeyState(VK_LBUTTON) & 0x80)==0)
+            {
+                setviewport(0,0,1280,720,0);
                 setcolor(BLACK);
                 afisare_butoane_culori(1,0);
                 delay(2);
                 break;
-                    }
-
             }
+
         }
-        if(x >= 604 && x <= 676 && y >=490 && y<=519)
+    }
+    if(x >= 604 && x <= 676 && y >=490 && y<=519)
+    {
+        while(true)
         {
-            while(true)
+
+            x=mousex();
+            y=mousey();
+            delay(50);
+
+
+
+            while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
             {
+                readimagefile("img/arrowupred.jpg",604,490,676,519);
+                setcolor(COLOR(255,0,0));
+                rectangle(604,490,676,519);
 
-                x=mousex();
-                y=mousey();
-                delay(50);
-
-
-
-                while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-                {
-                    readimagefile("img/arrowupred.jpg",604,490,676,519);
-                    setcolor(COLOR(255,0,0));
-                    rectangle(604,490,676,519);
-
-                    setviewport(587,603,694,698,0);
-                    if(g_fundal_aux%255 < 254)
+                setviewport(587,603,694,698,0);
+                if(g_fundal_aux%255 < 254)
                     g_fundal_aux++;
-                    setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux %255));
-                    clearviewport();
+                setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux %255));
+                clearviewport();
 
-                    afisare_butoane_culori(0,0);
-                  if((GetKeyState(VK_LBUTTON) & 0x80)==0)
-                    {setviewport(0,0,1280,720,0);
-                setcolor(BLACK);
-                afisare_butoane_culori(2,0);
-                delay(2);
-                break;
-                    }
-                }
+                afisare_butoane_culori(0,0);
                 if((GetKeyState(VK_LBUTTON) & 0x80)==0)
-                    {setviewport(0,0,1280,720,0);
+                {
+                    setviewport(0,0,1280,720,0);
+                    setcolor(BLACK);
+                    afisare_butoane_culori(2,0);
+                    delay(2);
+                    break;
+                }
+            }
+            if((GetKeyState(VK_LBUTTON) & 0x80)==0)
+            {
+                setviewport(0,0,1280,720,0);
                 setcolor(BLACK);
                 afisare_butoane_culori(2,0);
                 delay(2);
                 break;
-                    }
-
             }
+
         }
-         if(x >= 604 && x <= 676 && y >=551 && y<=579)
+    }
+    if(x >= 604 && x <= 676 && y >=551 && y<=579)
+    {
+        while(true)
         {
-            while(true)
+
+            x=mousex();
+            y=mousey();
+            delay(50);
+
+
+
+            while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
             {
+                readimagefile("img/arrowdownred.jpg",604,551,676,579);
+                setcolor(COLOR(255,0,0));
+                rectangle(604,551,676,579);
 
-                x=mousex();
-                y=mousey();
-                delay(50);
-
-
-
-                while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-                {
-                    readimagefile("img/arrowdownred.jpg",604,551,676,579);
-                    setcolor(COLOR(255,0,0));
-                    rectangle(604,551,676,579);
-
-                   setviewport(587,603,694,698,0);
-                    if(g_fundal_aux%255 > 1)
+                setviewport(587,603,694,698,0);
+                if(g_fundal_aux%255 > 1)
                     g_fundal_aux--;
-                    setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux%255));
-                    clearviewport();
+                setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux%255));
+                clearviewport();
 
-                    afisare_butoane_culori(0,0);
-                  if((GetKeyState(VK_LBUTTON) & 0x80)==0)
-                    {setviewport(0,0,1280,720,0);
-                setcolor(BLACK);
-                afisare_butoane_culori(3,0);
-                delay(2);
-                break;
-                    }
-                }
+                afisare_butoane_culori(0,0);
                 if((GetKeyState(VK_LBUTTON) & 0x80)==0)
-                    {setviewport(0,0,1280,720,0);
+                {
+                    setviewport(0,0,1280,720,0);
+                    setcolor(BLACK);
+                    afisare_butoane_culori(3,0);
+                    delay(2);
+                    break;
+                }
+            }
+            if((GetKeyState(VK_LBUTTON) & 0x80)==0)
+            {
+                setviewport(0,0,1280,720,0);
                 setcolor(BLACK);
                 afisare_butoane_culori(3,0);
                 delay(2);
                 break;
-                    }
-
             }
+
         }
-           if(x >= 817 && x <= 889 && y >=490 && y<=519)
+    }
+    if(x >= 817 && x <= 889 && y >=490 && y<=519)
+    {
+        while(true)
         {
-            while(true)
+
+            x=mousex();
+            y=mousey();
+            delay(50);
+
+
+
+            while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
             {
+                readimagefile("img/arrowupred.jpg",817,490,889,519);
+                setcolor(COLOR(255,0,0));
+                rectangle(817,490,889,519);
 
-                x=mousex();
-                y=mousey();
-                delay(50);
-
-
-
-                while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-                {
-                    readimagefile("img/arrowupred.jpg",817,490,889,519);
-                    setcolor(COLOR(255,0,0));
-                    rectangle(817,490,889,519);
-
-                   setviewport(587,603,694,698,0);
-                   if(b_fundal_aux%255 < 254)
+                setviewport(587,603,694,698,0);
+                if(b_fundal_aux%255 < 254)
                     b_fundal_aux++;
-                    setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux%255));
-                    clearviewport();
+                setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux%255));
+                clearviewport();
 
-                    afisare_butoane_culori(0,0);
-                  if((GetKeyState(VK_LBUTTON) & 0x80)==0)
-                    {setviewport(0,0,1280,720,0);
-                setcolor(BLACK);
-                afisare_butoane_culori(4,0);
-                delay(2);
-                break;
-                    }
-                }
+                afisare_butoane_culori(0,0);
                 if((GetKeyState(VK_LBUTTON) & 0x80)==0)
-                    {setviewport(0,0,1280,720,0);
-                setcolor(BLACK);
-                afisare_butoane_culori(4,0);
-                delay(2);
-                break;
-                    }
-
-            }
-        }
-           if(x >= 817 && x <= 889 && y >=551 && y<=579)
-        {
-            while(true)
-            {
-
-                x=mousex();
-                y=mousey();
-                delay(50);
-
-
-
-                while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
                 {
-                    readimagefile("img/arrowdownred.jpg",817,551,889,579);
-                    setcolor(COLOR(255,0,0));
-                    rectangle(817,551,889,579);
-
-                   setviewport(587,603,694,698,0);
-                    if(b_fundal_aux%255 > 1)
-                    b_fundal_aux--;
-                    setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux%255));
-                    clearviewport();
-
-                    afisare_butoane_culori(0,0);
-                  if((GetKeyState(VK_LBUTTON) & 0x80)==0)
-                    {setviewport(0,0,1280,720,0);
-                setcolor(BLACK);
-                afisare_butoane_culori(5,0);
-                delay(2);
-                break;
-                    }
+                    setviewport(0,0,1280,720,0);
+                    setcolor(BLACK);
+                    afisare_butoane_culori(4,0);
+                    delay(2);
+                    break;
                 }
+            }
+            if((GetKeyState(VK_LBUTTON) & 0x80)==0)
+            {
+                setviewport(0,0,1280,720,0);
+                setcolor(BLACK);
+                afisare_butoane_culori(4,0);
+                delay(2);
+                break;
+            }
+
+        }
+    }
+    if(x >= 817 && x <= 889 && y >=551 && y<=579)
+    {
+        while(true)
+        {
+
+            x=mousex();
+            y=mousey();
+            delay(50);
+
+
+
+            while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
+            {
+                readimagefile("img/arrowdownred.jpg",817,551,889,579);
+                setcolor(COLOR(255,0,0));
+                rectangle(817,551,889,579);
+
+                setviewport(587,603,694,698,0);
+                if(b_fundal_aux%255 > 1)
+                    b_fundal_aux--;
+                setbkcolor(COLOR(r_fundal_aux%255,g_fundal_aux%255,b_fundal_aux%255));
+                clearviewport();
+
+                afisare_butoane_culori(0,0);
                 if((GetKeyState(VK_LBUTTON) & 0x80)==0)
-                    {setviewport(0,0,1280,720,0);
+                {
+                    setviewport(0,0,1280,720,0);
+                    setcolor(BLACK);
+                    afisare_butoane_culori(5,0);
+                    delay(2);
+                    break;
+                }
+            }
+            if((GetKeyState(VK_LBUTTON) & 0x80)==0)
+            {
+                setviewport(0,0,1280,720,0);
                 setcolor(BLACK);
                 afisare_butoane_culori(5,0);
                 delay(2);
                 break;
-                    }
-
             }
+
         }
+    }
 }
 void selectare_limba(int x, int y, int &limba_aux)
 {
-      if(x >=100 && x <= 400 && y >= 200 && y <= 350)
+    if(x >=100 && x <= 400 && y >= 200 && y <= 350)
+    {
+
+        while(true)
         {
+            delay(2);
 
-            while(true)
+            x=mousex();
+            y=mousey();
+
+
+            setcolor(COLOR(255, 145, 0));
+            rectangle(98,198,402,352);
+            if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
             {
-                delay(2);
+                delay(70);
+                limba_aux = 0;
+                selectare_steag(0);
 
-                x=mousex();
-                y=mousey();
-
-
-                setcolor(COLOR(255, 145, 0));
+                break;
+            }
+            delay(2);
+            if (!(x >=100 && x <= 400 && y >= 200 && y <= 350))
+            {
+                setcolor(BLACK);
                 rectangle(98,198,402,352);
-                if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-                {
-                    delay(70);
-                    limba_aux = 0;
-                    selectare_steag(0);
 
-                    break;
-                }
-                delay(2);
-                if (!(x >=100 && x <= 400 && y >= 200 && y <= 350))
-                {
-                    setcolor(BLACK);
-                    rectangle(98,198,402,352);
-
-                    break;
-                }
-
+                break;
             }
+
         }
-        if(x >=490 && x <= 790 && y >= 200 && y <= 350)
+    }
+    if(x >=490 && x <= 790 && y >= 200 && y <= 350)
+    {
+
+        while(true)
         {
+            delay(2);
 
-            while(true)
+            x=mousex();
+            y=mousey();
+
+
+            setcolor(COLOR(255, 145, 0));
+            rectangle(488,198,792,352);
+            if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
             {
-                delay(2);
+                delay(70);
+                limba_aux = 1;
 
-                x=mousex();
-                y=mousey();
+                selectare_steag(1);
 
-
-                setcolor(COLOR(255, 145, 0));
+                break;
+            }
+            delay(2);
+            if (!(x >=490 && x <= 790 && y >= 200 && y <= 350))
+            {
+                setcolor(BLACK);
                 rectangle(488,198,792,352);
-                if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-                {
-                    delay(70);
-                    limba_aux = 1;
 
-                    selectare_steag(1);
-
-                    break;
-                }
-                delay(2);
-                if (!(x >=490 && x <= 790 && y >= 200 && y <= 350))
-                {
-                    setcolor(BLACK);
-                    rectangle(488,198,792,352);
-
-                    break;
-                }
-
+                break;
             }
+
         }
-        if(x >=880 && x <= 1180 && y >= 200 && y <= 350)
+    }
+    if(x >=880 && x <= 1180 && y >= 200 && y <= 350)
+    {
+
+        while(true)
         {
+            delay(2);
 
-            while(true)
+            x=mousex();
+            y=mousey();
+
+
+            setcolor(COLOR(255, 145, 0));
+            rectangle(878,198,1182,352);
+            if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
             {
-                delay(2);
+                delay(70);
+                limba_aux = 2;
 
-                x=mousex();
-                y=mousey();
+                selectare_steag(2);
 
-
-                setcolor(COLOR(255, 145, 0));
-                rectangle(878,198,1182,352);
-                if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-                {
-                    delay(70);
-                    limba_aux = 2;
-
-                    selectare_steag(2);
-
-                    break;
-                }
-                delay(2);
-                if (!(x >=880 && x <= 1180 && y >= 200 && y <= 350))
-                {
-                    setcolor(BLACK);
-                    rectangle(878,198,1182,352);
-                    break;
-                }
-
+                break;
             }
+            delay(2);
+            if (!(x >=880 && x <= 1180 && y >= 200 && y <= 350))
+            {
+                setcolor(BLACK);
+                rectangle(878,198,1182,352);
+                break;
+            }
+
         }
+    }
 }
 void buton_apply(int x, int y, int limba_aux,int r_fundal_aux, int g_fundal_aux, int b_fundal_aux, bool &_apply)
 {
-        if(x <= b_settings_apply.lX && x >= b_settings_apply.rX && y >= b_settings_apply.lY && y <= b_settings_apply.rY)
+    if(x <= b_settings_apply.lX && x >= b_settings_apply.rX && y >= b_settings_apply.lY && y <= b_settings_apply.rY)
+    {
+
+        while(true)
         {
+            delay(2);
 
-            while(true)
+            x=mousex();
+            y=mousey();
+
+            setfillstyle(SOLID_FILL, RED);
+            bar(b_settings_apply.lX+1,b_settings_apply.lY+1, b_settings_apply.rX, b_settings_apply.rY);
+            setbkcolor(RED);
+            afisare_text_settings(3);
+            if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
             {
-                delay(2);
 
-                x=mousex();
-                y=mousey();
-
-                setfillstyle(SOLID_FILL, RED);
-                bar(b_settings_apply.lX+1,b_settings_apply.lY+1, b_settings_apply.rX, b_settings_apply.rY);
-                setbkcolor(RED);
-                afisare_text_settings(3);
-                if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-                {
-
-                    setfillstyle(SOLID_FILL, WHITE);
-                    setbkcolor(WHITE);
-                    limba = limba_aux;
-                    r_fundal = r_fundal_aux;
-                    g_fundal = g_fundal_aux;
-                    b_fundal = b_fundal_aux;
-                    scriere_date();
-                    _apply = 1;
-                    break;
-                }
-                if (!(x <= b_settings_apply.lX && x >= b_settings_apply.rX && y >= b_settings_apply.lY && y <= b_settings_apply.rY))
-                    {
-                    afisare_butoane_settings('A');
-                    break;
-                }
-
+                setfillstyle(SOLID_FILL, WHITE);
+                setbkcolor(WHITE);
+                limba = limba_aux;
+                r_fundal = r_fundal_aux;
+                g_fundal = g_fundal_aux;
+                b_fundal = b_fundal_aux;
+                scriere_date();
+                _apply = 1;
+                break;
+            }
+            if (!(x <= b_settings_apply.lX && x >= b_settings_apply.rX && y >= b_settings_apply.lY && y <= b_settings_apply.rY))
+            {
+                afisare_butoane_settings('A');
+                break;
             }
 
-
-
-
         }
+
+
+
+
+    }
 
 }
 void buton_back(int x,int y, bool &_back)
 {
-      if(x >= b_settings_back.lX && x <= b_settings_back.rX && y >= b_settings_back.lY && y <= b_settings_back.rY)
+    if(x >= b_settings_back.lX && x <= b_settings_back.rX && y >= b_settings_back.lY && y <= b_settings_back.rY)
+    {
+
+        while(true)
         {
+            delay(2);
 
-            while(true)
+            x=mousex();
+            y=mousey();
+            setfillstyle(SOLID_FILL, RED);
+            bar(b_settings_back.lX+1, b_settings_back.lY+1, b_settings_back.rX, b_settings_back.rY);
+            setbkcolor(RED);
+            afisare_text_settings(1);
+            if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
             {
-                delay(2);
-
-                x=mousex();
-                y=mousey();
-                setfillstyle(SOLID_FILL, RED);
-                bar(b_settings_back.lX+1, b_settings_back.lY+1, b_settings_back.rX, b_settings_back.rY);
-                setbkcolor(RED);
-                afisare_text_settings(1);
-                if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-                {
-                    _back = 1;
-                    setfillstyle(SOLID_FILL, WHITE);
-                    setbkcolor(WHITE);
-                    break;
-                }
-                if (!(x >= b_settings_back.lX && x <= b_settings_back.rX && y >= b_settings_back.lY && y <= b_settings_back.rY))
-                        {
-                    afisare_butoane_settings('B');
-                    break;
-                }
-
+                _back = 1;
+                setfillstyle(SOLID_FILL, WHITE);
+                setbkcolor(WHITE);
+                break;
+            }
+            if (!(x >= b_settings_back.lX && x <= b_settings_back.rX && y >= b_settings_back.lY && y <= b_settings_back.rY))
+            {
+                afisare_butoane_settings('B');
+                break;
             }
 
-
-
-
         }
+
+
+
+
+    }
 }
 void sectiune_settings()
 {
@@ -735,7 +749,7 @@ void sectiune_settings()
     afisare_text_settings(2);
     afisare_text_settings(0);
     afisare_text_settings(4);
-    buton_muzica(muzica_on);
+    buton_muzica_info(muzica_on);
     int x = mousex();
     int y = mousey();
 
@@ -749,14 +763,14 @@ void sectiune_settings()
         y = mousey();
 
 
-       culoare_fundal(x,y,r_fundal_aux,g_fundal_aux,b_fundal_aux);
-        selectare_buton_muzica(x, y, muzica_on);
+        culoare_fundal(x,y,r_fundal_aux,g_fundal_aux,b_fundal_aux);
+        selectare_buton_muzica_info(x, y, muzica_on,1);
         selectare_limba(x,y,limba_aux);
 
         buton_apply(x, y,  limba_aux, r_fundal_aux, g_fundal_aux, b_fundal_aux, _apply);
 
 
-       buton_back( x,y, _back);
+        buton_back( x,y, _back);
 
     }
     delay(100);

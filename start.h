@@ -102,7 +102,7 @@ void desenare_culori_piese(int alegere) //deseneaza patratele pt fiecare player 
 void casute_color() // asta teoretic face toate patrulaterele de la butoane, afiseaza toate imaginile pt sageti (la butoane)
 {
     setlinestyle(SOLID_LINE,0,5);
-     desenare_culori_piese(0);
+    desenare_culori_piese(0);
     desenare_culori_piese(1);
     rectangle(280,290,320,310);
     rectangle(370,290,410,310);
@@ -114,7 +114,7 @@ void casute_color() // asta teoretic face toate patrulaterele de la butoane, afi
     line(b_color[1][3].rX,b_color[1][3].lY,b_color[1][5].lX,b_color[1][5].lY);
     line(b_color[1][2].rX,b_color[1][2].rY,b_color[1][4].lX,b_color[1][4].rY);
     line(b_color[1][4].rX,b_color[1][4].rY,b_color[1][6].lX,b_color[1][6].rY);
-     line(b_color[2][1].rX,b_color[2][1].lY,b_color[2][3].lX,b_color[2][3].lY);
+    line(b_color[2][1].rX,b_color[2][1].lY,b_color[2][3].lX,b_color[2][3].lY);
     line(b_color[2][3].rX,b_color[2][3].lY,b_color[2][5].lX,b_color[2][5].lY);
     line(b_color[2][2].rX,b_color[2][2].rY,b_color[2][4].lX,b_color[2][4].rY);
     line(b_color[2][4].rX,b_color[2][4].rY,b_color[2][6].lX,b_color[2][6].rY);
@@ -162,7 +162,7 @@ void casute_color() // asta teoretic face toate patrulaterele de la butoane, afi
 
 }
 void init_coord_butoane_culori()  // folosesc o fct sa memorez coordonatele pt cele 2 seturi de butoane de culori ( ma ajuta in functia urmatoare
-                                 // sa scriu mai putine linii de cod ( pot face  1 functie pt ambele seturi de butoane, in loc de 2 separate)
+// sa scriu mai putine linii de cod ( pot face  1 functie pt ambele seturi de butoane, in loc de 2 separate)
 {
     b_color[1][1].lX=280;
     b_color[1][1].lY=270;
@@ -215,11 +215,12 @@ void init_coord_butoane_culori()  // folosesc o fct sa memorez coordonatele pt c
 
 }
 void culoare_player(int x, int y, int &r_fundal_aux, int &g_fundal_aux, int &b_fundal_aux, int k) // k = alege setul de butoane 1 sau 2
-{                                                                                               // si schimba culorile
-                                                                            // in fisier.h am adaugat si o functie ce scrie in alt fisier txt
-                                                                            //culorile playerilor ( pt a fi salvate si reutilizate)
-                                                                            // aceasta functie de scriere gasita in fisier.h se apeleaza la
-                                                                            //apasarea butonului start sau back
+{
+    // si schimba culorile
+    // in fisier.h am adaugat si o functie ce scrie in alt fisier txt
+    //culorile playerilor ( pt a fi salvate si reutilizate)
+    // aceasta functie de scriere gasita in fisier.h se apeleaza la
+    //apasarea butonului start sau back
 
     if(x >= b_color[k][1].lX && x <= b_color[k][1].rX && y >=b_color[k][1].lY && y<=b_color[k][1].rY)
     {
@@ -364,7 +365,8 @@ void culoare_player(int x, int y, int &r_fundal_aux, int &g_fundal_aux, int &b_f
 
 
             while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-            {delay(15);
+            {
+                delay(15);
                 readimagefile("img/arrowdownred.jpg",b_color[k][4].lX,b_color[k][4].lY,b_color[k][4].rX,b_color[k][4].rY);
                 setcolor(COLOR(255,0,0));
                 rectangle(b_color[k][4].lX,b_color[k][4].lY,b_color[k][4].rX,b_color[k][4].rY);
@@ -392,7 +394,7 @@ void culoare_player(int x, int y, int &r_fundal_aux, int &g_fundal_aux, int &b_f
 
         }
     }
-      if(x >= b_color[k][5].lX && x <= b_color[k][5].rX && y >=b_color[k][5].lY && y<=b_color[k][5].rY)
+    if(x >= b_color[k][5].lX && x <= b_color[k][5].rX && y >=b_color[k][5].lY && y<=b_color[k][5].rY)
     {
         while(true)
         {
@@ -404,7 +406,8 @@ void culoare_player(int x, int y, int &r_fundal_aux, int &g_fundal_aux, int &b_f
 
 
             while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-            {delay(15);
+            {
+                delay(15);
                 readimagefile("img/arrowupred.jpg",b_color[k][5].lX,b_color[k][5].lY,b_color[k][5].rX,b_color[k][5].rY);
                 setcolor(COLOR(255,0,0));
                 rectangle(b_color[k][5].lX,b_color[k][5].lY,b_color[k][5].rX,b_color[k][5].rY);
@@ -432,7 +435,7 @@ void culoare_player(int x, int y, int &r_fundal_aux, int &g_fundal_aux, int &b_f
 
         }
     }
-          if(x >= b_color[k][6].lX && x <= b_color[k][6].rX && y >=b_color[k][6].lY && y<=b_color[k][6].rY)
+    if(x >= b_color[k][6].lX && x <= b_color[k][6].rX && y >=b_color[k][6].lY && y<=b_color[k][6].rY)
     {
         while(true)
         {
@@ -444,7 +447,8 @@ void culoare_player(int x, int y, int &r_fundal_aux, int &g_fundal_aux, int &b_f
 
 
             while((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-            {delay(15);
+            {
+                delay(15);
                 readimagefile("img/arrowdownred.jpg",b_color[k][6].lX,b_color[k][6].lY,b_color[k][6].rX,b_color[k][6].rY);
                 setcolor(COLOR(255,0,0));
                 rectangle(b_color[k][6].lX,b_color[k][6].lY,b_color[k][6].rX,b_color[k][6].rY);
@@ -476,7 +480,7 @@ void culoare_player(int x, int y, int &r_fundal_aux, int &g_fundal_aux, int &b_f
 
 void imagini_mod_de_joc(int alegere)
 {
-       // ** Player vs Player
+    // ** Player vs Player
 
     setcolor(BLACK);
     readimagefile("img/pvp_gray.jpg", b_back_start.rX + 18, 195, b_back_start.rX + 21 + 156, 293);
@@ -492,121 +496,123 @@ void imagini_mod_de_joc(int alegere)
     // ** Player vs AI
     readimagefile("img/pvpc_gray.jpg", b_back_start.rX + 18, 313, b_back_start.rX + 21 + 156, 411);
     rectangle(b_back_start.rX + 18 - 2, 313 - 2, b_back_start.rX + 21 + 156 + 2, 413);
-setcolor(YELLOW);
- if(alegere == 1)
- {
-    readimagefile("img/pvp.jpg", b_back_start.rX + 18, 195, b_back_start.rX + 21 + 156, 293);
-    rectangle(b_back_start.rX + 18 - 2, 195 - 2, b_back_start.rX + 21 + 156 + 2, 295);
-
- }
- else if (alegere == 2)
- {
-
-    readimagefile("img/pvpc.jpg", b_back_start.rX + 18, 313, b_back_start.rX + 21 + 156, 411);
-    rectangle(b_back_start.rX + 16, 311, b_back_start.rX + 23 + 156, 413);
-
-    readimagefile("img/easy.jpg", 68, 431, 138, 481);
-
-    readimagefile("img/hard.jpg", 157, 431, 227, 481);
-    if(dificultate == 1)
-    { setcolor(YELLOW);
-        rectangle(68 - 2, 431 - 2, 138 + 2, 481 + 2);
-    setcolor(BLACK);
-        rectangle(157 - 2, 431 - 2, 227 + 2, 481 + 2);
-    }
-    else if (dificultate == 2)
+    setcolor(YELLOW);
+    if(alegere == 1)
     {
-        setcolor(YELLOW);
-        rectangle(157 - 2, 431 - 2, 227 + 2, 481 + 2);
+        readimagefile("img/pvp.jpg", b_back_start.rX + 18, 195, b_back_start.rX + 21 + 156, 293);
+        rectangle(b_back_start.rX + 18 - 2, 195 - 2, b_back_start.rX + 21 + 156 + 2, 295);
 
-    setcolor(BLACK);
-        rectangle(68 - 2, 431 - 2, 138 + 2, 481 + 2);
     }
- }
- setcolor(BLACK);
- }
+    else if (alegere == 2)
+    {
+
+        readimagefile("img/pvpc.jpg", b_back_start.rX + 18, 313, b_back_start.rX + 21 + 156, 411);
+        rectangle(b_back_start.rX + 16, 311, b_back_start.rX + 23 + 156, 413);
+
+        readimagefile("img/easy.jpg", 68, 431, 138, 481);
+
+        readimagefile("img/hard.jpg", 157, 431, 227, 481);
+        if(dificultate == 1)
+        {
+            setcolor(YELLOW);
+            rectangle(68 - 2, 431 - 2, 138 + 2, 481 + 2);
+            setcolor(BLACK);
+            rectangle(157 - 2, 431 - 2, 227 + 2, 481 + 2);
+        }
+        else if (dificultate == 2)
+        {
+            setcolor(YELLOW);
+            rectangle(157 - 2, 431 - 2, 227 + 2, 481 + 2);
+
+            setcolor(BLACK);
+            rectangle(68 - 2, 431 - 2, 138 + 2, 481 + 2);
+        }
+    }
+    setcolor(BLACK);
+}
 
 void selectare_mod_de_joc(int x, int y )
-{//     readimagefile("img/pvp.jpg", b_back_start.rX + 18, 195, b_back_start.rX + 21 + 156, 293);
-      if(x >=b_back_start.rX +18&& x <= b_back_start.rX + 177 && y >= 195 && y <= 293)
+{
+    //     readimagefile("img/pvp.jpg", b_back_start.rX + 18, 195, b_back_start.rX + 21 + 156, 293);
+    if(x >=b_back_start.rX +18&& x <= b_back_start.rX + 177 && y >= 195 && y <= 293)
+    {
+
+        while(true)
         {
+            delay(2);
 
-            while(true)
-            {
-                delay(2);
-
-                x=mousex();
-                y=mousey();
+            x=mousex();
+            y=mousey();
 
 
-                setcolor(COLOR(255, 145, 0));
-                rectangle(b_back_start.rX + 18 - 2, 195 - 2, b_back_start.rX + 21 + 156 + 2, 295);
-                if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-                {
-                    delay(70);
-                    mod_joc = 1;
-                    imagini_mod_de_joc(mod_joc);
-
-                    break;
-                }
-                delay(2);
-                if (!(x >=b_back_start.rX +18&& x <= b_back_start.rX + 177 && y >= 195 && y <= 293))
-                {
-                    if(mod_joc == 2)
-                    setcolor(BLACK);
-                    else
-                     setcolor(YELLOW);
+            setcolor(COLOR(255, 145, 0));
             rectangle(b_back_start.rX + 18 - 2, 195 - 2, b_back_start.rX + 21 + 156 + 2, 295);
-
-                    break;
-                }
-
-            }
-        }
-        /*    readimagefile("img/pvpc_gray.jpg", b_back_start.rX + 18, 313, b_back_start.rX + 21 + 156, 411);
-    rectangle(b_back_start.rX + 18 - 2, 313 - 2, b_back_start.rX + 21 + 156 + 2, 413);*/
-        if(x >=b_back_start.rX +18&& x <= b_back_start.rX + 177 && y >= 313 && y <= 411)
-        {
-
-            while(true)
+            if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
             {
-                delay(2);
+                delay(70);
+                mod_joc = 1;
+                imagini_mod_de_joc(mod_joc);
 
-                x=mousex();
-                y=mousey();
-
-
-                setcolor(COLOR(255, 145, 0));
-                 rectangle(b_back_start.rX + 18 - 2, 313 - 2, b_back_start.rX + 21 + 156 + 2, 413);
-                if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
-                {
-                    delay(70);
-                    mod_joc = 2;
-                    imagini_mod_de_joc(mod_joc);
-
-                    break;
-                }
-                delay(2);
-                if (!(x >=b_back_start.rX +18&& x <= b_back_start.rX + 177 && y >= 313 && y <= 411))
-                {
-                    if(mod_joc == 1)
-                    setcolor(BLACK);
-                    else
-                     setcolor(YELLOW);
-          rectangle(b_back_start.rX + 18 - 2, 313 - 2, b_back_start.rX + 21 + 156 + 2, 413);
-
-                    break;
-                }
-
+                break;
             }
+            delay(2);
+            if (!(x >=b_back_start.rX +18&& x <= b_back_start.rX + 177 && y >= 195 && y <= 293))
+            {
+                if(mod_joc == 2)
+                    setcolor(BLACK);
+                else
+                    setcolor(YELLOW);
+                rectangle(b_back_start.rX + 18 - 2, 195 - 2, b_back_start.rX + 21 + 156 + 2, 295);
+
+                break;
+            }
+
         }
-        if(mod_joc == 2)
+    }
+    /*    readimagefile("img/pvpc_gray.jpg", b_back_start.rX + 18, 313, b_back_start.rX + 21 + 156, 411);
+    rectangle(b_back_start.rX + 18 - 2, 313 - 2, b_back_start.rX + 21 + 156 + 2, 413);*/
+    if(x >=b_back_start.rX +18&& x <= b_back_start.rX + 177 && y >= 313 && y <= 411)
+    {
+
+        while(true)
         {
-             if(x >=68&& x <= 138 && y >= 431 && y <= 481)
+            delay(2);
+
+            x=mousex();
+            y=mousey();
+
+
+            setcolor(COLOR(255, 145, 0));
+            rectangle(b_back_start.rX + 18 - 2, 313 - 2, b_back_start.rX + 21 + 156 + 2, 413);
+            if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
+            {
+                delay(70);
+                mod_joc = 2;
+                imagini_mod_de_joc(mod_joc);
+
+                break;
+            }
+            delay(2);
+            if (!(x >=b_back_start.rX +18&& x <= b_back_start.rX + 177 && y >= 313 && y <= 411))
+            {
+                if(mod_joc == 1)
+                    setcolor(BLACK);
+                else
+                    setcolor(YELLOW);
+                rectangle(b_back_start.rX + 18 - 2, 313 - 2, b_back_start.rX + 21 + 156 + 2, 413);
+
+                break;
+            }
+
+        }
+    }
+    if(mod_joc == 2)
+    {
+        if(x >=68&& x <= 138 && y >= 431 && y <= 481)
         {
             /*readimagefile("img/easy.jpg", 68, 431, 138, 481);
 
-    readimagefile("img/hard.jpg", 157, 431, 227, 481);*/
+            readimagefile("img/hard.jpg", 157, 431, 227, 481);*/
 
             while(true)
             {
@@ -617,7 +623,7 @@ void selectare_mod_de_joc(int x, int y )
 
 
                 setcolor(COLOR(255, 145, 0));
-                 rectangle(68- 2, 431 - 2, 138 + 2, 481 + 2);
+                rectangle(68- 2, 431 - 2, 138 + 2, 481 + 2);
                 if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
                 {
                     delay(70);
@@ -630,10 +636,10 @@ void selectare_mod_de_joc(int x, int y )
                 if (!(x >=68&& x <= 138 && y >= 431 && y <= 481))
                 {
                     if(dificultate == 2)
-                    setcolor(BLACK);
+                        setcolor(BLACK);
                     else
-                     setcolor(YELLOW);
-          rectangle(68- 2, 431 - 2, 138 + 2, 481 + 2);
+                        setcolor(YELLOW);
+                    rectangle(68- 2, 431 - 2, 138 + 2, 481 + 2);
 
                     break;
                 }
@@ -644,7 +650,7 @@ void selectare_mod_de_joc(int x, int y )
         {
             /*readimagefile("img/easy.jpg", 68, 431, 138, 481);
 
-    readimagefile("img/hard.jpg", 157, 431, 227, 481);*/
+            readimagefile("img/hard.jpg", 157, 431, 227, 481);*/
 
             while(true)
             {
@@ -655,7 +661,7 @@ void selectare_mod_de_joc(int x, int y )
 
 
                 setcolor(COLOR(255, 145, 0));
-                 rectangle(157- 2, 431 - 2, 227 + 2, 481 + 2);
+                rectangle(157- 2, 431 - 2, 227 + 2, 481 + 2);
                 if((GetKeyState(VK_LBUTTON) & 0x80)!=0)
                 {
                     delay(70);
@@ -668,18 +674,18 @@ void selectare_mod_de_joc(int x, int y )
                 if (!(x >=157&& x <= 227 && y >= 431 && y <= 481))
                 {
                     if(dificultate == 1)
-                    setcolor(BLACK);
+                        setcolor(BLACK);
                     else
-                     setcolor(YELLOW);
-          rectangle(157- 2, 431 - 2, 227 + 2, 481 + 2);
+                        setcolor(YELLOW);
+                    rectangle(157- 2, 431 - 2, 227 + 2, 481 + 2);
 
                     break;
                 }
 
             }
         }
-        }
-        setcolor(BLACK);
+    }
+    setcolor(BLACK);
 
 }
 void buton_back_start(int x, int y, int alegere)
@@ -856,7 +862,7 @@ void sectiune_start()
     while(need_back == false && need_play == false)
     {
 
-       // show_mouse_xy();
+        // show_mouse_xy();
 
         //-> Citire coordonate
         x = mousex();

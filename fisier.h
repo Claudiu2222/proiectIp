@@ -1,11 +1,11 @@
 #ifndef FISIER
 #define FISIER
-bool need_exit = false;
+bool need_exit = false; // Pt butonul de exit
 int limba ;
-int r_fundal, g_fundal, b_fundal, r_player_1, g_player_1,b_player_1,r_player_2,g_player_2,b_player_2;
+int r_fundal, g_fundal, b_fundal, r_player_1, g_player_1,b_player_1,r_player_2,g_player_2,b_player_2; // Culori playeri
 bool muzica_on;
 short int mod_joc, dificultate;
-void incarcare_date()
+void incarcare_date() // Citire din fisier culori, limba, muzica (on/off), mod joc + dificultate
 {
 
 
@@ -54,7 +54,7 @@ void incarcare_date()
     fscanf(fptrdate,"%d", &dificultate);
 
 }
-void scriere_date()
+void scriere_date()  // Salvare date in fisier
 {
     FILE *fptr;
     fptr = fopen("setari.txt","w");
@@ -69,7 +69,7 @@ void scriere_date()
 
     fclose(fptr);
 }
-void scriere_date_player()
+void scriere_date_player() // Salvare date despre playeri in fisier
 {
     FILE *fptr;
     fptr = fopen("date_player.txt","w");
@@ -87,7 +87,7 @@ void scriere_date_player()
     fclose(fptr);
 }
 
-void incarcare_tabla(int t[5][5])
+void incarcare_tabla(int t[5][5]) //Incarcare tabla din fisier
 {
 
  FILE *fptr;
